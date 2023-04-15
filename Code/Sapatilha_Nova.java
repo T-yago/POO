@@ -19,4 +19,8 @@ public class Sapatilha_Nova extends Sapatilha{
         if (tamanho>45) return preco_Base * desconto/100;
         return preco_Base;
     }
+
+    public Artigo clone() {
+        return new Sapatilha_Nova(this);
+    }
 }

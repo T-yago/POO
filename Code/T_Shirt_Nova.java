@@ -19,4 +19,8 @@ public class T_Shirt_Nova extends T_Shirt{
     public double calculaPreco(double preco, int b, int c) {
         return preco;
     }
+
+    public Artigo clone() {
+        return new T_Shirt_Nova(this);
+    }
 }

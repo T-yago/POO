@@ -1,3 +1,4 @@
+package Code;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,9 +12,9 @@ public class Utilizador {
     private String morada;
     private int numero_Fiscal;
 
-    private Map<String, Artigos> comprados;
-    private Map<String, Artigos> vendidos;
-    private Map<String, Artigos> stock;
+    private Map<String, Artigo> comprados;
+    private Map<String, Artigo> vendidos;
+    private Map<String, Artigo> stock;
 
     public Utilizador() {
         this.id = ++numero_Utilizadores;
@@ -71,15 +72,15 @@ public class Utilizador {
         return this.numero_Fiscal;
     }
 
-    public Map<String, Artigos> getComprados() {
+    public Map<String, Artigo> getComprados() {
         return this.comprados;
     }
 
-    public Map<String, Artigos> getVendidos() {
+    public Map<String, Artigo> getVendidos() {
         return this.vendidos;
     }
 
-    public Map<String, Artigos> getStock() {
+    public Map<String, Artigo> getStock() {
         return this.stock;
     }
 
@@ -99,16 +100,16 @@ public class Utilizador {
         this.numero_Fiscal = numeroFiscal;
     }
 
-    public void addArtigo_Comprado(Artigos artigo) {
-        this.comprados.put(email/*artigo.getId*/, artigo);
+    public void addArtigo_Comprado(Artigo artigo) {
+        this.comprados.put(artigo.getCodigo(), artigo);
     }
 
-    public void addArtigo_Vendido(Artigos artigo) {
-        this.vendidos.put(email/*artigo.getId*/, artigo);
+    public void addArtigo_Vendido(Artigo artigo) {
+        this.vendidos.put(artigo.getCodigo(), artigo);
     }
 
-    public void addArtigo_Stock(Artigos artigo) {
-        this.stock.put(email/*artigo.getId*/, artigo);
+    public void addArtigo_Stock(Artigo artigo) {
+        this.stock.put(artigo.getCodigo(), artigo);
     }
 
     public void removeArtigo_Comprado(String artigo) {
@@ -124,7 +125,7 @@ public class Utilizador {
     }
 
     public void devolucao(String artigo) {
-        Artigos a = this.vendidos.get(artigo);
+        Artigo a = this.vendidos.get(artigo);
         this.stock.put(artigo, a);
     }
 }

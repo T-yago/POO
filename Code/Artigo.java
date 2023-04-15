@@ -64,5 +64,19 @@ public abstract class Artigo {
         this.preco_Final = preco_Final;
     }
 
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if ((o == null) || !(o instanceof Artigo)) {
+            return false;
+        }
+
+        Artigo a = (Artigo) o;
+        return (a.codigo == this.codigo);
+    }
+
+    public abstract Artigo clone();
     public abstract double calculaPreco(double a, int b, int c);
 }

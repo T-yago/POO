@@ -22,4 +22,8 @@ public class T_Shirt_Usada extends T_Shirt{
         }
         return preco_Base;
     }
+
+    public Artigo clone() {
+        return new T_Shirt_Usada(this);
+    }
 }

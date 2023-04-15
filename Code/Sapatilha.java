@@ -73,4 +73,6 @@ public abstract class Sapatilha extends Artigo {
     public void setDesconto(int desconto) {
         this.desconto = desconto;
     }
+
+    
 }
