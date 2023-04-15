@@ -5,6 +5,7 @@ public abstract class Sapatilha extends Artigo {
     private boolean atacadores;
     private String cor;
     private int ano_Lancamento;
+    private int desconto;
 
     public Sapatilha() {
         super();
@@ -12,14 +13,16 @@ public abstract class Sapatilha extends Artigo {
         this.atacadores = false;
         this.cor = "";
         this.ano_Lancamento = 0;
+        this.desconto = 0;
     }
 
-    public Sapatilha(String proprietario, String descricao, String marca, double preco, int tamanho, boolean atacadores, String cor, int ano_Lancamento) {
+    public Sapatilha(String proprietario, String descricao, String marca, double preco, int tamanho, boolean atacadores, String cor, int ano_Lancamento, int desconto) {
         super(proprietario, descricao, marca, preco);
         this.tamanho = tamanho;
         this.atacadores = atacadores;
         this.cor = cor;
         this.ano_Lancamento = ano_Lancamento;
+        this.desconto = desconto;
     }
 
     public Sapatilha(Sapatilha sapatilha) {
@@ -28,6 +31,7 @@ public abstract class Sapatilha extends Artigo {
         this.atacadores = sapatilha.atacadores;
         this.cor = sapatilha.cor;
         this.ano_Lancamento = sapatilha.ano_Lancamento;
+        this.desconto = sapatilha.desconto;
     }
 
     public int getTamanho() {
@@ -46,6 +50,10 @@ public abstract class Sapatilha extends Artigo {
         return this.ano_Lancamento;
     }
 
+    public int getDesconto() {
+        return this.desconto;
+    }
+
     public void setTamanho(int tamanho) {
         this.tamanho = tamanho;
     }
@@ -60,5 +68,9 @@ public abstract class Sapatilha extends Artigo {
 
     public void setAnoLancamento(int ano_Lancamento) {
         this.ano_Lancamento = ano_Lancamento;
+    }
+
+    public void setDesconto(int desconto) {
+        this.desconto = desconto;
     }
 }
