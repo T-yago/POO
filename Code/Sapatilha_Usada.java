@@ -42,16 +42,27 @@ public class Sapatilha_Usada extends Sapatilha{
     public byte get_numero_Donos () {
         return this.numero_Donos;
     }
+
+    public void setEstado(String estado) {
+        if (estado.equals("Novo")) this.estado = 1;
+        else if (estado.equals("Muito_Bom")) this.estado = 2;
+        else if (estado.equals("Bom")) this.estado = 3;
+        else if (estado.equals("Satisfatorio")) this.estado = 4;
+        else if (estado.equals("Mau")) this.estado = 5;
+    }
+
+    public void setNumeroDonos(byte numero_Donos) {
+        this.numero_Donos = numero_Donos;
+    }
+
     /*
      
     public double calculaPreco(double preco_Base, int numero_Donos, int desconto) {
         double preco_Final = preco_Base;
-
         if (estado==4) preco_Final = preco_Final/numero_Donos * 0.85;
         else if (estado==3) preco_Final = preco_Final/numero_Donos * 0.60;
         else if (estado==2) preco_Final = preco_Final/numero_Donos * 0.45;
         else if (estado==1) preco_Final = preco_Final/numero_Donos * 0.25;
-
         return preco_Final;
     }
      

@@ -17,14 +17,14 @@ public class Mala_usada extends Mala{
     }
 
     public Mala_usada (String proprietario, String descricao, String marca, double preco, double dimensao, String material, int ano_Lancamento, byte estado, byte numero_donos) {
-        super (proprietario,descricao,marca,preco,dimensao,material,ano_Lancamento);
+        super(proprietario,descricao,marca,preco,dimensao,material,ano_Lancamento);
         this.estado = estado;
         this.numero_Donos = numero_donos;
         this.setPrecoFinal(this.calculaPreco(0));
     }
 
     public Mala_usada (Mala_usada mala_usada) {
-        super (mala_usada);
+        super(mala_usada);
         this.estado = mala_usada.estado;
         this.numero_Donos = mala_usada.numero_Donos;
         this.setPrecoFinal(mala_usada.getPrecoFinal());
@@ -33,7 +33,7 @@ public class Mala_usada extends Mala{
 
     //falta ter em conta o material???? e deixar de ter redundancia em b e c
     public double calculaPreco(double desconto) { 
-        return this.getPrecoBase() - (1/this.getDimensao()) * (this.getPrecoBase() / (double)this.getAnoLancamento() - LocalDate.now().getYear());
+        return this.getPrecoBase() - (1/this.getDimensao()) * (this.getPrecoBase() / (LocalDate.now().getYear() - (double)this.getAnoLancamento()));
     }
 
     public Mala_usada clone () {

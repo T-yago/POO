@@ -10,21 +10,21 @@
         public Artigo() {
             this.descricao = "";
             this.marca = "";
-            this.codigo = "" + String.format("%06", ++codigo_counter);
+            this.codigo = "" + String.format("%06", codigo_counter++);
             this.preco_Base = 0;
         }
 
         public Artigo(String proprietario, String descricao, String marca, double preco) {
             this.descricao = descricao;
             this.marca = marca;
-            this.codigo = proprietario + String.format("%06", ++codigo_counter);
+            this.codigo = proprietario + String.format("%06", codigo_counter++);
             this.preco_Base = preco;
         }
 
         public Artigo(Artigo artigo) {
             this.descricao = artigo.descricao;
             this.marca = artigo.marca;
-            this.codigo = artigo.codigo.substring(0, artigo.codigo.length()-6) + String.format("%06", ++codigo_counter);
+            this.codigo = artigo.codigo.substring(0, artigo.codigo.length()-6) + String.format("%06", codigo_counter++);
             this.preco_Base = artigo.preco_Base;
         }
 

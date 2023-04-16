@@ -1,5 +1,4 @@
 package Code;
-import java.util.HashMap;
 import java.util.Map;
 
 
@@ -12,30 +11,20 @@ public class Utilizador {
     private String morada;
     private int numero_Fiscal;
 
-    private Map<String, Artigo> comprados;
-    private Map<String, Artigo> vendidos;
-    private Map<String, Artigo> stock;
-
     public Utilizador() {
-        this.id = ++numero_Utilizadores;
+        this.id = numero_Utilizadores++;
         this.email = null;
         this.nome = null;
         this.morada = null;
         this.numero_Fiscal = -1;
-        this.comprados = new HashMap<>();
-        this.vendidos = new HashMap<>();
-        this.stock = new HashMap<>();
     }
 
     public Utilizador(String email, String nome, String morada, int numero_Fiscal) {
         this.id = ++numero_Utilizadores;
-        this.email = null;
-        this.nome = null;
-        this.morada = null;
-        this.numero_Fiscal = -1;
-        this.comprados = new HashMap<>();
-        this.vendidos = new HashMap<>();
-        this.stock = new HashMap<>();
+        this.email = email;
+        this.nome = nome;
+        this.morada = morada;
+        this.numero_Fiscal = numero_Fiscal;
     }
 
     public Utilizador(Utilizador utilizador) {
@@ -44,12 +33,6 @@ public class Utilizador {
         this.nome = utilizador.nome;
         this.morada = utilizador.morada;
         this.numero_Fiscal = utilizador.numero_Fiscal;
-
-        // Fazer as funções que clonam os artigos
-
-        // this.comprados = new HashMap<>();
-        // this.vendidos = new HashMap<>();
-        // this.stock = new HashMap<>();
     }
 
     public int getId() {
@@ -72,6 +55,8 @@ public class Utilizador {
         return this.numero_Fiscal;
     }
 
+    /*
+
     public Map<String, Artigo> getComprados() {
         return this.comprados;
     }
@@ -83,6 +68,8 @@ public class Utilizador {
     public Map<String, Artigo> getStock() {
         return this.stock;
     }
+
+    */
 
     public void setEmail(String email) {
         this.email = email;
@@ -99,6 +86,8 @@ public class Utilizador {
     public void setNumeroFiscal(int numeroFiscal) {
         this.numero_Fiscal = numeroFiscal;
     }
+
+    /*
 
     public void addArtigo_Comprado(Artigo artigo) {
         this.comprados.put(artigo.getCodigo(), artigo);
@@ -127,5 +116,15 @@ public class Utilizador {
     public void devolucao(String artigo) {
         Artigo a = this.vendidos.get(artigo);
         this.stock.put(artigo, a);
+    }
+
+    */
+
+    public String toString() {
+        return "Id: " + this.id + "\nNome: " + this.nome + "\nMorada: " + this.morada + "\nNumero Fiscal: " + this.numero_Fiscal + "\nEmail: " + this.email;
+    }
+
+    public Utilizador clone() {
+        return new Utilizador(this);
     }
 }

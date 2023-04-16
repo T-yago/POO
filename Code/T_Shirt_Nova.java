@@ -21,15 +21,11 @@ public class T_Shirt_Nova extends T_Shirt{
         return this.getPrecoBase();
     }
 
-    public String toString () {
+    public String toString() {
         return super.toString();
     }
 
-    public T_Shirt_Nova clone () {
-        return new T_Shirt_Nova(this);
-    }
-
-    public Artigo clone() {
+    public T_Shirt_Nova clone() {
         return new T_Shirt_Nova(this);
     }
 }

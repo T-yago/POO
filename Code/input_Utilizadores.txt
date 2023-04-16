@@ -1,0 +1,9 @@
+user1@gmail.com, user1, Felgueiras, 1000000
+user2@gmail.com, user2, Porto, 200000
+user3@gmail.com, user3, Lisboa, 300000
+user4@gmail.com, user4, Braga, 400000
+user5@gmail.com, user5, Barcelos, 500000
+user6@gmail.com, user6, Leiria, 600000
+user7@gmail.com, user7, Portimão, 7000000
+user8@gmail.com, user8, Castelos Branco, 800000
+user9@gmail.com, user9, Ponte de Lima, 900000

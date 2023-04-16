@@ -46,16 +46,12 @@ public class T_Shirt_Usada extends T_Shirt{
         return this.getPrecoBase();
     }
 
-    public T_Shirt_Usada clone () {
+    public T_Shirt_Usada clone() {
         return new T_Shirt_Usada(this);
     }
 
-    public String toString () {
+    public String toString() {
         return super.toString() + "\nEstado: " + this.estado
                                 + "\nNúmero_Donos: " + this.numero_Donos;
-    }
-
-    public Artigo clone() {
-        return new T_Shirt_Usada(this);
     }
 }
