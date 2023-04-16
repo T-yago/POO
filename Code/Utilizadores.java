@@ -4,16 +4,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Utilizadores {
-    Map<String, Utilizador> utilizadores;
+    Map<Integer, Utilizador> utilizadores;
     
     public Utilizadores() {
         this.utilizadores = new HashMap<>();
     }
 
-    public Utilizadores(Map<String, Utilizador> utilizadores) {
+    public Utilizadores(Map<Integer, Utilizador> utilizadores) {
         this.utilizadores = new HashMap<>();
 
-        for (Map.Entry<String, Utilizador> e: utilizadores.entrySet()) {
+        for (Map.Entry<Integer, Utilizador> e: utilizadores.entrySet()) {
             this.utilizadores.put(e.getKey(), e.getValue().clone());
         }
     }
@@ -21,19 +21,19 @@ public class Utilizadores {
     public Utilizadores(Utilizadores utilizadores) {
         this.utilizadores = new HashMap<>();
 
-        for (Map.Entry<String, Utilizador> e: utilizadores.utilizadores.entrySet()) {
+        for (Map.Entry<Integer, Utilizador> e: utilizadores.utilizadores.entrySet()) {
             this.utilizadores.put(e.getKey(), e.getValue().clone());
         }
     }
 
-    public Utilizador getUtilizador(String nome) {
-        return this.utilizadores.get(nome);
+    public Utilizador getUtilizador(int id) {
+        return this.utilizadores.get(id);
     }
 
-    public Map<String, Utilizador> getUtilizadores() {
-        Map<String, Utilizador> utilizadores = new HashMap<>();
+    public Map<Integer, Utilizador> getUtilizadores() {
+        Map<Integer, Utilizador> utilizadores = new HashMap<>();
 
-        for (Map.Entry<String, Utilizador> e: this.utilizadores.entrySet()) {
+        for (Map.Entry<Integer, Utilizador> e: this.utilizadores.entrySet()) {
             utilizadores.put(e.getKey(), e.getValue().clone());
         }
 
@@ -41,12 +41,12 @@ public class Utilizadores {
     }
 
     public void addUtilizador(Utilizador utilizador) {
-        this.utilizadores.put(utilizador.getNome(), utilizador.clone());
+        this.utilizadores.put(utilizador.getId(), utilizador.clone());
     }
 
     public void removeUtilizador(Utilizador utilizador) {
-        if (this.utilizadores.containsKey(utilizador.getNome())) {
-            this.utilizadores.remove(utilizador.getNome());
+        if (this.utilizadores.containsKey(utilizador.getId())) {
+            this.utilizadores.remove(utilizador.getId());
         }
     }
 

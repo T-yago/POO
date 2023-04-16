@@ -14,10 +14,10 @@
             this.preco_Base = 0;
         }
 
-        public Artigo(String proprietario, String descricao, String marca, double preco) {
+        public Artigo(int Id_proprietario, String descricao, String marca, double preco) {
             this.descricao = descricao;
             this.marca = marca;
-            this.codigo = proprietario + String.format("%06", codigo_counter++);
+            this.codigo = Id_proprietario + String.format("%06", codigo_counter++);
             this.preco_Base = preco;
         }
 

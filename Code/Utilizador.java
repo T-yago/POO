@@ -1,6 +1,5 @@
 package Code;
 import java.io.Serializable;
-import java.util.Map;
 
 
 
@@ -86,6 +85,10 @@ public class Utilizador implements Serializable {
 
     public void setNumeroFiscal(int numeroFiscal) {
         this.numero_Fiscal = numeroFiscal;
+    }
+
+    public void setNumero_Utilizadores(int numero_Utilizadores) {
+        Utilizador.numero_Utilizadores = numero_Utilizadores;
     }
 
     /*

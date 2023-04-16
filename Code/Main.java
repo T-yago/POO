@@ -9,11 +9,11 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
 
-        if (!args[1].substring(args[1].length()-4).equals(".obj")) {
+        if (!args[0].substring(args[0].length()-4).equals(".obj")) {
             System.out.println("Pretende converter um fichero .txt para .obj?\n(Sim -> s)\n(Não->n)");
             char convertBool = sc.nextLine().charAt(0);
             if (convertBool=='s') {
-                Parser.convertTextToBinary(args[0], null);
+                Parser.convertTextToBinary(args[1], null);
 
                 sc.close();
                 return;
@@ -50,14 +50,15 @@ public class Main {
             }
             else if (operacao==2) {
                 System.out.println("\nInsira o nome do utilizador:");
-                String nome = sc.nextLine().trim();
+                int id = sc.nextInt();
+                sc.nextLine();
 
-                Utilizador utilizador = utilizadores.getUtilizador(nome);
+                Utilizador utilizador = utilizadores.getUtilizador(id);
                 if (utilizador!=null) {
                     System.out.println(utilizador.toString());
                 }
                 else {
-                    System.out.println("Não existe o utilizador " + nome + ".");
+                    System.out.println("Não existe o utilizador " + id + ".");
                 }
             }
             else if (operacao==3) {
@@ -66,6 +67,24 @@ public class Main {
 
             System.out.println("\nPretende realizar mais alguma operação:\nNão (Pressione 'q')\nSim (Pressione qualquer outra tecla)");
             stopOperations = sc.nextLine().charAt(0);
+        }
+
+        System.out.println("Pretende guardar as novas alterações?\n(Sim->s)\n(Não->n)");
+        char guardar = sc.nextLine().charAt(0);
+
+        if (guardar=='s') {
+            System.out.println("Quer atualizar o ficheiro daonde carregou os dados?\n(Sim->s)\n(Não->n)");
+            guardar = sc.nextLine().charAt(0);
+
+            if ((guardar=='s')) {
+                Parser.storeBinary(utilizadores, null);
+            }
+            else {
+                System.out.println("Digite o nome do ficheiro onde pretende guardar");
+                String nome = sc.nextLine().trim();
+                Parser.storeBinary(utilizadores, nome);
+            }
+
         }
 
         sc.close();
