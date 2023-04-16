@@ -40,8 +40,4 @@ public class Sapatilha_Nova extends Sapatilha{
     public Sapatilha_Nova clone() {
         return new Sapatilha_Nova(this);
     }
-
-    public Artigo clone() {
-        return new Sapatilha_Nova(this);
-    }
 }

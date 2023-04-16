@@ -1,9 +1,10 @@
 package Code;
+import java.io.Serializable;
 import java.util.Map;
 
 
 
-public class Utilizador {
+public class Utilizador implements Serializable {
     private static int numero_Utilizadores = 0;
     private int id;
     private String email;

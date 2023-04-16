@@ -9,10 +9,26 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
 
+        if (!args[1].substring(args[1].length()-4).equals(".obj")) {
+            System.out.println("Pretende converter um fichero .txt para .obj?\n(Sim -> s)\n(Não->n)");
+            char convertBool = sc.nextLine().charAt(0);
+            if (convertBool=='s') {
+                Parser.convertTextToBinary(args[0], null);
+
+                sc.close();
+                return;
+            }
+        }
+
         Utilizadores utilizadores = new Utilizadores();
 
         if (args.length>0) {
-            Parser.parse(args[0], utilizadores);
+            if (args[0].equals("-U.txt")) {
+                Parser.parseText(args[1], utilizadores);
+            }
+            else if (args[0].equals("-U.obj")) {
+                Parser.parseBinary(args[1], utilizadores);
+            }
         }
         
         char stopOperations = 'c';
