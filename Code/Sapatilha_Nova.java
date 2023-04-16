@@ -4,19 +4,40 @@ public class Sapatilha_Nova extends Sapatilha{
 
     public Sapatilha_Nova() {
         super();
+        this.setPrecoFinal(0);
     }
 
     public Sapatilha_Nova(String proprietario, String descricao, String marca, double preco, int tamanho, boolean atacadores, String cor, int ano_Lancamento, int desconto) {
         super(proprietario, descricao, marca, preco, tamanho, atacadores, cor, ano_Lancamento, desconto);
-        this.setPrecoFinal(this.calculaPreco(preco, tamanho, desconto));
+        this.setPrecoFinal(this.calculaPreco(desconto));
     }
 
     public Sapatilha_Nova(Sapatilha_Nova sapatilha_Nova) {
         super(sapatilha_Nova);
+        this.setPrecoFinal(getPrecoBase());
     }
 
-    public double calculaPreco(double preco_Base, int tamanho, int desconto) {
-        if (tamanho>45) return preco_Base * desconto/100;
-        return preco_Base;
+    public double calculaPreco(double desconto) {
+        if (this.getTamanho()>45) return this.getPrecoBase() * desconto/100;
+        return this.getPrecoBase();
+    }
+
+    // public String toString() {
+    //     String result = "";
+    //     result = result + "Artigo: " + this.getClass().getName() 
+    //               + "Tamanho: " + this.getTamanho()
+    //               + "Atacores: " + (this.getAtacadores() == true ? "Sim" : "Não")
+    //               + "Cor: " + this.getCor()
+    //               + "Ano lançamento: " + this.getAnoLancamento()
+    //               + "Desconto: " + this.getDesconto();
+    //     return result;
+    // }
+
+    public String toString() {
+       return super.toString();
+    }
+
+    public Sapatilha_Nova clone() {
+        return new Sapatilha_Nova(this);
     }
 }

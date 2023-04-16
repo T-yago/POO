@@ -1,5 +1,7 @@
 package Code;
 
+import Code.Artigo;
+
 public abstract class T_Shirt extends Artigo{
     private static final int S = 0;
     private static final int M = 1;
@@ -44,4 +46,46 @@ public abstract class T_Shirt extends Artigo{
     public void setPadrao(int padrao) {
         this.padrao = padrao;
     }
+
+
+    @Override
+public String toString() {
+    return super.toString() 
+            + "\nTamanho: " + tamanhoToString(tamanho)
+            + "\nPadrão: " + padraoToString(padrao)
+            + "\nPreço base: " + getPrecoBase()
+            + "\nPreço final: " + getPrecoFinal();
 }
+
+private String tamanhoToString(int tamanho) {
+    switch (tamanho) {
+        case 0:
+            return "S";
+        case 1:
+            return "M";
+        case 2:
+            return "L";
+        case 3:
+            return "XL";
+        default:
+            return "Unknown";
+    }
+}
+
+private String padraoToString(int padrao) {
+    switch (padrao) {
+        case 0:
+            return "Liso";
+        case 1:
+            return "Riscas";
+        case 2:
+            return "Palmeiras";
+        default:
+            return "Unknown";
+    }
+}
+
+
+    public abstract Artigo clone();
+}
+

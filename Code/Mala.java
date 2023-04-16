@@ -49,4 +49,12 @@ public abstract class Mala extends Artigo{
     public void setAnoLancamento(int ano_Lancamento) {
         this.ano_Lancamento = ano_Lancamento;
     }
+
+    public String toString() {
+        return super.toString() + "\nDimensão: " + dimensao + " cm" +
+            "\nMaterial: " + material +
+            "\nAno de Lançamento: " + ano_Lancamento;
+    }
+
+    public abstract Artigo clone();
 }
