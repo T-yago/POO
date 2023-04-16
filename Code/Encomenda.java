@@ -88,7 +88,11 @@ public class Encomenda {
         this.artigos.add(artigo.clone());
     }
 
-    public void removeArtigo(String id) {
-        this.artigos.remove(id);
+    public void removeArtigo(Artigo artigo) {
+        for (Artigo a: this.artigos) {
+            if (a.equals(artigo)) {
+                this.artigos.remove(a);
+            }
+        }
     }
 }

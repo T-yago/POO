@@ -73,7 +73,20 @@
                     "\nPreço final: " + getPrecoFinal();
         }
 
-        public abstract double calculaPreco(double desconto);
-        public abstract Artigo clone();
-       
+
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if ((o == null) || !(o instanceof Artigo)) {
+            return false;
+        }
+
+        Artigo a = (Artigo) o;
+        return (a.codigo == this.codigo);
     }
+
+    public abstract Artigo clone();
+    public abstract double calculaPreco(double desconto);
+}

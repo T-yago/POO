@@ -54,4 +54,8 @@ public class T_Shirt_Usada extends T_Shirt{
         return super.toString() + "\nEstado: " + this.estado
                                 + "\nNúmero_Donos: " + this.numero_Donos;
     }
+
+    public Artigo clone() {
+        return new T_Shirt_Usada(this);
+    }
 }

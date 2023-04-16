@@ -28,4 +28,8 @@ public class T_Shirt_Nova extends T_Shirt{
     public T_Shirt_Nova clone () {
         return new T_Shirt_Nova(this);
     }
+
+    public Artigo clone() {
+        return new T_Shirt_Nova(this);
+    }
 }

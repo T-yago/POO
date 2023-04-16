@@ -86,4 +86,5 @@ public abstract class Sapatilha extends Artigo {
 
 
     public abstract Artigo clone();
+
 }
