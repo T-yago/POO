@@ -6,17 +6,17 @@ public class Sapatilha_Usada extends Sapatilha{
     private static int BOM = 3;                     // Bom
     private static int SATISFATORIO = 2;            // Satisfatório
     private static int MAU = 1;                     // Mau
-    private int estado;
-    private int numero_Donos;
+    private byte estado; // 1 a 10
+    private byte numero_Donos;
 
     public Sapatilha_Usada() {
         super();
         this.estado = -1;
         this.numero_Donos = -1;
-        this.setPrecoFinal(this.calculaPreco(0, 1, -1));
+        this.setPrecoFinal(this.calculaPreco(0));
     }
 
-    public Sapatilha_Usada(String proprietario, String descricao, String marca, double preco, int tamanho, boolean atacadores, String cor, int ano_Lancamento, String estado, int numero_Donos, int desconto) {
+    public Sapatilha_Usada(String proprietario, String descricao, String marca, double preco, int tamanho, boolean atacadores, String cor, int ano_Lancamento, String estado, byte numero_Donos, int desconto) {
         super(proprietario, descricao, marca, preco, tamanho, atacadores, cor, ano_Lancamento, desconto);
         if (estado.equals("Novo")) this.estado = 1;
         else if (estado.equals("Muito_Bom")) this.estado = 2;
@@ -24,7 +24,7 @@ public class Sapatilha_Usada extends Sapatilha{
         else if (estado.equals("Satisfatorio")) this.estado = 4;
         else if (estado.equals("Mau")) this.estado = 5;
         this.numero_Donos = numero_Donos;
-        this.setPrecoFinal(this.calculaPreco(preco, numero_Donos, desconto));
+        this.setPrecoFinal(this.calculaPreco(desconto));
     }
 
     public Sapatilha_Usada(Sapatilha_Usada sapatilha_Usada) {
@@ -34,6 +34,14 @@ public class Sapatilha_Usada extends Sapatilha{
         this.setPrecoFinal(sapatilha_Usada.getPrecoFinal());
     }
 
+
+    public byte get_estado () {
+        return this.estado;
+    }
+
+    public byte get_numero_Donos () {
+        return this.numero_Donos;
+    }
     /*
      
     public double calculaPreco(double preco_Base, int numero_Donos, int desconto) {
@@ -50,7 +58,17 @@ public class Sapatilha_Usada extends Sapatilha{
     
     */
 
-    public double calculaPreco(double preco_Base, int numero_Donos, int desconto) {
-        return preco_Base / (double) numero_Donos * desconto/100;
+    public double calculaPreco(double desconto) {
+        return this.getPrecoBase() / (double) this.get_numero_Donos() * desconto/100;
+    }
+
+    public String toString() {
+        return super.toString()
+                  + "\nEstado: " + this.estado
+                  + "\nNúmero de donos: " + this.numero_Donos;
+    }
+
+    public Sapatilha_Usada clone () {
+        return new Sapatilha_Usada(this);
     }
 }

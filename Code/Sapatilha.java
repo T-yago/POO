@@ -23,6 +23,7 @@ public abstract class Sapatilha extends Artigo {
         this.cor = cor;
         this.ano_Lancamento = ano_Lancamento;
         this.desconto = desconto;
+        
     }
 
     public Sapatilha(Sapatilha sapatilha) {
@@ -74,5 +75,16 @@ public abstract class Sapatilha extends Artigo {
         this.desconto = desconto;
     }
 
-    
+    public  String toString() {
+        return super.toString()
+        + "\nTamanho: " + this.getTamanho()
+        + "\nAtacores: " + (this.getAtacadores() == true ? "Sim" : "Não")
+        + "\nCor: " + this.getCor()
+        + "\nAno lançamento: " + this.getAnoLancamento()
+        + "\nDesconto: " + this.getDesconto();
+    }
+
+
+    public abstract Artigo clone();
+
 }
