@@ -5,7 +5,7 @@
         private static int codigo_counter = 0;
         private String codigo;
         private double preco_Base;
-        private double preco_Final;
+        private double preco_Final = -1;
 
         public Artigo() {
             this.descricao = "";
