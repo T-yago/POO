@@ -36,7 +36,7 @@ public class Parser {
         ObjectInputStream in = null;
 
         try {
-            fileIn = new FileInputStream("Code/input_Utilizadores.obj");
+            fileIn = new FileInputStream(file_Utilizadores);
             bufferedIn = new BufferedInputStream(fileIn);
             in = new ObjectInputStream(bufferedIn);
 

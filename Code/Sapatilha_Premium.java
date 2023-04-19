@@ -3,6 +3,7 @@ package Code;
 import java.time.LocalDate;
 
 public class Sapatilha_Premium extends Sapatilha {
+    
     public Sapatilha_Premium () {
         super();
         this.setPrecoFinal(this.calculaPreco(this.getDesconto())); 
