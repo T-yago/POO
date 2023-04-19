@@ -33,10 +33,6 @@ public class Sapatilha_Nova extends Sapatilha{
     //     return result;
     // }
 
-    public String toString() {
-       return super.toString();
-    }
-
     public Sapatilha_Nova clone() {
         return new Sapatilha_Nova(this);
     }

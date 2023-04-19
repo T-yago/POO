@@ -19,11 +19,6 @@ public class Mala_Premium extends Mala {
         this.setPrecoFinal(mala_premium.getPrecoFinal());
     }
 
-
-    public String toString () {
-        return super.toString(); // desta forma não há diferença entre malas novas e premium -> Imprimir getclass().getname()
-    }
-
     public Mala_Premium clone() {
         return new Mala_Premium(this);
     }

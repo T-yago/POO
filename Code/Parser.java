@@ -30,7 +30,7 @@ public class Parser {
         }
     }
 
-    public static void parseBinary(String file_Utilizadores, Object utilizadores) {
+    public static void parseBinary(String file_Utilizadores, Object categoria) {
         FileInputStream fileIn = null;
         BufferedInputStream bufferedIn = null;
         ObjectInputStream in = null;
@@ -40,27 +40,28 @@ public class Parser {
             bufferedIn = new BufferedInputStream(fileIn);
             in = new ObjectInputStream(bufferedIn);
 
-            if (utilizadores instanceof Utilizadores) {
-                Utilizadores u = (Utilizadores) utilizadores;
+            if (categoria instanceof Utilizadores) {
+                Utilizadores u = (Utilizadores) categoria;
 
                 while (bufferedIn.available() > 0) {
                     Object obj = in.readObject();
                     if (obj instanceof Utilizador) {
                         Utilizador utilizador = (Utilizador) obj;
                         u.addUtilizador(utilizador);
-                    } else {
+                    }
+                    else {
                         System.out.println("Objeto não conhecido: " + obj.getClass());
                     }
+
+                    int id_Max;
+                    if ((id_Max = u.getUtilizadores().size())>0) {
+                        u.getUtilizador(id_Max).setNumero_Utilizadores(id_Max);
+                    }
                 }
-
-                int id_Max = u.getUtilizadores().size();
-                u.getUtilizador(id_Max).setNumero_Utilizadores(id_Max);
             }
-            else if (utilizadores instanceof Encomendas) {
-
+            else if (categoria instanceof Artigos) {
+            
             }
-
-
 
 
         } catch (IOException | ClassNotFoundException e) {
@@ -68,56 +69,7 @@ public class Parser {
         }
     }
 
-    public static void convertTextToBinary(String file_Utilizadores, String file_Output) {
-        File file = new File(file_Utilizadores);
-        File file2;
-        ObjectOutputStream out = null;
-
-        try {
-            Scanner sc = new Scanner(file);
-            if (file_Output == null) {
-                file2 = new File("Code/input_Utilizadores.obj");
-
-                if (file2.exists()) {
-                    file2.delete();
-                }
-
-                out = new ObjectOutputStream(new FileOutputStream("Code/input_Utilizadores.obj"));
-            }
-            else {
-                file2 = new File(file_Output);
-
-                if (file2.exists()) {
-                    file2.delete();
-                }
-
-                out = new ObjectOutputStream(new FileOutputStream(file_Output));
-            }
-
-            while (sc.hasNextLine()) {
-                String line = sc.nextLine().trim();
-
-                String[] tokens = line.split("\\s*,\\s*");
-                if (tokens.length>=4) {
-                    out.writeObject(new Utilizador(tokens[0], tokens[1], tokens[2], Integer.parseInt(tokens[3])));
-                }
-            }
-
-            sc.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (out != null) {
-                    out.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public static void storeBinary(Utilizadores utilizadores, String file_Output){
+    public static void storeBinary(Object categoria, String file_Output, boolean reset_Ficheiro){
         File file;
         ObjectOutputStream out = null;
 
@@ -125,7 +77,7 @@ public class Parser {
             if (file_Output == null) {
                 file = new File("Code/input_Utilizadores.obj");
 
-                if (file.exists()) {
+                if (file.exists() && reset_Ficheiro) {
                     file.delete();
                 }
 
@@ -134,16 +86,21 @@ public class Parser {
             else {
                 file = new File(file_Output);
 
-                if (file.exists()) {
+                if (file.exists() && reset_Ficheiro) {
                     file.delete();
                 }
 
                 out = new ObjectOutputStream(new FileOutputStream(file_Output));
             }
 
-            for (Utilizador u: utilizadores.getUtilizadores().values()) {
-                out.writeObject(u);
+            if (categoria instanceof Utilizadores) {
+                Utilizadores u = (Utilizadores) categoria;
+                
+                for (Utilizador utilizador: u.getUtilizadores().values()) {
+                    out.writeObject(utilizador);
+                }
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

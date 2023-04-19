@@ -9,17 +9,6 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
 
-        if (!args[0].substring(args[0].length()-4).equals(".obj")) {
-            System.out.println("Pretende converter um fichero .txt para .obj?\n(Sim -> s)\n(Não->n)");
-            char convertBool = sc.nextLine().charAt(0);
-            if (convertBool=='s') {
-                Parser.convertTextToBinary(args[1], null);
-
-                sc.close();
-                return;
-            }
-        }
-
         Utilizadores utilizadores = new Utilizadores();
 
         if (args.length>0) {
@@ -77,12 +66,12 @@ public class Main {
             guardar = sc.nextLine().charAt(0);
 
             if ((guardar=='s')) {
-                Parser.storeBinary(utilizadores, null);
+                Parser.storeBinary(utilizadores, args[1], true);
             }
             else {
                 System.out.println("Digite o nome do ficheiro onde pretende guardar");
                 String nome = sc.nextLine().trim();
-                Parser.storeBinary(utilizadores, nome);
+                Parser.storeBinary(utilizadores, nome, true);
             }
 
         }

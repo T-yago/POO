@@ -1,77 +1,78 @@
-        package Code;
-    public abstract class Artigo {
-        private String descricao;
-        private String marca;
-        private static int codigo_counter = 0;
-        private String codigo;
-        private double preco_Base;
-        private double preco_Final = -1;
+package Code;
 
-        public Artigo() {
-            this.descricao = "";
-            this.marca = "";
-            this.codigo = "" + String.format("%06", codigo_counter++);
-            this.preco_Base = 0;
-        }
+public abstract class Artigo {
+    private String descricao;
+    private String marca;
+    private static int codigo_counter = 0;
+    private String codigo;
+    private double preco_Base;
+    private double preco_Final = -1;
 
-        public Artigo(int Id_proprietario, String descricao, String marca, double preco) {
-            this.descricao = descricao;
-            this.marca = marca;
-            this.codigo = Id_proprietario + String.format("%06", codigo_counter++);
-            this.preco_Base = preco;
-        }
+    public Artigo() {
+        this.descricao = "";
+        this.marca = "";
+        this.codigo = "" + String.format("%06", codigo_counter++);
+        this.preco_Base = 0;
+    }
 
-        public Artigo(Artigo artigo) {
-            this.descricao = artigo.descricao;
-            this.marca = artigo.marca;
-            this.codigo = artigo.codigo.substring(0, artigo.codigo.length()-6) + String.format("%06", codigo_counter++);
-            this.preco_Base = artigo.preco_Base;
-        }
+    public Artigo(int Id_proprietario, String descricao, String marca, double preco) {
+        this.descricao = descricao;
+        this.marca = marca;
+        this.codigo = Id_proprietario + String.format("%06", codigo_counter++);
+        this.preco_Base = preco;
+    }
 
-        public String getDescricao() {
-            return this.descricao;
-        }
+    public Artigo(Artigo artigo) {
+        this.descricao = artigo.descricao;
+        this.marca = artigo.marca;
+        this.codigo = artigo.codigo.substring(0, artigo.codigo.length()-6) + String.format("%06", codigo_counter++);
+        this.preco_Base = artigo.preco_Base;
+    }
 
-        public String getMarca() {
-            return this.marca;
-        }
-        
-        public String getCodigo() {
-            return this.codigo;
-        }
+    public String getDescricao() {
+        return this.descricao;
+    }
 
-        public double getPrecoBase() {
-            return this.preco_Base;
-        }
+    public String getMarca() {
+        return this.marca;
+    }
+    
+    public String getCodigo() {
+        return this.codigo;
+    }
 
-        public double getPrecoFinal() {
-            return this.preco_Final;
-        }
+    public double getPrecoBase() {
+        return this.preco_Base;
+    }
 
-        public void setDescricao(String descricao) {
-            this.descricao = descricao;
-        }
+    public double getPrecoFinal() {
+        return this.preco_Final;
+    }
 
-        public void setMarca(String marca) {
-            this.descricao = marca;
-        }
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
 
-        public void setPrecoBase(double preco_Base) {
-            this.preco_Base = preco_Base;
-        }
+    public void setMarca(String marca) {
+        this.descricao = marca;
+    }
 
-        public void setPrecoFinal(double preco_Final) {
-            this.preco_Final = preco_Final;
-        }
+    public void setPrecoBase(double preco_Base) {
+        this.preco_Base = preco_Base;
+    }
 
-        @Override
-        public String toString() {
-            return "Código: " + getCodigo() +
-                    "\nDescrição: " + getDescricao() +
-                    "\nMarca: " + getMarca() +
-                    "\nPreço base: " + getPrecoBase() +
-                    "\nPreço final: " + getPrecoFinal();
-        }
+    public void setPrecoFinal(double preco_Final) {
+        this.preco_Final = preco_Final;
+    }
+
+    @Override
+    public String toString() {
+        return "Código: " + getCodigo() +
+                "\nDescrição: " + getDescricao() +
+                "\nMarca: " + getMarca() +
+                "\nPreço base: " + getPrecoBase() +
+                "\nPreço final: " + getPrecoFinal();
+    }
 
 
     public boolean equals(Object o) {

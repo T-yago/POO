@@ -1,9 +1,10 @@
 package Code;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Utilizadores {
+public class Utilizadores implements Serializable {
     Map<Integer, Utilizador> utilizadores;
     
     public Utilizadores() {

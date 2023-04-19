@@ -26,8 +26,4 @@ public class Sapatilha_Premium extends Sapatilha {
         double preco_base = this.getPrecoBase();
         return  preco_base + (preco_base + (this.getAnoLancamento()-LocalDate.now().getYear())*0.1);
     }
-
-    public String toString () {
-        return super.toString();
-    }
 }

@@ -18,11 +18,6 @@ public class Mala_Nova extends Mala{
         this.setPrecoFinal(mala_Nova.getPrecoFinal());
     }
 
-
-    public String toString() {
-        return super.toString();
-    }
-
     public Mala_Nova clone () {
         return new Mala_Nova(this);
     }
