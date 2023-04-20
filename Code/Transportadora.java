@@ -1,13 +1,16 @@
 package Code;
 
 public class Transportadora {
+    private String nome;
     private double preco_base_pequena;
     private double preco_base_media;
     private double preco_base_grande;
+    private boolean is_premium;
 
     private double imposto;
 
     public Transportadora () {
+        this.nome = null;
         this.preco_base_pequena = 0;
         this.preco_base_media = 0;
         this.preco_base_grande = 0;
@@ -71,7 +74,9 @@ public class Transportadora {
         } else {
             valor_base = preco_base_grande;
         }
-        
+
+        if (this.is_premium && encomenda.tem_premium()) valor_base *= 1.5; // premium fee
+
         double preco_expedicao = valor_base * margemlucro * (1 + this.imposto) * 0.9;
         return preco_expedicao;
     }

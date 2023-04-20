@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import Code.Mala_Premium;
+import Code.Sapatilha_Premium;
+
 public class Encomenda {
     private Collection<Artigo> artigos;
     private static final int PEQUENA = 0;
@@ -95,4 +98,10 @@ public class Encomenda {
             }
         }
     }
+
+    public boolean tem_premium () {
+        return this.artigos.stream().anyMatch(artigo -> 
+                                              artigo instanceof Mala_Premium || artigo instanceof Sapatilha_Premium);               
+    }
+     
 }
