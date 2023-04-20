@@ -14,12 +14,14 @@ public class Main {
         // Criar os caminhos para os ficheiros
 
         String ficheiro_Utilizadores;
+        String ficheiro_Artigos;
 
         if (args.length>0) {
             if (args[0].equals("-U.txt")) {
                 ficheiro_Utilizadores = args[1] + "input_Utilizadores.txt";
+                ficheiro_Artigos = args[1] + "input_Artigos.txt";
 
-                Parser.parseText(ficheiro_Utilizadores, utilizadores);
+                Parser.parseText(ficheiro_Utilizadores, ficheiro_Artigos, utilizadores, artigos);
             }
             else if (args[0].equals("-U.obj")) {
                 ficheiro_Utilizadores = args[1] + "input_Utilizadores.obj";
@@ -63,8 +65,6 @@ public class Main {
             }
             else if (operacao==3) {
                 System.out.printf(utilizadores.toString());
-
-
             }
             else if (operacao==4) {
                 System.out.println("\nQue tipo de artigo pretende adicionar?\nSapatilha Nova (1)\nSapatilha Usada (2)\nSapatilha Premium (3)\nT-Shirt Nova (4)\nT-Shirt Usada (5)\nMala Nova (6)\nMala Usada (7)\nMala Premium (8)");
@@ -131,7 +131,7 @@ public class Main {
                     String line = sc.nextLine().trim();
                     String[] tokens = line.split("\\s*,\\s*");
                     if (tokens.length==8) {
-                        Artigo artigo = new T_Shirt_Usada(Integer.parseInt(tokens[0]), tokens[1], tokens[2], Double.parseDouble(tokens[3]), Integer.parseInt(tokens[4]), Integer.parseInt(tokens[5]), Byte.parseByte(tokens[6]), Byte.parseByte(tokens[7]));
+                        Artigo artigo = new T_Shirt_Usada(Integer.parseInt(tokens[0]), tokens[1], tokens[2], Double.parseDouble(tokens[3]), Integer.parseInt(tokens[4]), Integer.parseInt(tokens[5]), Byte.parseByte(tokens[6]), tokens[7]);
                         artigos.addArtigo(artigo, utilizadores);
                     }
                     else {
@@ -157,7 +157,7 @@ public class Main {
                     String line = sc.nextLine().trim();
                     String[] tokens = line.split("\\s*,\\s*");
                     if (tokens.length==9) {
-                        Artigo artigo = new Mala_Usada(Integer.parseInt(tokens[0]), tokens[1], tokens[2], Double.parseDouble(tokens[3]), Double.parseDouble(tokens[4]), tokens[5], Integer.parseInt(tokens[6]), Byte.parseByte(tokens[7]), Byte.parseByte(tokens[8]));
+                        Artigo artigo = new Mala_Usada(Integer.parseInt(tokens[0]), tokens[1], tokens[2], Double.parseDouble(tokens[3]), Double.parseDouble(tokens[4]), tokens[5], Integer.parseInt(tokens[6]), tokens[7], Byte.parseByte(tokens[8]));
                         artigos.addArtigo(artigo, utilizadores);
                     }
                     else {

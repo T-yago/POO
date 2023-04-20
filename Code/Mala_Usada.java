@@ -16,9 +16,13 @@ public class Mala_Usada extends Mala{
         this.setPrecoFinal(0);
     }
 
-    public Mala_Usada (int Id_proprietario, String descricao, String marca, double preco, double dimensao, String material, int ano_Lancamento, byte estado, byte numero_donos) {
+    public Mala_Usada (int Id_proprietario, String descricao, String marca, double preco, double dimensao, String material, int ano_Lancamento, String estado, byte numero_donos) {
         super(Id_proprietario,descricao,marca,preco,dimensao,material,ano_Lancamento);
-        this.estado = estado;
+        if (estado.equals("Novo")) this.estado = 1;
+        else if (estado.equals("Muito_Bom")) this.estado = 2;
+        else if (estado.equals("Bom")) this.estado = 3;
+        else if (estado.equals("Satisfatorio")) this.estado = 4;
+        else if (estado.equals("Mau")) this.estado = 5;
         this.numero_Donos = numero_donos;
         this.setPrecoFinal(this.calculaPreco(0));
     }

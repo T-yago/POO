@@ -37,9 +37,37 @@ public class Parser {
                 String line = sc.nextLine().trim();
 
                 String[] tokens = line.split("\\s*,\\s*");
-                if (tokens.length>=4) {
-                    Utilizador utilizador = new Utilizador(tokens[0], tokens[1], tokens[2], Integer.parseInt(tokens[3]));
-                    utilizadores.addUtilizador(utilizador);
+                if (tokens[0].equals("Sapatilha Nova")) {
+                    Artigo artigo = new Sapatilha_Nova(Integer.parseInt(tokens[1]), tokens[2], tokens[3], Double.parseDouble(tokens[4]), Integer.parseInt(tokens[5]), Boolean.parseBoolean(tokens[6]), tokens[7], Integer.parseInt(tokens[8]), Integer.parseInt(tokens[9]));
+                    artigos.addArtigo(artigo, utilizadores);
+                }
+                else if (tokens[0].equals("Sapatilha Usada")) {
+                    Artigo artigo = new Sapatilha_Usada(Integer.parseInt(tokens[1]), tokens[2], tokens[3], Double.parseDouble(tokens[4]), Integer.parseInt(tokens[5]), Boolean.parseBoolean(tokens[6]), tokens[7], Integer.parseInt(tokens[8]), tokens[9], Byte.parseByte(tokens[10]), Integer.parseInt(tokens[11]));
+                    artigos.addArtigo(artigo, utilizadores);
+                }
+                else if (tokens[0].equals("Sapatilha Premium")) {
+                    Artigo artigo = new Sapatilha_Premium(Integer.parseInt(tokens[1]), tokens[2], tokens[3], Double.parseDouble(tokens[4]), Integer.parseInt(tokens[5]), Boolean.parseBoolean(tokens[6]), tokens[7], Integer.parseInt(tokens[8]), Integer.parseInt(tokens[9]));
+                    artigos.addArtigo(artigo, utilizadores);
+                }
+                else if (tokens[0].equals("T-Shirt Nova")) {
+                    Artigo artigo = new T_Shirt_Nova(Integer.parseInt(tokens[1]), tokens[2], tokens[3], Double.parseDouble(tokens[4]), Integer.parseInt(tokens[5]), Integer.parseInt(tokens[6]));
+                    artigos.addArtigo(artigo, utilizadores);
+                }
+                else if (tokens[0].equals("T-Shirt Usada")) {
+                    Artigo artigo = new T_Shirt_Usada(Integer.parseInt(tokens[1]), tokens[2], tokens[3], Double.parseDouble(tokens[4]), Integer.parseInt(tokens[5]), Integer.parseInt(tokens[6]), Byte.parseByte(tokens[7]), tokens[8]);
+                    artigos.addArtigo(artigo, utilizadores);
+                }
+                else if (tokens[0].equals("Mala Nova")) {
+                    Artigo artigo = new Mala_Nova(Integer.parseInt(tokens[1]), tokens[2], tokens[3], Double.parseDouble(tokens[4]), Double.parseDouble(tokens[5]), tokens[6], Integer.parseInt(tokens[7]));
+                    artigos.addArtigo(artigo, utilizadores);
+                }
+                else if (tokens[0].equals("Mala Usada")) {
+                    Artigo artigo = new Mala_Usada(Integer.parseInt(tokens[1]), tokens[2], tokens[3], Double.parseDouble(tokens[4]), Double.parseDouble(tokens[5]), tokens[6], Integer.parseInt(tokens[7]), tokens[8], Byte.parseByte(tokens[9]));
+                    artigos.addArtigo(artigo, utilizadores);
+                }
+                else if (tokens[0].equals("Mala Premium")) {
+                    Artigo artigo = new Mala_Premium(Integer.parseInt(tokens[1]), tokens[2], tokens[3], Double.parseDouble(tokens[4]), Double.parseDouble(tokens[5]), tokens[6], Integer.parseInt(tokens[7]));
+                    artigos.addArtigo(artigo, utilizadores);
                 }
             }
 
