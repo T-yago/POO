@@ -8,8 +8,8 @@ public class Mala_Nova extends Mala{
         this.setPrecoFinal(0);
     }
 
-    public Mala_Nova (String proprietario, String descricao, String marca, double preco, double dimensao, String material, int ano_Lancamento, byte estado, byte numero_donos) {
-        super (proprietario,descricao,marca,preco,dimensao,material,ano_Lancamento);
+    public Mala_Nova (int Id_proprietario, String descricao, String marca, double preco, double dimensao, String material, int ano_Lancamento) {
+        super (Id_proprietario,descricao,marca,preco,dimensao,material,ano_Lancamento);
         this.setPrecoFinal(this.calculaPreco(0));
     }
 
