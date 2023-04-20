@@ -31,6 +31,13 @@ public class Transportadora {
         this.imposto = transportadora.imposto;
     }
 
+    public String getNome () {
+        return this.nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
     public double getPrecoBasePequena() {
         return preco_base_pequena;
