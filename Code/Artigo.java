@@ -3,7 +3,7 @@ package Code;
 public abstract class Artigo {
     private String descricao;
     private String marca;
-    private static int codigo_counter = 0;
+    private static int codigo_counter = 1;
     private String codigo;
     private double preco_Base;
     private double preco_Final = -1;
@@ -18,7 +18,7 @@ public abstract class Artigo {
     public Artigo(int Id_proprietario, String descricao, String marca, double preco) {
         this.descricao = descricao;
         this.marca = marca;
-        this.codigo = Id_proprietario + String.format("%06", codigo_counter++);
+        this.codigo = String.format("%06d", Id_proprietario) + String.format("%06d", codigo_counter++);
         this.preco_Base = preco;
     }
 

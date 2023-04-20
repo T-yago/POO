@@ -1,7 +1,5 @@
 package Code;
 
-import Code.Artigo;
-
 public abstract class T_Shirt extends Artigo{
     private static final int S = 0;
     private static final int M = 1;
@@ -19,8 +17,8 @@ public abstract class T_Shirt extends Artigo{
         this.padrao = -1;
     }
 
-    public T_Shirt(String proprietario, String descricao, String marca, double preco, int tamanho, int padrao) {
-        super(proprietario, descricao, marca, preco);
+    public T_Shirt(int Id_proprietario, String descricao, String marca, double preco, int tamanho, int padrao) {
+        super(Id_proprietario, descricao, marca, preco);
         this.tamanho = tamanho;
         this.padrao = padrao;
     }

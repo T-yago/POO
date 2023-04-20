@@ -1,6 +1,5 @@
 package Code;
 
-import java.io.File;
 import java.util.Scanner;
 
 public class Main {
@@ -25,14 +24,14 @@ public class Main {
             else if (args[0].equals("-U.obj")) {
                 ficheiro_Utilizadores = args[1] + "input_Utilizadores.obj";
 
-                Parser.parseBinary(ficheiro_Utilizadores, utilizadores);
+                Parser.parseBinary(ficheiro_Utilizadores, utilizadores, artigos, null);
             }
         }
         
         char stopOperations = 'c';
 
         while (stopOperations!='q') {
-            System.out.println("\nQue operação pretende executar:\n\nInserir um utilizador (1)\nImprimir um utilizador (2)\nImprimir todos os utilizadores (3)\n Adicionar um artigo (4)");
+            System.out.println("\nQue operação pretende executar:\n\nInserir um utilizador (1)\nImprimir um utilizador (2)\nImprimir todos os utilizadores (3)\nAdicionar um artigo (4)\nRemover um artigo (5)\nImprimir um artigo (6)\nImprimir todos os artigos (7)");
             int operacao = sc.nextInt();
             sc.nextLine();
 
@@ -68,9 +67,10 @@ public class Main {
 
             }
             else if (operacao==4) {
-                System.out.println("\nQue tipo de artigo pretende adicionar?\nSapatilha Nova (1)\nSapatilha Usada (2)\nSapatilha Premium (3)\n T-Shirt Nova (4)\n T-Shirt Usada (5)\n Mala Nova (6)\n Mala Usada (7)\nMala Premium (8)");
+                System.out.println("\nQue tipo de artigo pretende adicionar?\nSapatilha Nova (1)\nSapatilha Usada (2)\nSapatilha Premium (3)\nT-Shirt Nova (4)\nT-Shirt Usada (5)\nMala Nova (6)\nMala Usada (7)\nMala Premium (8)");
 
                 int tipo_Artigo = sc.nextInt();
+                sc.nextLine();
 
                 if (tipo_Artigo==1) {
                     System.out.println("Insira o artigo no formato \"Id Proprietáiro, Descrição, Marca, Preço, Tamanho, Atacadores, Cor, Ano Lançamento, Desconto\"\nQualquer outro formato não será aceite");
@@ -78,7 +78,8 @@ public class Main {
                     String line = sc.nextLine().trim();
                     String[] tokens = line.split("\\s*,\\s*");
                     if (tokens.length==9) {
-                        Artigo artigo = new Sapatilha_Nova(tokens[0], tokens[1], tokens[2], Double.parseDouble(tokens[3]), Integer.parseInt(tokens[4]), Boolean.parseBoolean(tokens[5]), tokens[6], Integer.parseInt(tokens[7]), Integer.parseInt(tokens[8]));
+                        System.out.println("CHEGOU");
+                        Artigo artigo = new Sapatilha_Nova(Integer.parseInt(tokens[0]), tokens[1], tokens[2], Double.parseDouble(tokens[3]), Integer.parseInt(tokens[4]), Boolean.parseBoolean(tokens[5]), tokens[6], Integer.parseInt(tokens[7]), Integer.parseInt(tokens[8]));
                         artigos.addArtigo(artigo, utilizadores);
                     }
                     else {
@@ -91,7 +92,7 @@ public class Main {
                     String line = sc.nextLine().trim();
                     String[] tokens = line.split("\\s*,\\s*");
                     if (tokens.length==11) {
-                        Artigo artigo = new Sapatilha_Usada(tokens[0], tokens[1], tokens[2], Double.parseDouble(tokens[3]), Integer.parseInt(tokens[4]), Boolean.parseBoolean(tokens[5]), tokens[6], Integer.parseInt(tokens[7]), tokens[8], Byte.parseByte(tokens[9]), Integer.parseInt(tokens[10]));
+                        Artigo artigo = new Sapatilha_Usada(Integer.parseInt(tokens[0]), tokens[1], tokens[2], Double.parseDouble(tokens[3]), Integer.parseInt(tokens[4]), Boolean.parseBoolean(tokens[5]), tokens[6], Integer.parseInt(tokens[7]), tokens[8], Byte.parseByte(tokens[9]), Integer.parseInt(tokens[10]));
                         artigos.addArtigo(artigo, utilizadores);
                     }
                     else {
@@ -104,31 +105,94 @@ public class Main {
                     String line = sc.nextLine().trim();
                     String[] tokens = line.split("\\s*,\\s*");
                     if (tokens.length==9) {
-                        Artigo artigo = new Sapatilha_Premium(tokens[0], tokens[1], tokens[2], Double.parseDouble(tokens[3]), Integer.parseInt(tokens[4]), Boolean.parseBoolean(tokens[5]), tokens[6], Integer.parseInt(tokens[7]), Integer.parseInt(tokens[8]));
+                        Artigo artigo = new Sapatilha_Premium(Integer.parseInt(tokens[0]), tokens[1], tokens[2], Double.parseDouble(tokens[3]), Integer.parseInt(tokens[4]), Boolean.parseBoolean(tokens[5]), tokens[6], Integer.parseInt(tokens[7]), Integer.parseInt(tokens[8]));
+                        artigos.addArtigo(artigo, utilizadores);
+                    }
+                    else {
+                        System.out.println("Os argumentos inseridos são inferiores/superiores aos necessários para criar uma Sapatilha Nova.");
+                    }
+                }
+                else if (tipo_Artigo==4) {
+                    System.out.println("Insira o artigo no formato \"Id Proprietáiro, Descrição, Marca, Preço, Tamanho, Padrão\"\nQualquer outro formato não será aceite");
+
+                    String line = sc.nextLine().trim();
+                    String[] tokens = line.split("\\s*,\\s*");
+                    if (tokens.length==6) {
+                        Artigo artigo = new T_Shirt_Nova(Integer.parseInt(tokens[0]), tokens[1], tokens[2], Double.parseDouble(tokens[3]), Integer.parseInt(tokens[4]), Integer.parseInt(tokens[5]));
                         artigos.addArtigo(artigo, utilizadores);
                     }
                     else {
                         System.out.println("Os argumentos inseridos são inferiores/superiores aos necessários para criar uma Sapatilha Premium.");
                     }
                 }
-                else if (tipo_Artigo==4) {
-
-                }
                 else if (tipo_Artigo==5) {
+                    System.out.println("Insira o artigo no formato \"Id Proprietáiro, Descrição, Marca, Preço, Tamanho, Padrão, Número de Donos, Estado\"\nQualquer outro formato não será aceite");
 
+                    String line = sc.nextLine().trim();
+                    String[] tokens = line.split("\\s*,\\s*");
+                    if (tokens.length==8) {
+                        Artigo artigo = new T_Shirt_Usada(Integer.parseInt(tokens[0]), tokens[1], tokens[2], Double.parseDouble(tokens[3]), Integer.parseInt(tokens[4]), Integer.parseInt(tokens[5]), Byte.parseByte(tokens[6]), Byte.parseByte(tokens[7]));
+                        artigos.addArtigo(artigo, utilizadores);
+                    }
+                    else {
+                        System.out.println("Os argumentos inseridos são inferiores/superiores aos necessários para criar uma Sapatilha Premium.");
+                    }
                 }
                 else if (tipo_Artigo==6) {
+                    System.out.println("Insira o artigo no formato \"Id Proprietáiro, Descrição, Marca, Preço, Dimensão, Material, Ano de Lançamento\"\nQualquer outro formato não será aceite");
 
+                    String line = sc.nextLine().trim();
+                    String[] tokens = line.split("\\s*,\\s*");
+                    if (tokens.length==7) {
+                        Artigo artigo = new Mala_Nova(Integer.parseInt(tokens[0]), tokens[1], tokens[2], Double.parseDouble(tokens[3]), Double.parseDouble(tokens[4]), tokens[5], Integer.parseInt(tokens[6]));
+                        artigos.addArtigo(artigo, utilizadores);
+                    }
+                    else {
+                        System.out.println("Os argumentos inseridos são inferiores/superiores aos necessários para criar uma Sapatilha Premium.");
+                    }
                 }
                 else if (tipo_Artigo==7) {
+                    System.out.println("Insira o artigo no formato \"Id Proprietáiro, Descrição, Marca, Preço, Dimensão, Material, Ano de Lançamento, Estado, Número de Donos\"\nQualquer outro formato não será aceite");
 
+                    String line = sc.nextLine().trim();
+                    String[] tokens = line.split("\\s*,\\s*");
+                    if (tokens.length==9) {
+                        Artigo artigo = new Mala_Usada(Integer.parseInt(tokens[0]), tokens[1], tokens[2], Double.parseDouble(tokens[3]), Double.parseDouble(tokens[4]), tokens[5], Integer.parseInt(tokens[6]), Byte.parseByte(tokens[7]), Byte.parseByte(tokens[8]));
+                        artigos.addArtigo(artigo, utilizadores);
+                    }
+                    else {
+                        System.out.println("Os argumentos inseridos são inferiores/superiores aos necessários para criar uma Sapatilha Premium.");
+                    }
                 }
                 else if (tipo_Artigo==8) {
+                    System.out.println("Insira o artigo no formato \"Id Proprietáiro, Descrição, Marca, Preço, Dimensão, Material, Ano de Lançamento\"\nQualquer outro formato não será aceite");
 
+                    String line = sc.nextLine().trim();
+                    String[] tokens = line.split("\\s*,\\s*");
+                    if (tokens.length==7) {
+                        Artigo artigo = new Mala_Premium(Integer.parseInt(tokens[0]), tokens[1], tokens[2], Double.parseDouble(tokens[3]), Double.parseDouble(tokens[4]), tokens[5], Integer.parseInt(tokens[6]));
+                        artigos.addArtigo(artigo, utilizadores);
+                    }
+                    else {
+                        System.out.println("Os argumentos inseridos são inferiores/superiores aos necessários para criar uma Sapatilha Premium.");
+                    }
                 }
                 else {
                     System.out.println("A opção que selecionou não é válida.");
                 }
+            }
+            else if (operacao==5) {
+                System.out.println("Insira o código do artigo que pretende remover.");
+                String codigo = sc.nextLine().trim();
+                artigos.removeArtigo(codigo);
+            }
+            else if (operacao==6) {
+                System.out.println("Insira o código do artigo:");
+                String codigo = sc.nextLine().trim();
+                System.out.println(artigos.getArtigo(codigo).toString());
+            }
+            else if (operacao==7) {
+                System.out.println(artigos.toString());
             }
 
             System.out.println("\nPretende realizar mais alguma operação:\nNão (Pressione 'q')\nSim (Pressione qualquer outra tecla)");

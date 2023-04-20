@@ -25,8 +25,8 @@ public class T_Shirt_Usada extends T_Shirt{
         this.setPrecoFinal(0);
     }
 
-    public T_Shirt_Usada(String proprietario, String descricao, String marca, double preco, int tamanho, int padrao, byte numero_Donos, byte estado ) {
-        super(proprietario, descricao, marca, preco, tamanho, padrao);
+    public T_Shirt_Usada(int Id_proprietario, String descricao, String marca, double preco, int tamanho, int padrao, byte numero_Donos, byte estado ) {
+        super(Id_proprietario, descricao, marca, preco, tamanho, padrao);
         this.estado = estado;
         this.numero_Donos = numero_Donos;
         this.setPrecoFinal(this.calculaPreco(0));

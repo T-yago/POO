@@ -16,8 +16,8 @@ public class Sapatilha_Usada extends Sapatilha{
         this.setPrecoFinal(this.calculaPreco(0));
     }
 
-    public Sapatilha_Usada(String proprietario, String descricao, String marca, double preco, int tamanho, boolean atacadores, String cor, int ano_Lancamento, String estado, byte numero_Donos, int desconto) {
-        super(proprietario, descricao, marca, preco, tamanho, atacadores, cor, ano_Lancamento, desconto);
+    public Sapatilha_Usada(int Id_proprietario, String descricao, String marca, double preco, int tamanho, boolean atacadores, String cor, int ano_Lancamento, String estado, byte numero_Donos, int desconto) {
+        super(Id_proprietario, descricao, marca, preco, tamanho, atacadores, cor, ano_Lancamento, desconto);
         if (estado.equals("Novo")) this.estado = 1;
         else if (estado.equals("Muito_Bom")) this.estado = 2;
         else if (estado.equals("Bom")) this.estado = 3;
