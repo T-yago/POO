@@ -7,8 +7,8 @@ public class T_Shirt_Nova extends T_Shirt{
         this.setPrecoFinal(0);
     }
 
-    public T_Shirt_Nova(String proprietario, String descricao, String marca, double preco, int tamanho, int padrao) {
-        super(proprietario, descricao, marca, preco, tamanho, padrao);
+    public T_Shirt_Nova(int Id_proprietario, String descricao, String marca, double preco, int tamanho, int padrao) {
+        super(Id_proprietario, descricao, marca, preco, tamanho, padrao);
         this.setPrecoFinal(this.calculaPreco(0));
     }
 

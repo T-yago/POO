@@ -12,8 +12,8 @@ public abstract class Mala extends Artigo{
         this.ano_Lancamento = 0;
     }
 
-    public Mala(String proprietario, String descricao, String marca, double preco, double dimensao, String material, int ano_Lancamento) {
-        super(proprietario, descricao, marca, preco);
+    public Mala(int Id_proprietario, String descricao, String marca, double preco, double dimensao, String material, int ano_Lancamento) {
+        super(Id_proprietario, descricao, marca, preco);
         this.dimensao = dimensao;
         this.material = material;
         this.ano_Lancamento = ano_Lancamento;
