@@ -1,8 +1,6 @@
 package Code;
 
-import java.io.Serializable;
-
-public class Sapatilha_Usada extends Sapatilha implements Serializable {
+public class Sapatilha_Usada extends Sapatilha implements Usados {
     private static int EXCELENTE = 5;               // Excelente
     private static int MUITO_BOM = 4;               // Muito Bom
     private static int BOM = 3;                     // Bom
@@ -18,8 +16,8 @@ public class Sapatilha_Usada extends Sapatilha implements Serializable {
         this.setPrecoFinal(this.calculaPreco(0));
     }
 
-    public Sapatilha_Usada(int Id_proprietario, String descricao, String marca, double preco, int tamanho, boolean atacadores, String cor, int ano_Lancamento, String estado, byte numero_Donos, int desconto) {
-        super(Id_proprietario, descricao, marca, preco, tamanho, atacadores, cor, ano_Lancamento, desconto);
+    public Sapatilha_Usada(int Id_proprietario, String descricao, String marca, double preco, String transportadora, int tamanho, boolean atacadores, String cor, int ano_Lancamento, String estado, byte numero_Donos, int desconto) {
+        super(Id_proprietario, descricao, marca, preco, transportadora, tamanho, atacadores, cor, ano_Lancamento, desconto);
         if (estado.equals("Novo")) this.estado = 1;
         else if (estado.equals("Muito_Bom")) this.estado = 2;
         else if (estado.equals("Bom")) this.estado = 3;

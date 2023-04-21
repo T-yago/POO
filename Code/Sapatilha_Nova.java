@@ -1,16 +1,14 @@
 package Code;
 
-import java.io.Serializable;
-
-public class Sapatilha_Nova extends Sapatilha implements Serializable {
+public class Sapatilha_Nova extends Sapatilha implements Novos {
 
     public Sapatilha_Nova() {
         super();
         this.setPrecoFinal(0);
     }
 
-    public Sapatilha_Nova(int Id_proprietario, String descricao, String marca, double preco, int tamanho, boolean atacadores, String cor, int ano_Lancamento, int desconto) {
-        super(Id_proprietario, descricao, marca, preco, tamanho, atacadores, cor, ano_Lancamento, desconto);
+    public Sapatilha_Nova(int Id_proprietario, String descricao, String marca, double preco, String transportadora, int tamanho, boolean atacadores, String cor, int ano_Lancamento, int desconto) {
+        super(Id_proprietario, descricao, marca, preco, transportadora, tamanho, atacadores, cor, ano_Lancamento, desconto);
         this.setPrecoFinal(this.calculaPreco(desconto));
     }
 

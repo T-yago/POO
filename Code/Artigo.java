@@ -9,26 +9,30 @@ public abstract class Artigo implements Serializable {
     private String codigo;
     private double preco_Base;
     private double preco_Final = -1;
+    private String transportadora;
 
     public Artigo() {
         this.descricao = "";
         this.marca = "";
         this.codigo = "" + String.format("%06", codigo_counter++);
         this.preco_Base = 0;
+        this.transportadora = "";
     }
 
-    public Artigo(int Id_proprietario, String descricao, String marca, double preco) {
+    public Artigo(int Id_proprietario, String descricao, String marca, double preco, String transportadora) {
         this.descricao = descricao;
         this.marca = marca;
         this.codigo = String.format("%06d", Id_proprietario) + String.format("%06d", codigo_counter++);
         this.preco_Base = preco;
+        this.transportadora = transportadora;
     }
 
     public Artigo(Artigo artigo) {
         this.descricao = artigo.descricao;
         this.marca = artigo.marca;
-        this.codigo = artigo.codigo.substring(0, artigo.codigo.length()-6) + String.format("%06d", codigo_counter++);
+        this.codigo = artigo.codigo;
         this.preco_Base = artigo.preco_Base;
+        this.transportadora = artigo.transportadora;
     }
 
     public String getDescricao() {
@@ -51,6 +55,10 @@ public abstract class Artigo implements Serializable {
         return this.preco_Final;
     }
 
+    public String getTransportadora() {
+        return this.transportadora;
+    }
+
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
@@ -65,6 +73,10 @@ public abstract class Artigo implements Serializable {
 
     public void setPrecoFinal(double preco_Final) {
         this.preco_Final = preco_Final;
+    }
+
+    public void setTransportadora(String transportadora) {
+        this.transportadora = transportadora;
     }
 
     @Override

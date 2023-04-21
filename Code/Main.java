@@ -79,12 +79,12 @@ public class Main {
                 sc.nextLine();
 
                 if (tipo_Artigo==1) {
-                    System.out.println("Insira o artigo no formato \"Id Proprietáiro, Descrição, Marca, Preço, Tamanho, Atacadores, Cor, Ano Lançamento, Desconto\"\nQualquer outro formato não será aceite");
+                    System.out.println("Insira o artigo no formato \"Id Proprietáiro, Descrição, Marca, Preço, Transportadora, Tamanho, Atacadores, Cor, Ano Lançamento, Desconto\"\nQualquer outro formato não será aceite");
 
                     String line = sc.nextLine().trim();
                     String[] tokens = line.split("\\s*,\\s*");
-                    if (tokens.length==9) {
-                        Artigo artigo = new Sapatilha_Nova(Integer.parseInt(tokens[0]), tokens[1], tokens[2], Double.parseDouble(tokens[3]), Integer.parseInt(tokens[4]), Boolean.parseBoolean(tokens[5]), tokens[6], Integer.parseInt(tokens[7]), Integer.parseInt(tokens[8]));
+                    if (tokens.length==10) {
+                        Artigo artigo = new Sapatilha_Nova(Integer.parseInt(tokens[0]), tokens[1], tokens[2], Double.parseDouble(tokens[3]), tokens[4], Integer.parseInt(tokens[5]), Boolean.parseBoolean(tokens[6]), tokens[7], Integer.parseInt(tokens[8]), Integer.parseInt(tokens[9]));
                         artigos.addArtigo(artigo, utilizadores);
                     }
                     else {
@@ -92,12 +92,12 @@ public class Main {
                     }
                 }
                 else if (tipo_Artigo==2) {
-                    System.out.println("Insira o artigo no formato \"Id Proprietáiro, Descrição, Marca, Preço, Tamanho, Atacadores, Cor, Ano Lançamento, Estado, Número de Donos, Desconto, \"\nQualquer outro formato não será aceite");
+                    System.out.println("Insira o artigo no formato \"Id Proprietáiro, Descrição, Marca, Preço, Transportadora, Tamanho, Atacadores, Cor, Ano Lançamento, Estado, Número de Donos, Desconto, \"\nQualquer outro formato não será aceite");
 
                     String line = sc.nextLine().trim();
                     String[] tokens = line.split("\\s*,\\s*");
-                    if (tokens.length==11) {
-                        Artigo artigo = new Sapatilha_Usada(Integer.parseInt(tokens[0]), tokens[1], tokens[2], Double.parseDouble(tokens[3]), Integer.parseInt(tokens[4]), Boolean.parseBoolean(tokens[5]), tokens[6], Integer.parseInt(tokens[7]), tokens[8], Byte.parseByte(tokens[9]), Integer.parseInt(tokens[10]));
+                    if (tokens.length==12) {
+                        Artigo artigo = new Sapatilha_Usada(Integer.parseInt(tokens[0]), tokens[1], tokens[2], Double.parseDouble(tokens[3]), tokens[4], Integer.parseInt(tokens[5]), Boolean.parseBoolean(tokens[6]), tokens[7], Integer.parseInt(tokens[8]), tokens[9], Byte.parseByte(tokens[10]), Integer.parseInt(tokens[11]));
                         artigos.addArtigo(artigo, utilizadores);
                     }
                     else {
@@ -105,12 +105,12 @@ public class Main {
                     }
                 }
                 else if (tipo_Artigo==3) {
-                    System.out.println("Insira o artigo no formato \"Id Proprietáiro, Descrição, Marca, Preço, Tamanho, Atacadores, Cor, Ano Lançamento, Desconto\"\nQualquer outro formato não será aceite");
+                    System.out.println("Insira o artigo no formato \"Id Proprietáiro, Descrição, Marca, Preço, Transportadora, Tamanho, Atacadores, Cor, Ano Lançamento, Desconto\"\nQualquer outro formato não será aceite");
 
                     String line = sc.nextLine().trim();
                     String[] tokens = line.split("\\s*,\\s*");
-                    if (tokens.length==9) {
-                        Artigo artigo = new Sapatilha_Premium(Integer.parseInt(tokens[0]), tokens[1], tokens[2], Double.parseDouble(tokens[3]), Integer.parseInt(tokens[4]), Boolean.parseBoolean(tokens[5]), tokens[6], Integer.parseInt(tokens[7]), Integer.parseInt(tokens[8]));
+                    if (tokens.length==10) {
+                        Artigo artigo = new Sapatilha_Premium(Integer.parseInt(tokens[0]), tokens[1], tokens[2], Double.parseDouble(tokens[3]), tokens[4], Integer.parseInt(tokens[5]), Boolean.parseBoolean(tokens[6]), tokens[7], Integer.parseInt(tokens[8]), Integer.parseInt(tokens[9]));
                         artigos.addArtigo(artigo, utilizadores);
                     }
                     else {
@@ -118,12 +118,12 @@ public class Main {
                     }
                 }
                 else if (tipo_Artigo==4) {
-                    System.out.println("Insira o artigo no formato \"Id Proprietáiro, Descrição, Marca, Preço, Tamanho, Padrão\"\nQualquer outro formato não será aceite");
+                    System.out.println("Insira o artigo no formato \"Id Proprietáiro, Descrição, Marca, Preço, Transportadora, Tamanho, Padrão\"\nQualquer outro formato não será aceite");
 
                     String line = sc.nextLine().trim();
                     String[] tokens = line.split("\\s*,\\s*");
-                    if (tokens.length==6) {
-                        Artigo artigo = new T_Shirt_Nova(Integer.parseInt(tokens[0]), tokens[1], tokens[2], Double.parseDouble(tokens[3]), Integer.parseInt(tokens[4]), Integer.parseInt(tokens[5]));
+                    if (tokens.length==7) {
+                        Artigo artigo = new T_Shirt_Nova(Integer.parseInt(tokens[0]), tokens[1], tokens[2], Double.parseDouble(tokens[3]), tokens[4], Integer.parseInt(tokens[5]), Integer.parseInt(tokens[6]));
                         artigos.addArtigo(artigo, utilizadores);
                     }
                     else {
@@ -131,12 +131,12 @@ public class Main {
                     }
                 }
                 else if (tipo_Artigo==5) {
-                    System.out.println("Insira o artigo no formato \"Id Proprietáiro, Descrição, Marca, Preço, Tamanho, Padrão, Número de Donos, Estado\"\nQualquer outro formato não será aceite");
+                    System.out.println("Insira o artigo no formato \"Id Proprietáiro, Descrição, Marca, Preço, Transportadora, Tamanho, Padrão, Número de Donos, Estado\"\nQualquer outro formato não será aceite");
 
                     String line = sc.nextLine().trim();
                     String[] tokens = line.split("\\s*,\\s*");
-                    if (tokens.length==8) {
-                        Artigo artigo = new T_Shirt_Usada(Integer.parseInt(tokens[0]), tokens[1], tokens[2], Double.parseDouble(tokens[3]), Integer.parseInt(tokens[4]), Integer.parseInt(tokens[5]), Byte.parseByte(tokens[6]), tokens[7]);
+                    if (tokens.length==9) {
+                        Artigo artigo = new T_Shirt_Usada(Integer.parseInt(tokens[0]), tokens[1], tokens[2], Double.parseDouble(tokens[3]), tokens[4], Integer.parseInt(tokens[5]), Integer.parseInt(tokens[6]), Byte.parseByte(tokens[7]), tokens[8]);
                         artigos.addArtigo(artigo, utilizadores);
                     }
                     else {
@@ -144,12 +144,12 @@ public class Main {
                     }
                 }
                 else if (tipo_Artigo==6) {
-                    System.out.println("Insira o artigo no formato \"Id Proprietáiro, Descrição, Marca, Preço, Dimensão, Material, Ano de Lançamento\"\nQualquer outro formato não será aceite");
+                    System.out.println("Insira o artigo no formato \"Id Proprietáiro, Descrição, Marca, Preço, Transportadora, Dimensão, Material, Ano de Lançamento\"\nQualquer outro formato não será aceite");
 
                     String line = sc.nextLine().trim();
                     String[] tokens = line.split("\\s*,\\s*");
-                    if (tokens.length==7) {
-                        Artigo artigo = new Mala_Nova(Integer.parseInt(tokens[0]), tokens[1], tokens[2], Double.parseDouble(tokens[3]), Double.parseDouble(tokens[4]), tokens[5], Integer.parseInt(tokens[6]));
+                    if (tokens.length==8) {
+                        Artigo artigo = new Mala_Nova(Integer.parseInt(tokens[0]), tokens[1], tokens[2], Double.parseDouble(tokens[3]), tokens[4], Double.parseDouble(tokens[5]), tokens[6], Integer.parseInt(tokens[7]));
                         artigos.addArtigo(artigo, utilizadores);
                     }
                     else {
@@ -157,12 +157,12 @@ public class Main {
                     }
                 }
                 else if (tipo_Artigo==7) {
-                    System.out.println("Insira o artigo no formato \"Id Proprietáiro, Descrição, Marca, Preço, Dimensão, Material, Ano de Lançamento, Estado, Número de Donos\"\nQualquer outro formato não será aceite");
+                    System.out.println("Insira o artigo no formato \"Id Proprietáiro, Descrição, Marca, Preço, Transportadora, Dimensão, Material, Ano de Lançamento, Estado, Número de Donos\"\nQualquer outro formato não será aceite");
 
                     String line = sc.nextLine().trim();
                     String[] tokens = line.split("\\s*,\\s*");
-                    if (tokens.length==9) {
-                        Artigo artigo = new Mala_Usada(Integer.parseInt(tokens[0]), tokens[1], tokens[2], Double.parseDouble(tokens[3]), Double.parseDouble(tokens[4]), tokens[5], Integer.parseInt(tokens[6]), tokens[7], Byte.parseByte(tokens[8]));
+                    if (tokens.length==10) {
+                        Artigo artigo = new Mala_Usada(Integer.parseInt(tokens[0]), tokens[1], tokens[2], Double.parseDouble(tokens[3]), tokens[4], Double.parseDouble(tokens[5]), tokens[6], Integer.parseInt(tokens[7]), tokens[8], Byte.parseByte(tokens[9]));
                         artigos.addArtigo(artigo, utilizadores);
                     }
                     else {
@@ -170,12 +170,12 @@ public class Main {
                     }
                 }
                 else if (tipo_Artigo==8) {
-                    System.out.println("Insira o artigo no formato \"Id Proprietáiro, Descrição, Marca, Preço, Dimensão, Material, Ano de Lançamento\"\nQualquer outro formato não será aceite");
+                    System.out.println("Insira o artigo no formato \"Id Proprietáiro, Descrição, Marca, Preço, Transportadora, Dimensão, Material, Ano de Lançamento\"\nQualquer outro formato não será aceite");
 
                     String line = sc.nextLine().trim();
                     String[] tokens = line.split("\\s*,\\s*");
-                    if (tokens.length==7) {
-                        Artigo artigo = new Mala_Premium(Integer.parseInt(tokens[0]), tokens[1], tokens[2], Double.parseDouble(tokens[3]), Double.parseDouble(tokens[4]), tokens[5], Integer.parseInt(tokens[6]));
+                    if (tokens.length==8) {
+                        Artigo artigo = new Mala_Premium(Integer.parseInt(tokens[0]), tokens[1], tokens[2], Double.parseDouble(tokens[3]), tokens[4], Double.parseDouble(tokens[5]), tokens[6], Integer.parseInt(tokens[7]));
                         artigos.addArtigo(artigo, utilizadores);
                     }
                     else {

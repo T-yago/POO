@@ -1,8 +1,6 @@
 package Code;
 
-import java.io.Serializable;
-
-public class Mala_Nova extends Mala implements Serializable {
+public class Mala_Nova extends Mala implements Novos {
 
 
     public Mala_Nova() {
@@ -10,8 +8,8 @@ public class Mala_Nova extends Mala implements Serializable {
         this.setPrecoFinal(0);
     }
 
-    public Mala_Nova (int Id_proprietario, String descricao, String marca, double preco, double dimensao, String material, int ano_Lancamento) {
-        super (Id_proprietario,descricao,marca,preco,dimensao,material,ano_Lancamento);
+    public Mala_Nova (int Id_proprietario, String descricao, String marca, double preco, String transportadora, double dimensao, String material, int ano_Lancamento) {
+        super (Id_proprietario, descricao, marca, preco, transportadora, dimensao, material, ano_Lancamento);
         this.setPrecoFinal(this.calculaPreco(0));
     }
 
