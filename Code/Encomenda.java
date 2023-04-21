@@ -8,6 +8,8 @@ import Code.Mala_Premium;
 import Code.Sapatilha_Premium;
 
 public class Encomenda {
+    private int id_Counter = 0;
+    private int id;
     private Collection<Artigo> artigos;
     private static final int PEQUENA = 0;
     private static final int MEDIA = 1;
