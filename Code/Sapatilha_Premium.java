@@ -1,9 +1,8 @@
 package Code;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Sapatilha_Premium extends Sapatilha implements Serializable {
+public class Sapatilha_Premium extends Sapatilha {
     
     public Sapatilha_Premium () {
         super();

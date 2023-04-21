@@ -2,9 +2,6 @@ package Code;
 
 import java.util.Scanner;
 
-import Code.Transportadora;
-import Code.Transportadoras;
-
 public class Main {
     
     public static void main(String[] args) {
@@ -25,7 +22,7 @@ public class Main {
             if (args[0].equals("-txt")) {
                 ficheiro_Utilizadores = args[1] + "input_Utilizadores.txt";
                 ficheiro_Artigos = args[1] + "input_Artigos.txt";
-                ficheiro_Transportadoras = args[1] + "input_Artigos.txt";
+                ficheiro_Transportadoras = args[1] + "input_Transportadoras.txt";
 
                 Parser.parseText(ficheiro_Utilizadores, ficheiro_Artigos, ficheiro_Transportadoras, utilizadores, artigos, transportadoras);
             }
@@ -257,7 +254,7 @@ public class Main {
         char guardar = sc.nextLine().charAt(0);
 
         if (guardar=='s') {
-            Parser.storeBinary(utilizadores, artigos);
+            Parser.storeBinary(utilizadores, artigos, transportadoras);
         }
 
         sc.close();
