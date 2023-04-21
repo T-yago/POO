@@ -14,7 +14,7 @@ public class Artigos {
         this.artigos = new HashMap<>();
 
         for (Map.Entry<Integer, Map<String,Artigo>> e: artigos.entrySet()) {
-            if (utilizadores.getUtilizadores().containsKey(e.getKey())) {
+            if (utilizadores.existeUtilizador(e.getKey())) {
                 Map<String,Artigo> s = new HashMap<>();
 
                 for (Map.Entry<String,Artigo> a: e.getValue().entrySet()) {
@@ -60,7 +60,7 @@ public class Artigos {
                 s.put(a.getKey(), a.getValue().clone());
             }
 
-            this.artigos.put(e.getKey(), s);
+            artigos.put(e.getKey(), s);
         }
 
         return artigos;

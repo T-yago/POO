@@ -2,6 +2,10 @@ package Code;
 
 import java.io.BufferedInputStream;
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.io.*;
 import java.util.Map;
 import java.util.Scanner;
@@ -120,8 +124,36 @@ public class Parser {
                     Utilizador utilizador = (Utilizador) obj;
                     utilizadores.addUtilizador(utilizador);
                 }
-                else if (obj instanceof Artigo) {
-                    Artigo artigo = (Artigo) obj;
+                else if (obj instanceof Sapatilha_Premium) {
+                    Sapatilha_Premium artigo = (Sapatilha_Premium) obj;
+                    artigos.addArtigo(artigo, utilizadores);
+                }
+                else if (obj instanceof Sapatilha_Nova) {
+                    Sapatilha_Nova artigo = (Sapatilha_Nova) obj;
+                    artigos.addArtigo(artigo, utilizadores);
+                }
+                else if (obj instanceof Sapatilha_Usada) {
+                    Sapatilha_Usada artigo = (Sapatilha_Usada) obj;
+                    artigos.addArtigo(artigo, utilizadores);
+                }
+                else if (obj instanceof Mala_Nova) {
+                    Mala_Nova artigo = (Mala_Nova) obj;
+                    artigos.addArtigo(artigo, utilizadores);
+                }
+                else if (obj instanceof Mala_Usada) {
+                    Mala_Usada artigo = (Mala_Usada) obj;
+                    artigos.addArtigo(artigo, utilizadores);
+                }
+                else if (obj instanceof Mala_Premium) {
+                    Mala_Premium artigo = (Mala_Premium) obj;
+                    artigos.addArtigo(artigo, utilizadores);
+                }
+                else if (obj instanceof T_Shirt_Nova) {
+                    T_Shirt_Nova artigo = (T_Shirt_Nova) obj;
+                    artigos.addArtigo(artigo, utilizadores);
+                }
+                else if (obj instanceof T_Shirt_Usada) {
+                    T_Shirt_Usada artigo = (T_Shirt_Usada) obj;
                     artigos.addArtigo(artigo, utilizadores);
                 }
                 else if (obj instanceof Transportadora) {
@@ -144,41 +176,41 @@ public class Parser {
         }
     }
 
-    public static void storeBinary(Object categoria, String file_Output, boolean reset_Ficheiro){
-        File file;
+    public static void storeBinary(Utilizadores utilizadores, Artigos artigos){
+        File file = null;
         ObjectOutputStream out = null;
 
         try {
-            if (file_Output == null) {
-                file = new File("Code/input_Utilizadores.obj");
+            file = new File("Code/Dados/Older_Save/input.obj");
 
-                if (file.exists() && reset_Ficheiro) {
-                    file.delete();
-                }
-
-                out = new ObjectOutputStream(new FileOutputStream("Code/input_Utilizadores.obj"));
-            }
-            else {
-                file = new File(file_Output);
-
-                if (file.exists() && reset_Ficheiro) {
-                    file.delete();
-                }
-
-                out = new ObjectOutputStream(new FileOutputStream(file_Output));
+            if (file.exists()) {
+                file.delete();
             }
 
-            if (categoria instanceof Utilizadores) {
-                Utilizadores u = (Utilizadores) categoria;
-                
-                for (Utilizador utilizador: u.getUtilizadores().values()) {
+            // Passa o input do Last_Save para o Older_Save
+
+            Path sourcePath = Paths.get("Code/Dados/Last_Save/input.obj");
+            Path targetPath = Paths.get("Code/Dados/Older_Save/input.obj");
+
+            try {
+                Files.move(sourcePath, targetPath);
+            } catch (NoSuchFileException e) {
+                System.out.println("The file does not exist: " + e.getMessage());
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+
+            // Cria o novo ficheiro no Last_Save
+
+            out = new ObjectOutputStream(new FileOutputStream("Code/Dados/Last_Save/input.obj", true));
+
+            if (utilizadores!=null) {
+                for (Utilizador utilizador: utilizadores.getUtilizadores().values()) {
                     out.writeObject(utilizador);
                 }
             }
-            else if (categoria instanceof Artigos) {
-                Artigos u = (Artigos) categoria;
-                
-                for (Map<String, Artigo> artigos_utilizador: u.getArtigos().values()) {
+            if (artigos!=null) {
+                for (Map<String, Artigo> artigos_utilizador: artigos.getArtigos().values()) {
                     for (Artigo artigo: artigos_utilizador.values()) {
                         if (artigo instanceof Sapatilha_Nova) {
                             Sapatilha_Nova a = (Sapatilha_Nova) artigo;

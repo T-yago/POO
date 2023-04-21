@@ -45,10 +45,8 @@ public class Utilizadores implements Serializable {
         this.utilizadores.put(utilizador.getId(), utilizador.clone());
     }
 
-    public void removeUtilizador(Utilizador utilizador) {
-        if (this.utilizadores.containsKey(utilizador.getId())) {
-            this.utilizadores.remove(utilizador.getId());
-        }
+    public void removeUtilizador(int id) {
+        this.utilizadores.remove(id);
     }
 
     public boolean existeUtilizador(int id_Utilizador) {

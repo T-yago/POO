@@ -1,7 +1,7 @@
 package Code;
 import java.time.*;
 
-public class Mala_Usada extends Mala{
+public class Mala_Usada extends Mala implements Usados {
     private static int EXCELENTE = 5;               // Excelente
     private static int MUITO_BOM = 4;               // Muito Bom
     private static int BOM = 3;                     // Bom
@@ -16,8 +16,8 @@ public class Mala_Usada extends Mala{
         this.setPrecoFinal(0);
     }
 
-    public Mala_Usada (int Id_proprietario, String descricao, String marca, double preco, double dimensao, String material, int ano_Lancamento, String estado, byte numero_donos) {
-        super(Id_proprietario,descricao,marca,preco,dimensao,material,ano_Lancamento);
+    public Mala_Usada (int Id_proprietario, String descricao, String marca, double preco, String transportadora, double dimensao, String material, int ano_Lancamento, String estado, byte numero_donos) {
+        super(Id_proprietario, descricao, marca, preco, transportadora, dimensao, material, ano_Lancamento);
         if (estado.equals("Novo")) this.estado = 1;
         else if (estado.equals("Muito_Bom")) this.estado = 2;
         else if (estado.equals("Bom")) this.estado = 3;

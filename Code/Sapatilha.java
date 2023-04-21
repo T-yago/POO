@@ -16,8 +16,8 @@ public abstract class Sapatilha extends Artigo {
         this.desconto = 0;
     }
 
-    public Sapatilha(int Id_proprietario, String descricao, String marca, double preco, int tamanho, boolean atacadores, String cor, int ano_Lancamento, int desconto) {
-        super(Id_proprietario, descricao, marca, preco);
+    public Sapatilha(int Id_proprietario, String descricao, String marca, double preco, String transportadora, int tamanho, boolean atacadores, String cor, int ano_Lancamento, int desconto) {
+        super(Id_proprietario, descricao, marca, preco, transportadora);
         this.tamanho = tamanho;
         this.atacadores = atacadores;
         this.cor = cor;

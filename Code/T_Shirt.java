@@ -17,8 +17,8 @@ public abstract class T_Shirt extends Artigo{
         this.padrao = -1;
     }
 
-    public T_Shirt(int Id_proprietario, String descricao, String marca, double preco, int tamanho, int padrao) {
-        super(Id_proprietario, descricao, marca, preco);
+    public T_Shirt(int Id_proprietario, String descricao, String marca, double preco, String transportadora, int tamanho, int padrao) {
+        super(Id_proprietario, descricao, marca, preco, transportadora);
         this.tamanho = tamanho;
         this.padrao = padrao;
     }

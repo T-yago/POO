@@ -1,6 +1,6 @@
 package Code;
 
-public class T_Shirt_Usada extends T_Shirt{
+public class T_Shirt_Usada extends T_Shirt implements Usados {
     private static int EXCELENTE = 5;               // Excelente
     private static int MUITO_BOM = 4;               // Muito Bom
     private static int BOM = 3;                     // Bom
@@ -25,8 +25,8 @@ public class T_Shirt_Usada extends T_Shirt{
         this.setPrecoFinal(0);
     }
 
-    public T_Shirt_Usada(int Id_proprietario, String descricao, String marca, double preco, int tamanho, int padrao, byte numero_Donos, String estado) {
-        super(Id_proprietario, descricao, marca, preco, tamanho, padrao);
+    public T_Shirt_Usada(int Id_proprietario, String descricao, String marca, double preco, String transportadora, int tamanho, int padrao, byte numero_Donos, String estado) {
+        super(Id_proprietario, descricao, marca, preco, transportadora, tamanho, padrao);
         if (estado.equals("Novo")) this.estado = 1;
         else if (estado.equals("Muito_Bom")) this.estado = 2;
         else if (estado.equals("Bom")) this.estado = 3;

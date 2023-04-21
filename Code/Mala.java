@@ -1,6 +1,8 @@
 package Code;
 
-public abstract class Mala extends Artigo{
+import java.io.Serializable;
+
+public abstract class Mala extends Artigo {
     private double dimensao;
     private String material;
     private int ano_Lancamento;
@@ -12,8 +14,8 @@ public abstract class Mala extends Artigo{
         this.ano_Lancamento = 0;
     }
 
-    public Mala(int Id_proprietario, String descricao, String marca, double preco, double dimensao, String material, int ano_Lancamento) {
-        super(Id_proprietario, descricao, marca, preco);
+    public Mala(int Id_proprietario, String descricao, String marca, double preco, String transportadora, double dimensao, String material, int ano_Lancamento) {
+        super(Id_proprietario, descricao, marca, preco, transportadora);
         this.dimensao = dimensao;
         this.material = material;
         this.ano_Lancamento = ano_Lancamento;
