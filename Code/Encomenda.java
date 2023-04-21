@@ -57,7 +57,7 @@ public class Encomenda {
                 preco += 0.25;
             }
 
-            // preco += transportadores.getPreco(a.getTransportadora);
+            preco += transportadoras.getTransportadora(a.getTransportadora()).calculaPreco(null, preco);
         }
 
         return preco;
