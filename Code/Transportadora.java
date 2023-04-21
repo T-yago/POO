@@ -7,7 +7,6 @@ public class Transportadora implements Serializable {
     private double preco_base_pequena;
     private double preco_base_media;
     private double preco_base_grande;
-    private boolean is_premium;
 
     private double imposto;
 
@@ -17,16 +16,14 @@ public class Transportadora implements Serializable {
         this.preco_base_media = 0;
         this.preco_base_grande = 0;
         this.imposto = 0;
-        this.is_premium = false;
     }
 
-    public Transportadora(String nome, double preco_base_pequena, double preco_base_media, double preco_base_grande,boolean isPremium, double imposto) {
+    public Transportadora(String nome, double preco_base_pequena, double preco_base_media, double preco_base_grande, double imposto) {
         this.nome = nome;
         this.preco_base_pequena = preco_base_pequena;
         this.preco_base_media = preco_base_media;
         this.preco_base_grande = preco_base_grande;
         this.imposto = imposto;
-        this.is_premium = isPremium;
     }
 
     public Transportadora(Transportadora transportadora) {
@@ -35,7 +32,6 @@ public class Transportadora implements Serializable {
         this.preco_base_media = transportadora.preco_base_media;
         this.preco_base_grande = transportadora.preco_base_grande;
         this.imposto = transportadora.imposto;
-        this.is_premium = transportadora.is_premium;
     }
 
     public String getNome () {
@@ -87,8 +83,6 @@ public class Transportadora implements Serializable {
         } else {
             valor_base = preco_base_grande;
         }
-
-        //if (this.is_premium && encomenda.tem_premium()) valor_base *= 1.5; // premium fee
 
         double preco_expedicao = valor_base * margemlucro * (1 + this.imposto) * 0.9;
         return preco_expedicao;
