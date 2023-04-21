@@ -51,6 +51,13 @@ public class Utilizadores implements Serializable {
         }
     }
 
+    public boolean existeUtilizador(int id_Utilizador) {
+        if (this.utilizadores.containsKey(id_Utilizador)) {
+            return true;
+        }
+        return false;
+    }
+
     public String toString() {
         String s = "";
 

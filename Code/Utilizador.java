@@ -91,39 +91,6 @@ public class Utilizador implements Serializable {
         Utilizador.numero_Utilizadores = numero_Utilizadores;
     }
 
-    /*
-
-    public void addArtigo_Comprado(Artigo artigo) {
-        this.comprados.put(artigo.getCodigo(), artigo);
-    }
-
-    public void addArtigo_Vendido(Artigo artigo) {
-        this.vendidos.put(artigo.getCodigo(), artigo);
-    }
-
-    public void addArtigo_Stock(Artigo artigo) {
-        this.stock.put(artigo.getCodigo(), artigo);
-    }
-
-    public void removeArtigo_Comprado(String artigo) {
-        this.comprados.remove(artigo);
-    }
-
-    public void removeArtigo_Vendido(String artigo) {
-        this.vendidos.remove(artigo);
-    }
-
-    public void removeArtigo_Stock(String artigo) {
-        this.stock.remove(artigo);
-    }
-
-    public void devolucao(String artigo) {
-        Artigo a = this.vendidos.get(artigo);
-        this.stock.put(artigo, a);
-    }
-
-    */
-
     public String toString() {
         return "Id: " + this.id + "\nNome: " + this.nome + "\nMorada: " + this.morada + "\nNumero Fiscal: " + this.numero_Fiscal + "\nEmail: " + this.email;
     }
