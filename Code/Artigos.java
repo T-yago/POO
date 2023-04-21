@@ -70,7 +70,7 @@ public class Artigos {
         int id_Vendedor = Integer.parseInt(artigo.getCodigo().substring(0, artigo.getCodigo().length()-6));
 
         Map<String,Artigo> s;
-        if (utilizadores.getUtilizadores().containsKey(id_Vendedor)) {
+        if (utilizadores.existeUtilizador(id_Vendedor)) {
             if ((s = this.artigos.get(id_Vendedor))!=null) {
                 s.putIfAbsent(artigo.getCodigo(), artigo);
             }

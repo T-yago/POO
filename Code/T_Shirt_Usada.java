@@ -25,9 +25,13 @@ public class T_Shirt_Usada extends T_Shirt{
         this.setPrecoFinal(0);
     }
 
-    public T_Shirt_Usada(int Id_proprietario, String descricao, String marca, double preco, int tamanho, int padrao, byte numero_Donos, byte estado ) {
+    public T_Shirt_Usada(int Id_proprietario, String descricao, String marca, double preco, int tamanho, int padrao, byte numero_Donos, String estado) {
         super(Id_proprietario, descricao, marca, preco, tamanho, padrao);
-        this.estado = estado;
+        if (estado.equals("Novo")) this.estado = 1;
+        else if (estado.equals("Muito_Bom")) this.estado = 2;
+        else if (estado.equals("Bom")) this.estado = 3;
+        else if (estado.equals("Satisfatorio")) this.estado = 4;
+        else if (estado.equals("Mau")) this.estado = 5;
         this.numero_Donos = numero_Donos;
         this.setPrecoFinal(this.calculaPreco(0));
     }
