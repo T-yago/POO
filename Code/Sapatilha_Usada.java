@@ -1,6 +1,8 @@
 package Code;
 
-public class Sapatilha_Usada extends Sapatilha{
+import java.io.Serializable;
+
+public class Sapatilha_Usada extends Sapatilha implements Serializable {
     private static int EXCELENTE = 5;               // Excelente
     private static int MUITO_BOM = 4;               // Muito Bom
     private static int BOM = 3;                     // Bom

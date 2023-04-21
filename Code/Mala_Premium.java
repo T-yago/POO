@@ -1,8 +1,9 @@
 package Code;
 
+import java.io.Serializable;
 import java.time.*;
 
-public class Mala_Premium extends Mala {
+public class Mala_Premium extends Mala implements Serializable {
     
     public Mala_Premium () {
         super ();

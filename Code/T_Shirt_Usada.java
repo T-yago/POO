@@ -1,6 +1,8 @@
 package Code;
 
-public class T_Shirt_Usada extends T_Shirt{
+import java.io.Serializable;
+
+public class T_Shirt_Usada extends T_Shirt implements Serializable {
     private static int EXCELENTE = 5;               // Excelente
     private static int MUITO_BOM = 4;               // Muito Bom
     private static int BOM = 3;                     // Bom

@@ -1,7 +1,8 @@
 package Code;
+import java.io.Serializable;
 import java.time.*;
 
-public class Mala_Usada extends Mala{
+public class Mala_Usada extends Mala implements Serializable {
     private static int EXCELENTE = 5;               // Excelente
     private static int MUITO_BOM = 4;               // Muito Bom
     private static int BOM = 3;                     // Bom

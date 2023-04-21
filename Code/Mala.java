@@ -1,6 +1,8 @@
 package Code;
 
-public abstract class Mala extends Artigo{
+import java.io.Serializable;
+
+public abstract class Mala extends Artigo {
     private double dimensao;
     private String material;
     private int ano_Lancamento;

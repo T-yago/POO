@@ -1,6 +1,8 @@
 package Code;
 
-public abstract class Artigo {
+import java.io.Serializable;
+
+public abstract class Artigo implements Serializable {
     private String descricao;
     private String marca;
     private static int codigo_counter = 1;
@@ -25,7 +27,7 @@ public abstract class Artigo {
     public Artigo(Artigo artigo) {
         this.descricao = artigo.descricao;
         this.marca = artigo.marca;
-        this.codigo = artigo.codigo.substring(0, artigo.codigo.length()-6) + String.format("%06", codigo_counter++);
+        this.codigo = artigo.codigo.substring(0, artigo.codigo.length()-6) + String.format("%06d", codigo_counter++);
         this.preco_Base = artigo.preco_Base;
     }
 

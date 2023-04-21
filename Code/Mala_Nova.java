@@ -1,6 +1,8 @@
 package Code;
 
-public class Mala_Nova extends Mala{
+import java.io.Serializable;
+
+public class Mala_Nova extends Mala implements Serializable {
 
 
     public Mala_Nova() {

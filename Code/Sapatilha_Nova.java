@@ -1,6 +1,8 @@
 package Code;
 
-public class Sapatilha_Nova extends Sapatilha{
+import java.io.Serializable;
+
+public class Sapatilha_Nova extends Sapatilha implements Serializable {
 
     public Sapatilha_Nova() {
         super();

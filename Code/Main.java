@@ -17,14 +17,14 @@ public class Main {
         String ficheiro_Artigos;
 
         if (args.length>0) {
-            if (args[0].equals("-U.txt")) {
+            if (args[0].equals("-txt")) {
                 ficheiro_Utilizadores = args[1] + "input_Utilizadores.txt";
                 ficheiro_Artigos = args[1] + "input_Artigos.txt";
 
                 Parser.parseText(ficheiro_Utilizadores, ficheiro_Artigos, utilizadores, artigos);
             }
-            else if (args[0].equals("-U.obj")) {
-                ficheiro_Utilizadores = args[1] + "input_Utilizadores.obj";
+            else if (args[0].equals("-obj")) {
+                ficheiro_Utilizadores = args[1] + "input.obj";
 
                 Parser.parseBinary(ficheiro_Utilizadores, utilizadores, artigos, null);
             }
@@ -78,7 +78,6 @@ public class Main {
                     String line = sc.nextLine().trim();
                     String[] tokens = line.split("\\s*,\\s*");
                     if (tokens.length==9) {
-                        System.out.println("CHEGOU");
                         Artigo artigo = new Sapatilha_Nova(Integer.parseInt(tokens[0]), tokens[1], tokens[2], Double.parseDouble(tokens[3]), Integer.parseInt(tokens[4]), Boolean.parseBoolean(tokens[5]), tokens[6], Integer.parseInt(tokens[7]), Integer.parseInt(tokens[8]));
                         artigos.addArtigo(artigo, utilizadores);
                     }
@@ -203,18 +202,8 @@ public class Main {
         char guardar = sc.nextLine().charAt(0);
 
         if (guardar=='s') {
-            System.out.println("Quer atualizar o ficheiro daonde carregou os dados?\n(Sim->s)\n(Não->n)");
-            guardar = sc.nextLine().charAt(0);
-
-            if ((guardar=='s')) {
-                Parser.storeBinary(utilizadores, args[1], true);
-            }
-            else {
-                System.out.println("Digite o nome do ficheiro onde pretende guardar");
-                String nome = sc.nextLine().trim();
-                Parser.storeBinary(utilizadores, nome, true);
-            }
-
+            Parser.storeBinary(utilizadores, true);
+            Parser.storeBinary(artigos, false);
         }
 
         sc.close();

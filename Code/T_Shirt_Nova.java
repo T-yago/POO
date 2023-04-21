@@ -1,6 +1,8 @@
 package Code;
 
-public class T_Shirt_Nova extends T_Shirt{
+import java.io.Serializable;
+
+public class T_Shirt_Nova extends T_Shirt implements Serializable {
 
     public T_Shirt_Nova() {
         super();

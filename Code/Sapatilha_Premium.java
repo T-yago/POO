@@ -1,8 +1,9 @@
 package Code;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Sapatilha_Premium extends Sapatilha {
+public class Sapatilha_Premium extends Sapatilha implements Serializable {
     
     public Sapatilha_Premium () {
         super();
@@ -20,7 +21,7 @@ public class Sapatilha_Premium extends Sapatilha {
     }
 
     public Sapatilha_Premium clone () {
-        return new Sapatilha_Premium();
+        return new Sapatilha_Premium(this);
     }
 
     public double calculaPreco(double desconto) {
