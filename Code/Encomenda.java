@@ -25,7 +25,7 @@ public class Encomenda {
         this.data = LocalDate.now();
     }
 
-    public Encomenda(Collection<Artigo> artigos, int estado_Encomenda, LocalDate date) {
+    public Encomenda(Collection<Artigo> artigos, int estado_Encomenda, LocalDate date, Transportadoras transportadoras) {
         this.artigos = new ArrayList<>();
 
         for (Artigo a: artigos) {
@@ -36,7 +36,7 @@ public class Encomenda {
         else if (artigos.size()>5) this.tamanho = GRANDE;
         else this.tamanho = MEDIA;
 
-        this.preco = 
+        this.preco = preco(artigos, transportadoras);
         this.estado_Encomenda = estado_Encomenda;
         this.data = date;
     }
@@ -54,21 +54,18 @@ public class Encomenda {
                 preco += 0.25;
             }
 
-            // preco += transportadores.get
+            // preco += transportadores.getPreco(a.getTransportadora);
         }
+
+        return preco;
     }
 
     public Encomenda(Encomenda encomenda) {
         this.artigos = new ArrayList<>();
 
-        /*
-        Fazer a funcao que clona os artigos
-
-        for (Artigos a: encomenda.artigos) {
+        for (Artigo a: encomenda.artigos) {
             this.artigos.add(a.clone());
         }
-
-        */
 
         this.tamanho = encomenda.tamanho;
         this.preco = encomenda.preco;
