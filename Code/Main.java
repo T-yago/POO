@@ -2,6 +2,9 @@ package Code;
 
 import java.util.Scanner;
 
+import Code.Transportadora;
+import Code.Transportadoras;
+
 public class Main {
     
     public static void main(String[] args) {
@@ -10,30 +13,44 @@ public class Main {
 
         Utilizadores utilizadores = new Utilizadores();
         Artigos artigos = new Artigos();
+        Transportadoras transportadoras = new Transportadoras();
 
         // Criar os caminhos para os ficheiros
 
         String ficheiro_Utilizadores;
         String ficheiro_Artigos;
+        String ficheiro_Transportadoras;
 
         if (args.length>0) {
             if (args[0].equals("-U.txt")) {
                 ficheiro_Utilizadores = args[1] + "input_Utilizadores.txt";
                 ficheiro_Artigos = args[1] + "input_Artigos.txt";
+                ficheiro_Transportadoras = args[1] + "input_Artigos.txt";
 
-                Parser.parseText(ficheiro_Utilizadores, ficheiro_Artigos, utilizadores, artigos);
+                Parser.parseText(ficheiro_Utilizadores, ficheiro_Artigos, ficheiro_Transportadoras, utilizadores, artigos, transportadoras);
             }
             else if (args[0].equals("-U.obj")) {
                 ficheiro_Utilizadores = args[1] + "input_Utilizadores.obj";
 
-                Parser.parseBinary(ficheiro_Utilizadores, utilizadores, artigos, null);
+                Parser.parseBinary(ficheiro_Utilizadores, utilizadores, artigos, null, transportadoras);
             }
         }
         
         char stopOperations = 'c';
 
         while (stopOperations!='q') {
-            System.out.println("\nQue operação pretende executar:\n\nInserir um utilizador (1)\nImprimir um utilizador (2)\nImprimir todos os utilizadores (3)\nAdicionar um artigo (4)\nRemover um artigo (5)\nImprimir um artigo (6)\nImprimir todos os artigos (7)");
+            System.out.println("\nQue operação pretende executar:\n\nInserir um utilizador (1)" +
+                "\nImprimir um utilizador (2)" +
+                "\nImprimir todos os utilizadores (3)" +
+                "\nAdicionar um artigo (4)" +
+                "\nRemover um artigo (5)" +
+                "\nImprimir um artigo (6)" +
+                "\nImprimir todos os artigos (7)" +
+                "\nInserir uma transportadora(8)" +
+                "\nRemover uma transportadora(9)" +
+                "\nImprimir uma transportadora(10)" +
+                "\nImprimir todas as transportadoras(11)");
+
             int operacao = sc.nextInt();
             sc.nextLine();
 
@@ -193,6 +210,37 @@ public class Main {
             }
             else if (operacao==7) {
                 System.out.println(artigos.toString());
+            }
+
+            else if (operacao==8){
+                System.out.println("Insira a transportadora no formato: \"Nome, Preço base encomenda pequena, Preço base encomenda média, Preço base encomenda grande, é premium?(S ou N), imposto\"\nQualquer outro formato não será aceite");
+                String line = sc.nextLine().trim();
+                String[] tokens = line.split("\\s*,\\s*");
+                if (tokens.length == 6) {
+                    Transportadora transportadora = new Transportadora(tokens[0],
+                    Double.parseDouble(tokens[1]),
+                    Double.parseDouble(tokens[2]),
+                    Double.parseDouble(tokens[3]),
+                    tokens[4].equals("S"),
+                    Double.parseDouble(tokens[5]));
+                    transportadoras.adicionaTransportadora(transportadora);
+                }
+            }
+
+            else if (operacao == 9) {
+                System.out.println("Insira o nome da transportadora a remover:");
+                String nome = sc.nextLine();
+                transportadoras.removeTransportadora(nome);
+            }
+
+            else if (operacao == 10) {
+                System.out.println("Insira o nome da transportadora a imprimir:");
+                String nome = sc.nextLine();
+                System.out.println(transportadoras.getTransportadora(nome));
+            }
+
+            else if (operacao == 11) {
+                System.out.println(transportadoras.toString());
             }
 
             System.out.println("\nPretende realizar mais alguma operação:\nNão (Pressione 'q')\nSim (Pressione qualquer outra tecla)");

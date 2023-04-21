@@ -6,11 +6,17 @@ import java.io.*;
 import java.util.Map;
 import java.util.Scanner;
 
+import javax.sound.midi.Track;
+
+import Code.Transportadora;
+import Code.Transportadoras;
+
 public class Parser {
 
-    public static void parseText(String file_Utilizadores, String file_Artigos, Utilizadores utilizadores, Artigos artigos) {
+    public static void parseText(String file_Utilizadores, String file_Artigos, String file_Transportadoras, Utilizadores utilizadores, Artigos artigos, Transportadoras transportadoras) {
         File file_U = new File(file_Utilizadores);
         File file_A = new File(file_Artigos);
+        File file_T = new File (file_Transportadoras);
 
         try {
             Scanner sc = new Scanner(file_U);
@@ -75,9 +81,30 @@ public class Parser {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
+        try{
+            Scanner sc = new Scanner(file_T);
+                while (sc.hasNextLine()) {
+                    String line = sc.nextLine().trim();
+
+                    String[] tokens = line.split("\\s*,\\s*");
+                    if (tokens.length == 6) {
+                        Transportadora transportadora = new Transportadora(tokens[0],
+                                                                            Double.parseDouble(tokens[1]),
+                                                                            Double.parseDouble(tokens[2]),
+                                                                            Double.parseDouble(tokens[3]),
+                                                                            tokens[4].equals("S"),
+                                                                            Double.parseDouble(tokens[5]));
+                        transportadoras.adicionaTransportadora(transportadora);
+                    }
+                }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
-    public static void parseBinary(String file_Utilizadores, Utilizadores utilizadores, Artigos artigos, Encomendas encomendas) {
+    public static void parseBinary(String file_Utilizadores, Utilizadores utilizadores, Artigos artigos, Encomendas encomendas, Transportadoras transportadoras) {
         FileInputStream fileIn = null;
         BufferedInputStream bufferedIn = null;
         ObjectInputStream in = null;
@@ -96,6 +123,10 @@ public class Parser {
                 else if (obj instanceof Artigo) {
                     Artigo artigo = (Artigo) obj;
                     artigos.addArtigo(artigo, utilizadores);
+                }
+                else if (obj instanceof Transportadora) {
+                    Transportadora transportadora = (Transportadora) obj;
+                    transportadoras.adicionaTransportadora(transportadora);
                 }
                 else {
                     System.out.println("Objeto não conhecido: " + obj.getClass());
@@ -183,6 +214,11 @@ public class Parser {
                         }
                     }
                 }
+            }
+
+            else if (categoria instanceof Transportadoras) {
+                Transportadoras transportadoras = (Transportadoras) categoria;
+                out.writeObject(transportadoras);
             }
 
         } catch (IOException e) {

@@ -29,7 +29,11 @@ public class Transportadoras {
     }
 
     public Map<String,Transportadora> getTransportadoras () {
-        return this.transportadoras.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey,Map.Entry::getValue));
+        return this.transportadoras.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, entry->entry.getValue().clone()));
+    }
+
+    public Transportadora getTransportadora (String nome) {
+        return this.transportadoras.get(nome).clone();
     }
 
     public void adicionaTransportadora (Transportadora transportadora){
@@ -37,7 +41,8 @@ public class Transportadoras {
     }
 
     public void removeTransportadora (String nome) {
-            this.transportadoras.remove(nome);
+            if (this.transportadoras.remove(nome) == null) System.out.println("Não encontrado");
+            else System.out.println(nome + "Removido");
     } 
 
     public Transportadoras clone() {

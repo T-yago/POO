@@ -15,20 +15,25 @@ public class Transportadora {
         this.preco_base_media = 0;
         this.preco_base_grande = 0;
         this.imposto = 0;
+        this.is_premium = false;
     }
 
-    public Transportadora(double preco_base_pequena, double preco_base_media, double preco_base_grande, double imposto) {
+    public Transportadora(String nome, double preco_base_pequena, double preco_base_media, double preco_base_grande,boolean isPremium, double imposto) {
+        this.nome = nome;
         this.preco_base_pequena = preco_base_pequena;
         this.preco_base_media = preco_base_media;
         this.preco_base_grande = preco_base_grande;
         this.imposto = imposto;
+        this.is_premium = isPremium;
     }
 
     public Transportadora(Transportadora transportadora) {
+        this.nome = transportadora.nome;
         this.preco_base_pequena = transportadora.preco_base_pequena;
         this.preco_base_media = transportadora.preco_base_media;
         this.preco_base_grande = transportadora.preco_base_grande;
         this.imposto = transportadora.imposto;
+        this.is_premium = transportadora.is_premium;
     }
 
     public String getNome () {
