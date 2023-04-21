@@ -145,47 +145,41 @@ public class Parser {
         }
     }
 
-    public static void storeBinary(Object categoria, boolean move_Ficheiro){
+    public static void storeBinary(Utilizadores utilizadores, Artigos artigos){
         File file = null;
         ObjectOutputStream out = null;
 
         try {
-            if (move_Ficheiro) {
-                file = new File("Code/Dados/Older_Save/input.obj");
+            file = new File("Code/Dados/Older_Save/input.obj");
 
-                if (file.exists()) {
-                    file.delete();
-                }
+            if (file.exists()) {
+                file.delete();
+            }
 
-                // Passa o input do Last_Save para o Older_Save
+            // Passa o input do Last_Save para o Older_Save
 
-                Path sourcePath = Paths.get("Code/Dados/Last_Save/input.obj");
-                Path targetPath = Paths.get("Code/Dados/Older_Save/input.obj");
+            Path sourcePath = Paths.get("Code/Dados/Last_Save/input.obj");
+            Path targetPath = Paths.get("Code/Dados/Older_Save/input.obj");
 
-                try {
-                    Files.move(sourcePath, targetPath);
-                } catch (NoSuchFileException e) {
-                    System.out.println("The file does not exist: " + e.getMessage());
-                } catch (IOException e) {
-                    System.out.println(e.getMessage());
-                }
+            try {
+                Files.move(sourcePath, targetPath);
+            } catch (NoSuchFileException e) {
+                System.out.println("The file does not exist: " + e.getMessage());
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
             }
 
             // Cria o novo ficheiro no Last_Save
 
             out = new ObjectOutputStream(new FileOutputStream("Code/Dados/Last_Save/input.obj", true));
 
-            if (categoria instanceof Utilizadores) {
-                Utilizadores u = (Utilizadores) categoria;
-                
-                for (Utilizador utilizador: u.getUtilizadores().values()) {
+            if (utilizadores!=null) {
+                for (Utilizador utilizador: utilizadores.getUtilizadores().values()) {
                     out.writeObject(utilizador);
                 }
             }
-            else if (categoria instanceof Artigos) {
-                Artigos u = (Artigos) categoria;
-                
-                for (Map<String, Artigo> artigos_utilizador: u.getArtigos().values()) {
+            if (artigos!=null) {
+                for (Map<String, Artigo> artigos_utilizador: artigos.getArtigos().values()) {
                     for (Artigo artigo: artigos_utilizador.values()) {
                         if (artigo instanceof Sapatilha_Nova) {
                             Sapatilha_Nova a = (Sapatilha_Nova) artigo;

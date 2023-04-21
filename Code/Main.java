@@ -33,7 +33,7 @@ public class Main {
         char stopOperations = 'c';
 
         while (stopOperations!='q') {
-            System.out.println("\nQue operação pretende executar:\n\nInserir um utilizador (1)\nImprimir um utilizador (2)\nImprimir todos os utilizadores (3)\nAdicionar um artigo (4)\nRemover um artigo (5)\nImprimir um artigo (6)\nImprimir todos os artigos (7)");
+            System.out.println("\nQue operação pretende executar:\n\nInserir um utilizador (1)\nEliminar um utilizador (2)\nImprimir um utilizador (3)\nImprimir todos os utilizadores (4)\nAdicionar um artigo (5)\nRemover um artigo (6)\nImprimir um artigo (7)\nImprimir todos os artigos (8)");
             int operacao = sc.nextInt();
             sc.nextLine();
 
@@ -54,6 +54,12 @@ public class Main {
                 System.out.println("\nInsira o nome do utilizador:");
                 int id = sc.nextInt();
                 sc.nextLine();
+                utilizadores.removeUtilizador(id);
+            }
+            else if (operacao==3) {
+                System.out.println("\nInsira o id do utilizador:");
+                int id = sc.nextInt();
+                sc.nextLine();
 
                 Utilizador utilizador = utilizadores.getUtilizador(id);
                 if (utilizador!=null) {
@@ -63,10 +69,10 @@ public class Main {
                     System.out.println("Não existe o utilizador " + id + ".");
                 }
             }
-            else if (operacao==3) {
+            else if (operacao==4) {
                 System.out.printf(utilizadores.toString());
             }
-            else if (operacao==4) {
+            else if (operacao==5) {
                 System.out.println("\nQue tipo de artigo pretende adicionar?\nSapatilha Nova (1)\nSapatilha Usada (2)\nSapatilha Premium (3)\nT-Shirt Nova (4)\nT-Shirt Usada (5)\nMala Nova (6)\nMala Usada (7)\nMala Premium (8)");
 
                 int tipo_Artigo = sc.nextInt();
@@ -202,8 +208,7 @@ public class Main {
         char guardar = sc.nextLine().charAt(0);
 
         if (guardar=='s') {
-            Parser.storeBinary(utilizadores, true);
-            Parser.storeBinary(artigos, false);
+            Parser.storeBinary(utilizadores, artigos);
         }
 
         sc.close();
