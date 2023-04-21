@@ -85,7 +85,8 @@ public abstract class Artigo implements Serializable {
                 "\nDescrição: " + getDescricao() +
                 "\nMarca: " + getMarca() +
                 "\nPreço base: " + getPrecoBase() +
-                "\nPreço final: " + getPrecoFinal();
+                "\nPreço final: " + getPrecoFinal() +
+                "\nTransportadora: " + getTransportadora();
     }
 
 

@@ -1,6 +1,8 @@
 package Code;
 
-public class Transportadora {
+import java.io.Serializable;
+
+public class Transportadora implements Serializable {
     private String nome;
     private double preco_base_pequena;
     private double preco_base_media;

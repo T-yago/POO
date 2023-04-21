@@ -201,21 +201,21 @@ public class Main {
                     System.out.println("A opção que selecionou não é válida.");
                 }
             }
-            else if (operacao==5) {
+            else if (operacao==6) {
                 System.out.println("Insira o código do artigo que pretende remover.");
                 String codigo = sc.nextLine().trim();
                 artigos.removeArtigo(codigo);
             }
-            else if (operacao==6) {
+            else if (operacao==7) {
                 System.out.println("Insira o código do artigo:");
                 String codigo = sc.nextLine().trim();
                 System.out.println(artigos.getArtigo(codigo).toString());
             }
-            else if (operacao==7) {
+            else if (operacao==8) {
                 System.out.println(artigos.toString());
             }
 
-            else if (operacao==8){
+            else if (operacao==9){
                 System.out.println("Insira a transportadora no formato: \"Nome, Preço base encomenda pequena, Preço base encomenda média, Preço base encomenda grande, é premium?(S ou N), imposto\"\nQualquer outro formato não será aceite");
                 String line = sc.nextLine().trim();
                 String[] tokens = line.split("\\s*,\\s*");
@@ -230,19 +230,19 @@ public class Main {
                 }
             }
 
-            else if (operacao == 9) {
+            else if (operacao==10) {
                 System.out.println("Insira o nome da transportadora a remover:");
                 String nome = sc.nextLine();
                 transportadoras.removeTransportadora(nome);
             }
 
-            else if (operacao == 10) {
+            else if (operacao==11) {
                 System.out.println("Insira o nome da transportadora a imprimir:");
                 String nome = sc.nextLine();
                 System.out.println(transportadoras.getTransportadora(nome));
             }
 
-            else if (operacao == 11) {
+            else if (operacao==12) {
                 System.out.println(transportadoras.toString());
             }
 

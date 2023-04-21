@@ -248,7 +248,10 @@ public class Parser {
                 }
             }
             if (transportadoras!=null) {
-                out.writeObject(transportadoras);
+                for (Transportadora transportadora: transportadoras.getTransportadoras().values())
+                {
+                    out.writeObject(transportadora);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
