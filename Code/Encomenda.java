@@ -114,5 +114,9 @@ public class Encomenda {
         return this.artigos.stream().anyMatch(artigo -> 
                                               artigo instanceof Mala_Premium || artigo instanceof Sapatilha_Premium);               
     }
+
+    public Encomenda clone() {
+        return new Encomenda(this);
+    }
      
 }

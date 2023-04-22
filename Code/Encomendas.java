@@ -1,7 +1,6 @@
 package Code;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -9,13 +8,13 @@ import java.util.Map;
 
 public class Encomendas {
     private int id_Counter = 0;
-    private Map<String, Collection<Encomenda>> encomendas;
+    private Map<String, Encomenda> encomendas;
 
     public Encomendas() {
         this.encomendas = new HashMap<>();
     }
 
-    public Encomendas(Collection<Artigo> artigos, int estado_Encomenda, LocalDate date, Transportadoras transportadoras) {
+    public Encomendas(Collection<Artigo> artigos, int id_Comprador, int estado_Encomenda, LocalDate date, Transportadoras transportadoras) {
         this.encomendas = new HashMap<>();
 
         // Dividir as encomendas por transportadora
@@ -37,25 +36,30 @@ public class Encomendas {
 
         // Criar as encomendas
 
-        String id;
-        if (artigos.size()>0) {
-            for (Artigo a: artigos) {
-                id = String.format("%06d", a.getCodigo().substring(0, 6)) + String.format("%06d", id_Counter++);
-                break;
-            }
-        }
-        else {
-            id = String.format("%06d", 999999) + String.format("%06d", id_Counter++);
-        }
-
-        map_Transportadoras.forEach((String key, Collection<Artigo> a) -> {if (this.encomendas.containsKey(id)) {this.encomendas.get(key).add(new Encomenda(a, estado_Encomenda, date, transportadoras)}
-                                                                           else {this.encomendas.put(id, new Encomenda(a, estado_Encomenda, date, transportadoras));}});
-        id_Counter++;
+        map_Transportadoras.forEach((String key, Collection<Artigo> a) -> {String id = String.format("%06d", id_Comprador) + String.format("%06d", id_Counter++);
+                                                                           this.encomendas.put(id, new Encomenda(a, estado_Encomenda, date, transportadoras));
+                                                                           });
     }
 
     public Encomendas(Encomendas encomendas) {
         this.encomendas = new HashMap<>();
 
-        for 
+        for (Map.Entry<String, Encomenda> e: encomendas.encomendas.entrySet()) {
+            this.encomendas.put(e.getKey(), e.getValue().clone());
+        }
+    }
+
+    public Encomenda getEncomenda(String id_Encomenda, String estado_Artigo) {
+        return this.encomendas.get(id_Encomenda);
+    }
+
+    public Map<String, Encomenda> getEncomendas() {
+        Map<String, Encomenda> encomendas = new HashMap<>();
+
+        for (Map.Entry<String, Encomenda> e: this.encomendas.entrySet()) {
+            encomendas.put(e.getKey(), e.getValue().clone());
+        }
+
+        return encomendas;
     }
 }
