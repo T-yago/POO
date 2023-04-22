@@ -6,21 +6,22 @@ import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.io.*;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
-
-import javax.sound.midi.Track;
-
-import Code.Transportadora;
-import Code.Transportadoras;
+import java.util.Set;
 
 public class Parser {
 
-    public static void parseText(String file_Utilizadores, String file_Artigos, String file_Transportadoras, Utilizadores utilizadores, Artigos artigos, Transportadoras transportadoras) {
+    public static void parseText(String file_Utilizadores, String file_Artigos, String file_Transportadoras, String file_Encomendas, Utilizadores utilizadores, Artigos artigos, Transportadoras transportadoras, Encomendas encomendas) {
         File file_U = new File(file_Utilizadores);
         File file_A = new File(file_Artigos);
         File file_T = new File (file_Transportadoras);
+        File file_E = new File(file_Encomendas);
 
         try {
             Scanner sc = new Scanner(file_U);
@@ -29,7 +30,7 @@ public class Parser {
                 String line = sc.nextLine().trim();
 
                 String[] tokens = line.split("\\s*,\\s*");
-                if (tokens.length>=4) {
+                if (tokens.length==4) {
                     Utilizador utilizador = new Utilizador(tokens[0], tokens[1], tokens[2], Integer.parseInt(tokens[3]));
                     utilizadores.addUtilizador(utilizador);
                 }
@@ -88,21 +89,46 @@ public class Parser {
 
         try{
             Scanner sc = new Scanner(file_T);
-                while (sc.hasNextLine()) {
-                    String line = sc.nextLine().trim();
+            while (sc.hasNextLine()) {
+                String line = sc.nextLine().trim();
 
-                    String[] tokens = line.split("\\s*,\\s*");
-                    if (tokens.length == 6) {
-                        Transportadora transportadora = new Transportadora(tokens[0],
-                                                                            Double.parseDouble(tokens[1]),
-                                                                            Double.parseDouble(tokens[2]),
-                                                                            Double.parseDouble(tokens[3]),
-                                                                            tokens[4].equals("S"),
-                                                                            Double.parseDouble(tokens[5]));
-                        transportadoras.adicionaTransportadora(transportadora);
-                    }
+                String[] tokens = line.split("\\s*,\\s*");
+                if (tokens.length == 6) {
+                    Transportadora transportadora = new Transportadora(tokens[0],
+                                                                        Double.parseDouble(tokens[1]),
+                                                                        Double.parseDouble(tokens[2]),
+                                                                        Double.parseDouble(tokens[3]),
+                                                                        tokens[4].equals("S"),
+                                                                        Double.parseDouble(tokens[5]));
+                    transportadoras.adicionaTransportadora(transportadora);
                 }
+            }
 
+            sc.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            Scanner sc = new Scanner(file_E);
+            
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            while (sc.hasNextLine()) {
+                String line = sc.nextLine().trim();
+
+                String[] tokens = line.split("\\s*,\\s*");
+                if (tokens.length>=5) {
+
+                    Collection<Artigo> artigos_Encomenda = new HashSet<>();
+                    for (int i = 4;i<tokens.length;i++) {
+                        artigos_Encomenda.add(artigos.getArtigo(tokens[i]));
+                    }
+                    Encomenda encomenda = new Encomenda(artigos_Encomenda, tokens[0], Integer.parseInt(tokens[1]), LocalDate.parse(tokens[3], formatter), transportadoras);
+                    encomendas.addEncomenda(encomenda, Integer.parseInt(tokens[2]), transportadoras, utilizadores);
+                }
+            }
+
+            sc.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -160,14 +186,39 @@ public class Parser {
                     Transportadora transportadora = (Transportadora) obj;
                     transportadoras.adicionaTransportadora(transportadora);
                 }
+                else if (obj instanceof Encomenda) {
+                    Encomenda encomenda = (Encomenda) obj;
+                    encomendas.addEncomenda(encomenda, encomenda.getIdComprador(), transportadoras, utilizadores);
+                }
                 else {
                     System.out.println("Objeto não conhecido: " + obj.getClass());
                 }
 
-                int id_Max;
-                if ((id_Max = utilizadores.getUtilizadores().size())>0) {
-                    utilizadores.getUtilizador(id_Max).setNumero_Utilizadores(id_Max);
+                int id_Max_Utilizadores;
+                if ((id_Max_Utilizadores = utilizadores.getUtilizadores().size())>0) {
+                    utilizadores.getUtilizador(id_Max_Utilizadores).setNumero_Utilizadores(id_Max_Utilizadores);
                 }
+
+                int id_Max_Artigos = 0;
+                String codigo_artigo = "";
+                for (Map<String, Artigo> e: artigos.getArtigos().values()) {
+                    for (String s: e.keySet()) {
+                        id_Max_Artigos++;
+                        codigo_artigo = s;
+                    }
+                }
+                if (id_Max_Artigos>0) {
+                    artigos.getArtigo(codigo_artigo).setNumero_Artigos(id_Max_Artigos);
+                }
+
+                Set<String> ids_encomendas = new HashSet<>();
+
+                String id_Encomenda;
+                for (String e: encomendas.getEncomendas().keySet()) {
+                    id_Encomenda = e.substring(e.length()-12);
+                    ids_encomendas.add(id_Encomenda);
+                }
+                encomendas.setNumero_Encomendas(ids_encomendas.size());
             }
 
 
@@ -176,7 +227,7 @@ public class Parser {
         }
     }
 
-    public static void storeBinary(Utilizadores utilizadores, Artigos artigos, Transportadoras transportadoras){
+    public static void storeBinary(Utilizadores utilizadores, Artigos artigos, Transportadoras transportadoras, Encomendas encomendas) {
         File file = null;
         ObjectOutputStream out = null;
 
@@ -251,6 +302,11 @@ public class Parser {
                 for (Transportadora transportadora: transportadoras.getTransportadoras().values())
                 {
                     out.writeObject(transportadora);
+                }
+            }
+            if (encomendas!=null) {
+                for (Encomenda encomenda: encomendas.getEncomendas().values()) {
+                    out.writeObject(encomenda);
                 }
             }
         } catch (IOException e) {

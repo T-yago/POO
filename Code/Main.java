@@ -1,5 +1,11 @@
 package Code;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -11,25 +17,28 @@ public class Main {
         Utilizadores utilizadores = new Utilizadores();
         Artigos artigos = new Artigos();
         Transportadoras transportadoras = new Transportadoras();
+        Encomendas encomendas = new Encomendas();
 
         // Criar os caminhos para os ficheiros
 
         String ficheiro_Utilizadores;
         String ficheiro_Artigos;
         String ficheiro_Transportadoras;
+        String ficheiro_Encomendas;
 
         if (args.length>0) {
             if (args[0].equals("-txt")) {
                 ficheiro_Utilizadores = args[1] + "input_Utilizadores.txt";
                 ficheiro_Artigos = args[1] + "input_Artigos.txt";
                 ficheiro_Transportadoras = args[1] + "input_Transportadoras.txt";
+                ficheiro_Encomendas = args[1] + "input_Encomendas.txt";
 
-                Parser.parseText(ficheiro_Utilizadores, ficheiro_Artigos, ficheiro_Transportadoras, utilizadores, artigos, transportadoras);
+                Parser.parseText(ficheiro_Utilizadores, ficheiro_Artigos, ficheiro_Transportadoras, ficheiro_Encomendas, utilizadores, artigos, transportadoras, encomendas);
             }
             else if (args[0].equals("-obj")) {
                 ficheiro_Utilizadores = args[1] + "input.obj";
 
-                Parser.parseBinary(ficheiro_Utilizadores, utilizadores, artigos, null, transportadoras);
+                Parser.parseBinary(ficheiro_Utilizadores, utilizadores, artigos, encomendas, transportadoras);
             }
         }
         
@@ -44,10 +53,17 @@ public class Main {
                 "\nRemover um artigo (6)" +
                 "\nImprimir um artigo (7)" +
                 "\nImprimir todos os artigos (8)" +
-                "\nInserir uma transportadora(9)" +
-                "\nRemover uma transportadora(10)" +
-                "\nImprimir uma transportadora(11)" +
-                "\nImprimir todas as transportadoras(12)");
+                "\nInserir uma transportadora (9)" +
+                "\nRemover uma transportadora (10)" +
+                "\nImprimir uma transportadora (11)" +
+                "\nImprimir todas as transportadoras (12)" +
+                "\nAdicionar encomendas (13)" +
+                "\nAdicionar artigos a uma encomenda (14)" +
+                "\nRemover um artigo de uma encomenda (15)" +
+                "\nRemover uma encomenda (16)" +
+                "\nFinalizar uma encomenda (17)" +
+                "\nImprimir uma encomenda (18)" +
+                "\nImprimir todas as encomendas (19)");
 
             int operacao = sc.nextInt();
             sc.nextLine();
@@ -214,7 +230,6 @@ public class Main {
             else if (operacao==8) {
                 System.out.println(artigos.toString());
             }
-
             else if (operacao==9){
                 System.out.println("Insira a transportadora no formato: \"Nome, Preço base encomenda pequena, Preço base encomenda média, Preço base encomenda grande, é premium?(S ou N), imposto\"\nQualquer outro formato não será aceite");
                 String line = sc.nextLine().trim();
@@ -229,22 +244,104 @@ public class Main {
                     transportadoras.adicionaTransportadora(transportadora);
                 }
             }
-
             else if (operacao==10) {
                 System.out.println("Insira o nome da transportadora a remover:");
                 String nome = sc.nextLine();
                 transportadoras.removeTransportadora(nome);
             }
-
             else if (operacao==11) {
                 System.out.println("Insira o nome da transportadora a imprimir:");
                 String nome = sc.nextLine();
                 System.out.println(transportadoras.getTransportadora(nome));
             }
-
             else if (operacao==12) {
                 System.out.println(transportadoras.toString());
             }
+            else if (operacao==13) {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                System.out.println("Insira a encomenda no formato: \"Id do Comprador, Codigo, Estado da Encomenda, Data (dd/MM/yyyy), Id do Artigo 1, Id do Artigo 2, ...\"\nQualquer outro formato não será aceite");
+
+                String line = sc.nextLine().trim();
+                String[] tokens = line.split("\\s*,\\s*");
+                if (tokens.length>=5) {
+
+                    Collection<Artigo> conjunto_Artigos = new HashSet<>();
+                    for (int i = 4;i<tokens.length;i++) {
+                        Artigo artigo;
+                        if ((artigo = artigos.getArtigo(tokens[i]))!=null) {
+                            conjunto_Artigos.add(artigo);
+                        }
+                    }
+
+                    Encomenda encomenda = new Encomenda(conjunto_Artigos, tokens[1], Integer.parseInt(tokens[2]), LocalDate.parse(tokens[3], formatter), transportadoras);
+                    encomendas.addEncomenda(encomenda, Integer.parseInt(tokens[0]), transportadoras, utilizadores);
+                }
+                else {
+                    System.out.println("Os argumentos inseridos são inferiores aos necessários para criar uma encomenda.");
+                }
+            }
+            else if (operacao==14) {
+                Collection<Artigo> conjunto_Artigos = new HashSet<>();
+                char inserir_Artigos = 's';
+                System.out.println("Insira o id da encomenda:");
+                String id_Encomenda = sc.nextLine().trim();
+
+                while (inserir_Artigos=='s') {
+                    System.out.println("Insira o id do artigo que pretende adicionar:");
+
+                    String id_Artigo = sc.nextLine().trim();
+                    Artigo artigo;
+                    if ((artigo = artigos.getArtigo(id_Artigo))!=null) {
+                        conjunto_Artigos.add(artigo);
+                    }
+
+                    System.out.println("Pretende inserir mais algum artigo a esta encomeda?\n(Sim->s)\n(Não->n)");
+                    inserir_Artigos = sc.nextLine().charAt(0);
+                }
+                if (conjunto_Artigos!=null) {
+                    encomendas.add_Artigos_To_Encomenda(id_Encomenda, conjunto_Artigos, transportadoras);
+                }
+            }
+            else if (operacao==15) {
+                System.out.println("Insira o id da encomenda:");
+                String id_Encomenda = sc.nextLine().trim();
+                System.out.println("Insira o id do artigo:");
+                String id_Artigo = sc.nextLine().trim();
+
+                encomendas.removeArtigo(id_Encomenda, id_Artigo, transportadoras);
+            }
+            else if (operacao==16) {
+                System.out.println("Insira o id da encomenda:");
+                String id_Encomenda = sc.nextLine().trim();
+                
+                encomendas.removeEncomenda(id_Encomenda, transportadoras);
+            }
+            else if (operacao==17) {
+                System.out.println("Insira o id da encomenda:");
+                String id_Encomenda = sc.nextLine().trim();
+                System.out.println("Insira a data na qual finalizou a compra no formato \"dd/MM/yyyy\":");
+                String data = sc.nextLine().trim();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                encomendas.finalizarEncomenda(id_Encomenda, LocalDate.parse(data, formatter), transportadoras);
+            }
+            else if (operacao==18) {
+                System.out.println("Insira o id da encomenda:");
+                String id_Encomenda = sc.nextLine().trim();
+                Collection<Encomenda> conjunto_Encomenda;
+                if ((conjunto_Encomenda = encomendas.getEncomenda(id_Encomenda, transportadoras))!=null) {
+                    System.out.println();
+                    for (Encomenda e: conjunto_Encomenda) {
+                        System.out.println(e.toString());
+                    }
+                }
+                else {
+                    System.out.println("Essa encomenda não existe.");
+                }
+            }
+            else if (operacao==19) {
+                System.out.println("\n" + encomendas.toString());
+            }
+
 
             System.out.println("\nPretende realizar mais alguma operação:\nNão (Pressione 'q')\nSim (Pressione qualquer outra tecla)");
             stopOperations = sc.nextLine().charAt(0);
@@ -254,7 +351,7 @@ public class Main {
         char guardar = sc.nextLine().charAt(0);
 
         if (guardar=='s') {
-            Parser.storeBinary(utilizadores, artigos, transportadoras);
+            Parser.storeBinary(utilizadores, artigos, transportadoras, encomendas);
         }
 
         sc.close();

@@ -1,15 +1,13 @@
 package Code;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 
-import org.w3c.dom.css.Counter;
-
-import Code.Mala_Premium;
-import Code.Sapatilha_Premium;
-
-public class Encomenda {
+public class Encomenda implements Serializable {
+    private String codigo;
     private Collection<Artigo> artigos;
     private static final int PEQUENA = 0;
     private static final int MEDIA = 1;
@@ -23,6 +21,7 @@ public class Encomenda {
     private LocalDate data;
 
     public Encomenda() {
+        this.codigo = "";
         this.artigos = new ArrayList<>();
         this.tamanho = PEQUENA;
         this.preco = 0;
@@ -30,7 +29,8 @@ public class Encomenda {
         this.data = LocalDate.now();
     }
 
-    public Encomenda(Collection<Artigo> artigos, int estado_Encomenda, LocalDate date, Transportadoras transportadoras) {
+    public Encomenda(Collection<Artigo> artigos, String codigo, int estado_Encomenda, LocalDate date, Transportadoras transportadoras) {
+        this.codigo = codigo;
         this.artigos = new ArrayList<>();
 
         for (Artigo a: artigos) {
@@ -47,6 +47,7 @@ public class Encomenda {
     }
 
     public Encomenda(Encomenda encomenda) {
+        this.codigo = encomenda.codigo;
         this.artigos = new ArrayList<>();
 
         for (Artigo a: encomenda.artigos) {
@@ -94,29 +95,78 @@ public class Encomenda {
         return this.data;
     }
 
+    public int getIdComprador() {
+        return Integer.parseInt(this.codigo.substring(this.codigo.length()-12, this.codigo.length()-6));
+    }
+
     public void setEstadoEncomenda(int estado_Encomenda) {
         this.estado_Encomenda = estado_Encomenda;
     }
 
-    public void addArtigo(Artigo artigo) {
-        this.artigos.add(artigo.clone());
+    public void setData(LocalDate data) {
+        this.data = data;
     }
 
-    public void removeArtigo(Artigo artigo) {
+    public void addArtigo(Artigo artigo, Transportadoras transportadoras) {
+        this.artigos.add(artigo.clone());
+
+        this.preco = preco(this.artigos, transportadoras);
+    }
+
+    public void addArtigos(Collection<Artigo> artigos, Transportadoras transportadoras) {
+        for (Artigo a: artigos) {
+            this.artigos.add(a.clone());
+        }
+
+        this.preco = preco(this.artigos, transportadoras);
+    }
+
+    public void removeArtigo(String id_Artigo, Transportadoras transportadoras) {
         for (Artigo a: this.artigos) {
-            if (a.equals(artigo)) {
+            if (a.getCodigo().equals(id_Artigo)) {
                 this.artigos.remove(a);
+
+                this.preco = preco(this.artigos, transportadoras);
             }
         }
     }
 
-    public boolean tem_premium () {
-        return this.artigos.stream().anyMatch(artigo -> 
-                                              artigo instanceof Mala_Premium || artigo instanceof Sapatilha_Premium);               
+    public boolean tem_Item (Artigo artigo) {
+        for (Artigo a: this.artigos) {
+            if (a.equals(artigo)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Collection<Artigo> getArtigos() {
+        Collection<Artigo> artigos = new HashSet<>();
+
+        for (Artigo a: this.artigos) {
+            artigos.add(a);
+        }
+
+        return artigos;
     }
 
     public Encomenda clone() {
         return new Encomenda(this);
     }
-     
+
+    public String toString() {
+        String encomenda =  "Código: " + this.codigo +
+                            "\nTamanho: " + this.tamanho +
+                            "\nPreço: " + this.preco +
+                            "\nEstado Encomenda: " + this.estado_Encomenda +
+                            "\nData: " + this.data +
+                            "\nArtigos: \n";
+
+        for (Artigo a: this.artigos) {
+            encomenda += a.toString();
+        }
+
+        return encomenda;
+    }
+
 }
