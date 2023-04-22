@@ -8,10 +8,17 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
 
+import javax.swing.text.DateFormatter;
+
 import Code.Transportadora_Premium;
 
 public class Main {
+    private static LocalDate currentDate = LocalDate.now();
     
+    public static LocalDate getCurrentDate() {
+        return currentDate;
+    }
+
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -66,6 +73,8 @@ public class Main {
                 "\nFinalizar uma encomenda (17)" +
                 "\nImprimir uma encomenda (18)" +
                 "\nImprimir todas as encomendas (19)");
+                "\nSaltar no tempo(20)" +
+                "\nData Atual: " + Main.currentDate);
 
             int operacao = sc.nextInt();
             sc.nextLine();
@@ -281,7 +290,7 @@ public class Main {
             else if (operacao==12) {
                 System.out.println(transportadoras.toString());
             }
-            else if (operacao==13) {
+            else if (operacao==20) {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                 System.out.println("Insira a encomenda no formato: \"Id do Comprador, Codigo, Estado da Encomenda, Data (dd/MM/yyyy), Id do Artigo 1, Id do Artigo 2, ...\"\nQualquer outro formato não será aceite");
 
@@ -366,6 +375,24 @@ public class Main {
                 System.out.println("\n" + encomendas.toString());
             }
 
+
+            else if (operacao==13) {
+                System.out.println("Saltar x número de dias(1), Saltar para uma data específica(2).");
+                int opcao = sc.nextInt();
+                sc.nextLine();
+                if (opcao == 1) {
+                    System.out.println("Insira o número de dias que quer saltar:");
+                    int dias = sc.nextInt();
+                    sc.nextLine();
+                    Main.currentDate = Main.currentDate.plusDays(dias);
+                }
+                else if (opcao == 2) {
+                    System.out.println("Insira a data para a qual quer saltar (dia/mes/ano):");
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                    LocalDate data = LocalDate.parse(sc.nextLine(), formatter);
+                    Main.currentDate = data;
+                }
+            }
 
             System.out.println("\nPretende realizar mais alguma operação:\nNão (Pressione 'q')\nSim (Pressione qualquer outra tecla)");
             stopOperations = sc.nextLine().charAt(0);
