@@ -8,6 +8,7 @@ public class Transportadora implements Serializable {
     private double preco_base_media;
     private double preco_base_grande;
     private double margemlucro;
+    private int tempo_envio_dias;
 
     private double imposto;
 

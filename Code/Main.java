@@ -1,11 +1,21 @@
 package Code;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Currency;
 import java.util.Scanner;
+
+import javax.swing.text.DateFormatter;
 
 import Code.Transportadora_Premium;
 
 public class Main {
+    private static LocalDate currentDate = LocalDate.now();
     
+    public static LocalDate getCurrentDate() {
+        return currentDate;
+    }
+
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -49,7 +59,9 @@ public class Main {
                 "\nInserir uma transportadora(9)" +
                 "\nRemover uma transportadora(10)" +
                 "\nImprimir uma transportadora(11)" +
-                "\nImprimir todas as transportadoras(12)");
+                "\nImprimir todas as transportadoras(12)" +
+                "\nSaltar no tempo(13)" +
+                "\nData Atual: " + Main.currentDate);
 
             int operacao = sc.nextInt();
             sc.nextLine();
@@ -268,6 +280,24 @@ public class Main {
 
             else if (operacao==12) {
                 System.out.println(transportadoras.toString());
+            }
+
+            else if (operacao==13) {
+                System.out.println("Saltar x número de dias(1), Saltar para uma data específica(2).");
+                int opcao = sc.nextInt();
+                sc.nextLine();
+                if (opcao == 1) {
+                    System.out.println("Insira o número de dias que quer saltar:");
+                    int dias = sc.nextInt();
+                    sc.nextLine();
+                    Main.currentDate = Main.currentDate.plusDays(dias);
+                }
+                else if (opcao == 2) {
+                    System.out.println("Insira a data para a qual quer saltar (dia/mes/ano):");
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                    LocalDate data = LocalDate.parse(sc.nextLine(), formatter);
+                    Main.currentDate = data;
+                }
             }
 
             System.out.println("\nPretende realizar mais alguma operação:\nNão (Pressione 'q')\nSim (Pressione qualquer outra tecla)");
