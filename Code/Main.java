@@ -72,7 +72,7 @@ public class Main {
                 "\nRemover uma encomenda (16)" +
                 "\nFinalizar uma encomenda (17)" +
                 "\nImprimir uma encomenda (18)" +
-                "\nImprimir todas as encomendas (19)");
+                "\nImprimir todas as encomendas (19)" +
                 "\nSaltar no tempo(20)" +
                 "\nData Atual: " + Main.currentDate);
 
