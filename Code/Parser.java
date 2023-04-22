@@ -93,21 +93,23 @@ public class Parser {
                     String line = sc.nextLine().trim();
 
                     String[] tokens = line.split("\\s*,\\s*");
-                    if (tokens.length == 6) {
+                    if (tokens.length == 7) {
                         if (tokens[0].equals("Transportadora")) {
-                        Transportadora transportadora = new Transportadora(tokens[0],
-                                                                            Double.parseDouble(tokens[1]),
+                        Transportadora transportadora = new Transportadora(tokens[1],
                                                                             Double.parseDouble(tokens[2]),
                                                                             Double.parseDouble(tokens[3]),
-                                                                            Double.parseDouble(tokens[5]));
+                                                                            Double.parseDouble(tokens[4]),
+                                                                            Double.parseDouble(tokens[5]),
+                                                                            Double.parseDouble(tokens[6]));
                         transportadoras.adicionaTransportadora(transportadora);
                         }
                         else if (tokens[0].equals("Transportadora Premium")) {
-                            Transportadora_Premium transportadora_Premium = new Transportadora_Premium(tokens[0],
-                                                                            Double.parseDouble(tokens[1]),
+                            Transportadora_Premium transportadora_Premium = new Transportadora_Premium(tokens[1],
                                                                             Double.parseDouble(tokens[2]),
                                                                             Double.parseDouble(tokens[3]),
-                                                                            Double.parseDouble(tokens[5]));
+                                                                            Double.parseDouble(tokens[4]),
+                                                                            Double.parseDouble(tokens[5]),
+                                                                            Double.parseDouble(tokens[6]));
                         transportadoras.adicionaTransportadora(transportadora_Premium);
                         
                         }
