@@ -2,6 +2,8 @@ package Code;
 
 import java.util.Scanner;
 
+import Code.Transportadora_Premium;
+
 public class Main {
     
     public static void main(String[] args) {
@@ -216,6 +218,12 @@ public class Main {
             }
 
             else if (operacao==9){
+                System.out.println("Qual o tipo de transportadora? Normal (1), Premium(2).");
+                int tipo_transportadora = sc.nextInt();
+                sc.nextLine();
+
+                if (tipo_transportadora==1) {
+
                 System.out.println("Insira a transportadora no formato: \"Nome, Preço base encomenda pequena, Preço base encomenda média, Preço base encomenda grande, é premium?(S ou N), imposto\"\nQualquer outro formato não será aceite");
                 String line = sc.nextLine().trim();
                 String[] tokens = line.split("\\s*,\\s*");
@@ -224,9 +232,23 @@ public class Main {
                     Double.parseDouble(tokens[1]),
                     Double.parseDouble(tokens[2]),
                     Double.parseDouble(tokens[3]),
-                    tokens[4].equals("S"),
                     Double.parseDouble(tokens[5]));
                     transportadoras.adicionaTransportadora(transportadora);
+                }
+                }
+                else if (tipo_transportadora == 2) {
+                
+                    System.out.println("Insira a transportadora no formato: \"Nome, Preço base encomenda pequena, Preço base encomenda média, Preço base encomenda grande, é premium?(S ou N), imposto\"\nQualquer outro formato não será aceite");
+                    String line = sc.nextLine().trim();
+                    String[] tokens = line.split("\\s*,\\s*");
+                    if (tokens.length == 6) {
+                        Transportadora transportadora = new Transportadora_Premium(tokens[0],
+                        Double.parseDouble(tokens[1]),
+                        Double.parseDouble(tokens[2]),
+                        Double.parseDouble(tokens[3]),
+                        Double.parseDouble(tokens[5]));
+                        transportadoras.adicionaTransportadora(transportadora);
+                    }
                 }
             }
 

@@ -8,7 +8,7 @@ public class Transportadora_Premium extends Transportadora implements Serializab
         super();
     }
 
-    public Transportadora_Premium (String nome, double preco_base_pequena, double preco_base_media, double preco_base_grande,boolean isPremium, double imposto) {
+    public Transportadora_Premium (String nome, double preco_base_pequena, double preco_base_media, double preco_base_grande, double imposto) {
         super(nome,preco_base_pequena,preco_base_media,preco_base_grande,imposto);
     }
 

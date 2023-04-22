@@ -13,6 +13,7 @@ import java.util.Scanner;
 import javax.sound.midi.Track;
 
 import Code.Transportadora;
+import Code.Transportadora_Premium;
 import Code.Transportadoras;
 
 public class Parser {
@@ -93,13 +94,23 @@ public class Parser {
 
                     String[] tokens = line.split("\\s*,\\s*");
                     if (tokens.length == 6) {
+                        if (tokens[0].equals("Transportadora")) {
                         Transportadora transportadora = new Transportadora(tokens[0],
                                                                             Double.parseDouble(tokens[1]),
                                                                             Double.parseDouble(tokens[2]),
                                                                             Double.parseDouble(tokens[3]),
-                                                                            tokens[4].equals("S"),
                                                                             Double.parseDouble(tokens[5]));
                         transportadoras.adicionaTransportadora(transportadora);
+                        }
+                        else if (tokens[0].equals("Transportadora Premium")) {
+                            Transportadora_Premium transportadora_Premium = new Transportadora_Premium(tokens[0],
+                                                                            Double.parseDouble(tokens[1]),
+                                                                            Double.parseDouble(tokens[2]),
+                                                                            Double.parseDouble(tokens[3]),
+                                                                            Double.parseDouble(tokens[5]));
+                        transportadoras.adicionaTransportadora(transportadora_Premium);
+                        
+                        }
                     }
                 }
 
@@ -159,6 +170,10 @@ public class Parser {
                 else if (obj instanceof Transportadora) {
                     Transportadora transportadora = (Transportadora) obj;
                     transportadoras.adicionaTransportadora(transportadora);
+                }
+                else if (obj instanceof Transportadora_Premium) { // é preciso?
+                    Transportadora_Premium transportadora_premium = (Transportadora_Premium) obj;
+                    transportadoras.adicionaTransportadora(transportadora_premium);
                 }
                 else {
                     System.out.println("Objeto não conhecido: " + obj.getClass());
