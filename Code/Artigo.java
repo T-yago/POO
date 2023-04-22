@@ -79,6 +79,10 @@ public abstract class Artigo implements Serializable {
         this.transportadora = transportadora;
     }
 
+    public void setNumero_Artigos(int numero_Artigos) {
+        Artigo.codigo_counter = numero_Artigos;
+    }
+
     @Override
     public String toString() {
         return "Código: " + getCodigo() +
