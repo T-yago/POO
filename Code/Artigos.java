@@ -47,7 +47,11 @@ public class Artigos {
     public Artigo getArtigo(String id_Artigo) {
         int id_Vendedor = Integer.parseInt(id_Artigo.substring(0, id_Artigo.length()-6));
 
-        return this.artigos.get(id_Vendedor).get(id_Artigo);
+        Map<String, Artigo> artigos;
+        if ((artigos = this.artigos.get(id_Vendedor))!=null) {
+            return artigos.get(id_Artigo);
+        }
+        return null;
     }
 
     public Map<Integer, Map<String,Artigo>> getArtigos() {
