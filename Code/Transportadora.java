@@ -7,6 +7,7 @@ public class Transportadora implements Serializable {
     private double preco_base_pequena;
     private double preco_base_media;
     private double preco_base_grande;
+    private double margemlucro;
 
     private double imposto;
 
@@ -16,14 +17,16 @@ public class Transportadora implements Serializable {
         this.preco_base_media = 0;
         this.preco_base_grande = 0;
         this.imposto = 0;
+        this.margemlucro = 1;
     }
 
-    public Transportadora(String nome, double preco_base_pequena, double preco_base_media, double preco_base_grande, double imposto) {
+    public Transportadora(String nome, double preco_base_pequena, double preco_base_media, double preco_base_grande, double imposto, double margemlucro) {
         this.nome = nome;
         this.preco_base_pequena = preco_base_pequena;
         this.preco_base_media = preco_base_media;
         this.preco_base_grande = preco_base_grande;
         this.imposto = imposto;
+        this.margemlucro = margemlucro;
     }
 
     public Transportadora(Transportadora transportadora) {
@@ -32,6 +35,7 @@ public class Transportadora implements Serializable {
         this.preco_base_media = transportadora.preco_base_media;
         this.preco_base_grande = transportadora.preco_base_grande;
         this.imposto = transportadora.imposto;
+        this.margemlucro = transportadora.margemlucro;
     }
 
     public String getNome () {
@@ -40,6 +44,14 @@ public class Transportadora implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public double getMargemLucro () {
+        return this.margemlucro;
+    }
+
+    public void setMargemLucro(double margemlucro) {
+        this.margemlucro = margemlucro;
     }
 
     public double getPrecoBasePequena() {
@@ -74,7 +86,7 @@ public class Transportadora implements Serializable {
         this.imposto = imposto;
     }
 
-    public double calculaPreco (int numero_itens, double margemlucro) {
+    public double calculaPreco (int numero_itens) {
         double valor_base;
         if (numero_itens == 1) {
             valor_base = preco_base_pequena;
@@ -94,7 +106,7 @@ public class Transportadora implements Serializable {
     }
 
     public String toString() {
-        return "Transportadora [preco_base_pequena=" + preco_base_pequena + ", preco_base_media=" + preco_base_media
-                + ", preco_base_grande=" + preco_base_grande + ", imposto=" + imposto + "]";
+        return "Transportadora: " + this.nome +  "\npreco_base_pequena=" + preco_base_pequena + "\npreco_base_media=" + preco_base_media
+                + "\npreco_base_grande=" + preco_base_grande + "\nimposto=" + imposto + "\n\n";
     }
 }

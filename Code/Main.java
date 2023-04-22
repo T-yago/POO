@@ -224,28 +224,30 @@ public class Main {
 
                 if (tipo_transportadora==1) {
 
-                System.out.println("Insira a transportadora no formato: \"Nome, Preço base encomenda pequena, Preço base encomenda média, Preço base encomenda grande, é premium?(S ou N), imposto\"\nQualquer outro formato não será aceite");
+                System.out.println("Insira a transportadora no formato: \"Nome, Preço base encomenda pequena, Preço base encomenda média, Preço base encomenda grande, imposto, margem de lucro\"\nQualquer outro formato não será aceite");
                 String line = sc.nextLine().trim();
                 String[] tokens = line.split("\\s*,\\s*");
-                if (tokens.length == 6) {
+                if (tokens.length == 5) {
                     Transportadora transportadora = new Transportadora(tokens[0],
                     Double.parseDouble(tokens[1]),
                     Double.parseDouble(tokens[2]),
                     Double.parseDouble(tokens[3]),
+                    Double.parseDouble(tokens[4]),
                     Double.parseDouble(tokens[5]));
                     transportadoras.adicionaTransportadora(transportadora);
                 }
                 }
                 else if (tipo_transportadora == 2) {
                 
-                    System.out.println("Insira a transportadora no formato: \"Nome, Preço base encomenda pequena, Preço base encomenda média, Preço base encomenda grande, é premium?(S ou N), imposto\"\nQualquer outro formato não será aceite");
+                    System.out.println("Insira a transportadora no formato: \"Nome, Preço base encomenda pequena, Preço base encomenda média, Preço base encomenda grande, imposto, margem de lucro\"\nQualquer outro formato não será aceite");
                     String line = sc.nextLine().trim();
                     String[] tokens = line.split("\\s*,\\s*");
-                    if (tokens.length == 6) {
+                    if (tokens.length == 5) {
                         Transportadora transportadora = new Transportadora_Premium(tokens[0],
                         Double.parseDouble(tokens[1]),
                         Double.parseDouble(tokens[2]),
                         Double.parseDouble(tokens[3]),
+                        Double.parseDouble(tokens[4]),
                         Double.parseDouble(tokens[5]));
                         transportadoras.adicionaTransportadora(transportadora);
                     }

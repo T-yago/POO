@@ -41,7 +41,7 @@ public class Transportadoras {
 
     public void removeTransportadora (String nome) {
             if (this.transportadoras.remove(nome) == null) System.out.println("Não encontrado");
-            else System.out.println(nome + "Removido");
+            else System.out.println(nome + " removido");
     } 
 
     public Transportadoras clone() {
