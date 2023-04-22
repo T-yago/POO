@@ -73,7 +73,7 @@ public class Encomenda implements Serializable {
                 preco += 0.25;
             }
 
-            preco += transportadoras.getTransportadora(a.getTransportadora()).calculaPreco(artigos.size(), preco);
+            preco += transportadoras.getTransportadora(a.getTransportadora()).calculaPreco(artigos.size());
         }
 
         return preco;
