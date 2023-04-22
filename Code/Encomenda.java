@@ -4,12 +4,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.w3c.dom.css.Counter;
+
 import Code.Mala_Premium;
 import Code.Sapatilha_Premium;
 
 public class Encomenda {
-    private int id_Counter = 0;
-    private int id;
     private Collection<Artigo> artigos;
     private static final int PEQUENA = 0;
     private static final int MEDIA = 1;
@@ -46,6 +46,19 @@ public class Encomenda {
         this.data = date;
     }
 
+    public Encomenda(Encomenda encomenda) {
+        this.artigos = new ArrayList<>();
+
+        for (Artigo a: encomenda.artigos) {
+            this.artigos.add(a.clone());
+        }
+
+        this.tamanho = encomenda.tamanho;
+        this.preco = encomenda.preco;
+        this.estado_Encomenda = encomenda.estado_Encomenda;
+        this.data = encomenda.data;
+    }
+
     private double preco(Collection<Artigo> artigos, Transportadoras transportadoras) {
         double preco = 0;
 
@@ -59,23 +72,10 @@ public class Encomenda {
                 preco += 0.25;
             }
 
-            preco += transportadoras.getTransportadora(a.getTransportadora()).calculaPreco(null, preco);
+            preco += transportadoras.getTransportadora(a.getTransportadora()).calculaPreco(artigos.size(), preco);
         }
 
         return preco;
-    }
-
-    public Encomenda(Encomenda encomenda) {
-        this.artigos = new ArrayList<>();
-
-        for (Artigo a: encomenda.artigos) {
-            this.artigos.add(a.clone());
-        }
-
-        this.tamanho = encomenda.tamanho;
-        this.preco = encomenda.preco;
-        this.estado_Encomenda = encomenda.estado_Encomenda;
-        this.data = encomenda.data;
     }
 
     public int getTamanho() {

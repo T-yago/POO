@@ -78,18 +78,17 @@ public class Transportadora implements Serializable {
         this.imposto = imposto;
     }
 
-    public double calculaPreco (Encomenda encomenda, double margemlucro) {
+    public double calculaPreco (int numero_itens, double margemlucro) {
         double valor_base;
-        int tamanho = encomenda.getTamanho();
-        if (tamanho == 1) {
+        if (numero_itens == 1) {
             valor_base = preco_base_pequena;
-        } else if (tamanho >= 2 && tamanho <= 5) {
+        } else if (numero_itens >= 2 && numero_itens <= 5) {
             valor_base = preco_base_media;
         } else {
             valor_base = preco_base_grande;
         }
 
-        if (this.is_premium && encomenda.tem_premium()) valor_base *= 1.5; // premium fee
+        //if (this.is_premium && encomenda.tem_premium()) valor_base *= 1.5; // premium fee
 
         double preco_expedicao = valor_base * margemlucro * (1 + this.imposto) * 0.9;
         return preco_expedicao;
