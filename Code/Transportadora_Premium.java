@@ -1,8 +1,6 @@
 package Code;
 
-import java.io.Serializable;
-
-public class Transportadora_Premium extends Transportadora implements Serializable {
+public class Transportadora_Premium extends Transportadora {
 
     public Transportadora_Premium () {
         super();

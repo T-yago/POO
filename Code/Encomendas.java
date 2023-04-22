@@ -214,6 +214,10 @@ public class Encomendas {
         }
     }
 
+    public void devolerEncomenda(String id_Transportadora, LocalDate tempo) {
+
+    }
+
     public boolean item_Disponivel(Artigo artigo) {
         for (Encomenda e: this.encomendas.values()) {
             
