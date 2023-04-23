@@ -6,8 +6,8 @@ public class Transportadora_Premium extends Transportadora {
         super();
     }
 
-    public Transportadora_Premium (String nome, double preco_base_pequena, double preco_base_media, double preco_base_grande, double imposto, double margemlucro) {
-        super(nome,preco_base_pequena,preco_base_media,preco_base_grande,imposto, margemlucro);
+    public Transportadora_Premium (String nome, double preco_base_pequena, double preco_base_media, double preco_base_grande, double imposto, double margemlucro, int dias_preparacao_encomenda, int dias_envio, int dias_devolucao) {
+        super(nome,preco_base_pequena,preco_base_media,preco_base_grande,imposto, margemlucro,dias_preparacao_encomenda,dias_envio,dias_devolucao);
     }
 
     public Transportadora_Premium (Transportadora_Premium transportadora_Premium) {

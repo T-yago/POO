@@ -72,7 +72,7 @@ public class Main {
                 "\nRemover uma encomenda (16)" +
                 "\nFinalizar uma encomenda (17)" +
                 "\nImprimir uma encomenda (18)" +
-                "\nImprimir todas as encomendas (19)");
+                "\nImprimir todas as encomendas (19)" +
                 "\nSaltar no tempo(20)" +
                 "\nData Atual: " + Main.currentDate);
 
@@ -248,31 +248,37 @@ public class Main {
 
                 if (tipo_transportadora==1) {
 
-                System.out.println("Insira a transportadora no formato: \"Nome, Preço base encomenda pequena, Preço base encomenda média, Preço base encomenda grande, imposto, margem de lucro\"\nQualquer outro formato não será aceite");
+                System.out.println("Insira a transportadora no formato: \"Nome, Preço base encomenda pequena, Preço base encomenda média, Preço base encomenda grande, imposto, margem de lucro, nº de dias que demora a preparacao da encomenda, nº de dias que demora a enviar a encomenda, nº dias máximo que a transportadora aceita para devoluções \"\nQualquer outro formato não será aceite");
                 String line = sc.nextLine().trim();
                 String[] tokens = line.split("\\s*,\\s*");
-                if (tokens.length == 5) {
+                if (tokens.length == 8) {
                     Transportadora transportadora = new Transportadora(tokens[0],
                     Double.parseDouble(tokens[1]),
                     Double.parseDouble(tokens[2]),
                     Double.parseDouble(tokens[3]),
                     Double.parseDouble(tokens[4]),
-                    Double.parseDouble(tokens[5]));
+                    Double.parseDouble(tokens[5]),
+                    Integer.parseInt(tokens[6]),
+                    Integer.parseInt(tokens[7]),
+                    Integer.parseInt(tokens[8]));
                     transportadoras.adicionaTransportadora(transportadora);
                 }
                 }
                 else if (tipo_transportadora == 2) {
                 
-                    System.out.println("Insira a transportadora no formato: \"Nome, Preço base encomenda pequena, Preço base encomenda média, Preço base encomenda grande, imposto, margem de lucro\"\nQualquer outro formato não será aceite");
+                    System.out.println("Insira a transportadora no formato: \"Nome, Preço base encomenda pequena, Preço base encomenda média, Preço base encomenda grande, imposto, margem de lucro,nº de dias que demora a preparacao da encomenda, nº de dias que demora a enviar a encomenda, nº dias máximo que a transportadora aceita para devoluções \"\nQualquer outro formato não será aceite");
                     String line = sc.nextLine().trim();
                     String[] tokens = line.split("\\s*,\\s*");
-                    if (tokens.length == 5) {
+                    if (tokens.length == 8) {
                         Transportadora transportadora = new Transportadora_Premium(tokens[0],
                         Double.parseDouble(tokens[1]),
                         Double.parseDouble(tokens[2]),
                         Double.parseDouble(tokens[3]),
                         Double.parseDouble(tokens[4]),
-                        Double.parseDouble(tokens[5]));
+                        Double.parseDouble(tokens[5]),
+                        Integer.parseInt(tokens[6]),
+                        Integer.parseInt(tokens[7]),
+                        Integer.parseInt(tokens[8]));
                         transportadoras.adicionaTransportadora(transportadora);
                     }
                 }
@@ -290,7 +296,7 @@ public class Main {
             else if (operacao==12) {
                 System.out.println(transportadoras.toString());
             }
-            else if (operacao==20) {
+            else if (operacao==13) {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                 System.out.println("Insira a encomenda no formato: \"Id do Comprador, Codigo, Estado da Encomenda, Data (dd/MM/yyyy), Id do Artigo 1, Id do Artigo 2, ...\"\nQualquer outro formato não será aceite");
 
@@ -376,7 +382,7 @@ public class Main {
             }
 
 
-            else if (operacao==13) {
+            else if (operacao==20) {
                 System.out.println("Saltar x número de dias(1), Saltar para uma data específica(2).");
                 int opcao = sc.nextInt();
                 sc.nextLine();
@@ -392,6 +398,7 @@ public class Main {
                     LocalDate data = LocalDate.parse(sc.nextLine(), formatter);
                     Main.currentDate = data;
                 }
+
             }
 
             System.out.println("\nPretende realizar mais alguma operação:\nNão (Pressione 'q')\nSim (Pressione qualquer outra tecla)");
