@@ -199,6 +199,7 @@ public class Encomendas {
                 for (Encomenda e: encomendas) {
                     e.setEstadoEncomenda(1);
                     e.setData(data_Finalizacao);
+                    System.out.println("Encomenda finalizada" );
                 }
             }
         }

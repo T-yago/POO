@@ -398,7 +398,7 @@ public class Main {
                     LocalDate data = LocalDate.parse(sc.nextLine(), formatter);
                     Main.currentDate = data;
                 }
-
+                encomendas.updateEncomendas(currentDate,transportadoras);
             }
 
             System.out.println("\nPretende realizar mais alguma operação:\nNão (Pressione 'q')\nSim (Pressione qualquer outra tecla)");
