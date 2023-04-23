@@ -35,7 +35,7 @@ public class Mala_Usada extends Mala implements Usados {
     }
 
 
-    //falta ter em conta o material???? e deixar de ter redundancia em b e c
+    //falta ter em conta o material???? 
     public double calculaPreco(double desconto) { 
         return this.getPrecoBase() - (1/this.getDimensao()) * (this.getPrecoBase() / (LocalDate.now().getYear() - (double)this.getAnoLancamento()));
     }

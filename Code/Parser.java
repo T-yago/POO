@@ -93,14 +93,17 @@ public class Parser {
                 String line = sc.nextLine().trim();
 
                     String[] tokens = line.split("\\s*,\\s*");
-                    if (tokens.length == 7) {
+                    if (tokens.length == 10) {
                         if (tokens[0].equals("Transportadora")) {
                         Transportadora transportadora = new Transportadora(tokens[1],
                                                                             Double.parseDouble(tokens[2]),
                                                                             Double.parseDouble(tokens[3]),
                                                                             Double.parseDouble(tokens[4]),
                                                                             Double.parseDouble(tokens[5]),
-                                                                            Double.parseDouble(tokens[6]));
+                                                                            Double.parseDouble(tokens[6]),
+                                                                            Integer.parseInt(tokens[7]),
+                                                                            Integer.parseInt(tokens[8]),
+                                                                            Integer.parseInt(tokens[9]));
                         transportadoras.adicionaTransportadora(transportadora);
                         }
                         else if (tokens[0].equals("Transportadora Premium")) {
@@ -109,7 +112,10 @@ public class Parser {
                                                                             Double.parseDouble(tokens[3]),
                                                                             Double.parseDouble(tokens[4]),
                                                                             Double.parseDouble(tokens[5]),
-                                                                            Double.parseDouble(tokens[6]));
+                                                                            Double.parseDouble(tokens[6]),
+                                                                            Integer.parseInt(tokens[7]),
+                                                                            Integer.parseInt(tokens[8]),
+                                                                            Integer.parseInt(tokens[9]));
                         transportadoras.adicionaTransportadora(transportadora_Premium);
                         
                         }

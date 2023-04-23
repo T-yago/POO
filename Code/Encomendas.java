@@ -7,6 +7,9 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import Code.Main;
+import Code.Transportadora;
+
 public class Encomendas {
     private int id_Counter = 1;
     private Map<LocalDate, Set<Encomenda>> encomendas_Entregues;
@@ -196,6 +199,7 @@ public class Encomendas {
                 for (Encomenda e: encomendas) {
                     e.setEstadoEncomenda(1);
                     e.setData(data_Finalizacao);
+                    System.out.println("Encomenda finalizada" );
                 }
             }
         }
@@ -267,6 +271,23 @@ public class Encomendas {
             }
         }
         return false;
+    }
+
+    void updateEncomendas (LocalDate data, Transportadoras transportadoras) {
+        for (Map.Entry<String,Encomenda> encomendas: this.encomendas.entrySet()) {
+            Encomenda encomenda = encomendas.getValue();
+            String codigo = encomendas.getKey();
+            String nome_transportadora = codigo.substring(0, codigo.length()-12);
+            Transportadora transportadora = transportadoras.getTransportadora(nome_transportadora);
+            if (encomenda.getEstadoEncomenda() == 1 &&  Main.getCurrentDate().minusDays(transportadora.getDiasPreparacaoEncomenda()).isAfter(encomenda.getData())) {
+                encomenda.setEstadoEncomenda(2);
+                encomenda.setData(encomenda.getData().plusDays(transportadora.getDiasPreparacaoEncomenda()));
+            }
+            if (encomenda.getEstadoEncomenda() ==2 && Main.getCurrentDate().minusDays(transportadoras.getTransportadora(nome_transportadora).getDiasEnvio()).isAfter(encomenda.getData())) {
+                encomenda.setEstadoEncomenda(3);
+                encomenda.setData(encomenda.getData().plusDays(transportadora.getDiasEnvio()));
+            }
+        }
     }
 
     public String toString() {
