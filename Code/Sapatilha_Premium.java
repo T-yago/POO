@@ -9,11 +9,11 @@ public class Sapatilha_Premium extends Sapatilha {
         this.setPrecoFinal(this.calculaPreco(this.getDesconto())); 
     }
 
-    public Sapatilha_Premium(int Id_proprietario, String descricao, String marca, double preco, String transportadora, int tamanho, boolean atacadores, String cor, int ano_Lancamento, int desconto) {
-        super(Id_proprietario, descricao, marca, preco, transportadora, tamanho, atacadores, cor, ano_Lancamento, desconto);
+    public Sapatilha_Premium(int Id_proprietario, String descricao, String marca, double preco, Transportadora_Premium transportadora, int tamanho, boolean atacadores, String cor, int ano_Lancamento, int desconto) {
+        super(Id_proprietario, descricao, marca, preco, transportadora.getNome(), tamanho, atacadores, cor, ano_Lancamento, desconto);
         this.setPrecoFinal(this.calculaPreco(this.getDesconto())); 
     }
-
+    
     public Sapatilha_Premium (Sapatilha_Premium sapatilha_premium) {
         super (sapatilha_premium);
         this.setPrecoFinal(sapatilha_premium.getPrecoFinal()); 

@@ -41,52 +41,6 @@ public class Parser {
             e.printStackTrace();
         }
 
-        try {
-            Scanner sc = new Scanner(file_A);
-            
-            while (sc.hasNextLine()) {
-                String line = sc.nextLine().trim();
-
-                String[] tokens = line.split("\\s*,\\s*");
-                if (tokens[0].equals("Sapatilha Nova")) {
-                    Artigo artigo = new Sapatilha_Nova(Integer.parseInt(tokens[1]), tokens[2], tokens[3], Double.parseDouble(tokens[4]), tokens[5], Integer.parseInt(tokens[6]), Boolean.parseBoolean(tokens[7]), tokens[8], Integer.parseInt(tokens[9]), Integer.parseInt(tokens[10]));
-                    artigos.addArtigo(artigo, utilizadores);
-                }
-                else if (tokens[0].equals("Sapatilha Usada")) {
-                    Artigo artigo = new Sapatilha_Usada(Integer.parseInt(tokens[1]), tokens[2], tokens[3], Double.parseDouble(tokens[4]), tokens[5], Integer.parseInt(tokens[6]), Boolean.parseBoolean(tokens[7]), tokens[8], Integer.parseInt(tokens[9]), tokens[10], Byte.parseByte(tokens[11]), Integer.parseInt(tokens[12]));
-                    artigos.addArtigo(artigo, utilizadores);
-                }
-                else if (tokens[0].equals("Sapatilha Premium")) {
-                    Artigo artigo = new Sapatilha_Premium(Integer.parseInt(tokens[1]), tokens[2], tokens[3], Double.parseDouble(tokens[4]), tokens[5], Integer.parseInt(tokens[6]), Boolean.parseBoolean(tokens[7]), tokens[8], Integer.parseInt(tokens[9]), Integer.parseInt(tokens[10]));
-                    artigos.addArtigo(artigo, utilizadores);
-                }
-                else if (tokens[0].equals("T-Shirt Nova")) {
-                    Artigo artigo = new T_Shirt_Nova(Integer.parseInt(tokens[1]), tokens[2], tokens[3], Double.parseDouble(tokens[4]), tokens[5], Integer.parseInt(tokens[6]), Integer.parseInt(tokens[7]));
-                    artigos.addArtigo(artigo, utilizadores);
-                }
-                else if (tokens[0].equals("T-Shirt Usada")) {
-                    Artigo artigo = new T_Shirt_Usada(Integer.parseInt(tokens[1]), tokens[2], tokens[3], Double.parseDouble(tokens[4]), tokens[5], Integer.parseInt(tokens[6]), Integer.parseInt(tokens[7]), Byte.parseByte(tokens[8]), tokens[9]);
-                    artigos.addArtigo(artigo, utilizadores);
-                }
-                else if (tokens[0].equals("Mala Nova")) {
-                    Artigo artigo = new Mala_Nova(Integer.parseInt(tokens[1]), tokens[2], tokens[3], Double.parseDouble(tokens[4]), tokens[5], Double.parseDouble(tokens[6]), tokens[7], Integer.parseInt(tokens[8]));
-                    artigos.addArtigo(artigo, utilizadores);
-                }
-                else if (tokens[0].equals("Mala Usada")) {
-                    Artigo artigo = new Mala_Usada(Integer.parseInt(tokens[1]), tokens[2], tokens[3], Double.parseDouble(tokens[4]), tokens[5], Double.parseDouble(tokens[6]), tokens[7], Integer.parseInt(tokens[8]), tokens[9], Byte.parseByte(tokens[10]));
-                    artigos.addArtigo(artigo, utilizadores);
-                }
-                else if (tokens[0].equals("Mala Premium")) {
-                    Artigo artigo = new Mala_Premium(Integer.parseInt(tokens[1]), tokens[2], tokens[3], Double.parseDouble(tokens[4]), tokens[5], Double.parseDouble(tokens[6]), tokens[7], Integer.parseInt(tokens[8]));
-                    artigos.addArtigo(artigo, utilizadores);
-                }
-            }
-
-            sc.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
         try{
             Scanner sc = new Scanner(file_T);
             while (sc.hasNextLine()) {
@@ -126,6 +80,55 @@ public class Parser {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
+        try {
+            Scanner sc = new Scanner(file_A);
+            
+            while (sc.hasNextLine()) {
+                String line = sc.nextLine().trim();
+
+                String[] tokens = line.split("\\s*,\\s*");
+                if (tokens[0].equals("Sapatilha Nova")) {
+                    Artigo artigo = new Sapatilha_Nova(Integer.parseInt(tokens[1]), tokens[2], tokens[3], Double.parseDouble(tokens[4]), tokens[5], Integer.parseInt(tokens[6]), Boolean.parseBoolean(tokens[7]), tokens[8], Integer.parseInt(tokens[9]), Integer.parseInt(tokens[10]));
+                    artigos.addArtigo(artigo, utilizadores);
+                }
+                else if (tokens[0].equals("Sapatilha Usada")) {
+                    Artigo artigo = new Sapatilha_Usada(Integer.parseInt(tokens[1]), tokens[2], tokens[3], Double.parseDouble(tokens[4]), tokens[5], Integer.parseInt(tokens[6]), Boolean.parseBoolean(tokens[7]), tokens[8], Integer.parseInt(tokens[9]), tokens[10], Byte.parseByte(tokens[11]), Integer.parseInt(tokens[12]));
+                    artigos.addArtigo(artigo, utilizadores);
+                }
+                else if (tokens[0].equals("Sapatilha Premium")) {
+                    Transportadora trans = transportadoras.getTransportadora(tokens[5]);
+                    Artigo artigo = new Sapatilha_Premium(Integer.parseInt(tokens[1]), tokens[2], tokens[3], Double.parseDouble(tokens[4]), (Transportadora_Premium) trans, Integer.parseInt(tokens[6]), Boolean.parseBoolean(tokens[7]), tokens[8], Integer.parseInt(tokens[9]), Integer.parseInt(tokens[10]));
+                    artigos.addArtigo(artigo, utilizadores);
+                }
+                else if (tokens[0].equals("T-Shirt Nova")) {
+                    Artigo artigo = new T_Shirt_Nova(Integer.parseInt(tokens[1]), tokens[2], tokens[3], Double.parseDouble(tokens[4]), tokens[5], Integer.parseInt(tokens[6]), Integer.parseInt(tokens[7]));
+                    artigos.addArtigo(artigo, utilizadores);
+                }
+                else if (tokens[0].equals("T-Shirt Usada")) {
+                    Artigo artigo = new T_Shirt_Usada(Integer.parseInt(tokens[1]), tokens[2], tokens[3], Double.parseDouble(tokens[4]), tokens[5], Integer.parseInt(tokens[6]), Integer.parseInt(tokens[7]), Byte.parseByte(tokens[8]), tokens[9]);
+                    artigos.addArtigo(artigo, utilizadores);
+                }
+                else if (tokens[0].equals("Mala Nova")) {
+                    Artigo artigo = new Mala_Nova(Integer.parseInt(tokens[1]), tokens[2], tokens[3], Double.parseDouble(tokens[4]), tokens[5], Double.parseDouble(tokens[6]), tokens[7], Integer.parseInt(tokens[8]));
+                    artigos.addArtigo(artigo, utilizadores);
+                }
+                else if (tokens[0].equals("Mala Usada")) {
+                    Artigo artigo = new Mala_Usada(Integer.parseInt(tokens[1]), tokens[2], tokens[3], Double.parseDouble(tokens[4]), tokens[5], Double.parseDouble(tokens[6]), tokens[7], Integer.parseInt(tokens[8]), tokens[9], Byte.parseByte(tokens[10]));
+                    artigos.addArtigo(artigo, utilizadores);
+                }
+                else if (tokens[0].equals("Mala Premium")) {
+                    Transportadora trans = transportadoras.getTransportadora(tokens[5]);
+                    Artigo artigo = new Mala_Premium(Integer.parseInt(tokens[1]), tokens[2], tokens[3], Double.parseDouble(tokens[4]), (Transportadora_Premium)trans, Double.parseDouble(tokens[6]), tokens[7], Integer.parseInt(tokens[8]));
+                    artigos.addArtigo(artigo, utilizadores);
+                }
+            }
+
+            sc.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
 
         try {
             Scanner sc = new Scanner(file_E);

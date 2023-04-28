@@ -50,6 +50,7 @@ public class Transportadora implements Serializable {
         this.dias_devolucao = transportadora.dias_devolucao;
     }
 
+
     public String getNome () {
         return this.nome;
     }

@@ -146,8 +146,14 @@ public class Main {
                     String line = sc.nextLine().trim();
                     String[] tokens = line.split("\\s*,\\s*");
                     if (tokens.length==10) {
-                        Artigo artigo = new Sapatilha_Premium(Integer.parseInt(tokens[0]), tokens[1], tokens[2], Double.parseDouble(tokens[3]), tokens[4], Integer.parseInt(tokens[5]), Boolean.parseBoolean(tokens[6]), tokens[7], Integer.parseInt(tokens[8]), Integer.parseInt(tokens[9]));
-                        artigos.addArtigo(artigo, utilizadores);
+                        Transportadora transp = transportadoras.getTransportadora(tokens[4]);
+                            if (transp instanceof Transportadora_Premium) {
+                                Artigo artigo = new Sapatilha_Premium(Integer.parseInt(tokens[0]), tokens[1], tokens[2], Double.parseDouble(tokens[3]), (Transportadora_Premium) transp, Integer.parseInt(tokens[5]), Boolean.parseBoolean(tokens[6]), tokens[7], Integer.parseInt(tokens[8]), Integer.parseInt(tokens[9]));
+                                artigos.addArtigo(artigo, utilizadores);
+                            }
+                            else {
+                                System.out.println("Não é possível enviar uma artigo premium através de uma transportadora que não seja premium.");
+                            }
                     }
                     else {
                         System.out.println("Os argumentos inseridos são inferiores/superiores aos necessários para criar uma Sapatilha Nova.");
@@ -211,8 +217,11 @@ public class Main {
                     String line = sc.nextLine().trim();
                     String[] tokens = line.split("\\s*,\\s*");
                     if (tokens.length==8) {
-                        Artigo artigo = new Mala_Premium(Integer.parseInt(tokens[0]), tokens[1], tokens[2], Double.parseDouble(tokens[3]), tokens[4], Double.parseDouble(tokens[5]), tokens[6], Integer.parseInt(tokens[7]));
-                        artigos.addArtigo(artigo, utilizadores);
+                        Transportadora transp = transportadoras.getTransportadora(tokens[4]);
+                        if (transp instanceof Transportadora_Premium) {
+                            Artigo artigo = new Mala_Premium(Integer.parseInt(tokens[0]), tokens[1], tokens[2], Double.parseDouble(tokens[3]), (Transportadora_Premium) transp, Double.parseDouble(tokens[5]), tokens[6], Integer.parseInt(tokens[7]));
+                            artigos.addArtigo(artigo, utilizadores);
+                        }
                     }
                     else {
                         System.out.println("Os argumentos inseridos são inferiores/superiores aos necessários para criar uma Sapatilha Premium.");

@@ -7,9 +7,9 @@ public class Mala_Premium extends Mala {
         this.setPrecoFinal(0);
     }
 
-    public Mala_Premium (int Id_proprietario, String descricao, String marca, double preco, String transportadora, double dimensao, String material, int ano_Lancamento) {
-        super (Id_proprietario, descricao, marca, preco, transportadora, dimensao, material, ano_Lancamento);
-        this.setPrecoFinal(this.calculaPreco(0));
+    public Mala_Premium (int Id_proprietario, String descricao, String marca, double preco, Transportadora_Premium transportadora, double dimensao, String material, int ano_Lancamento) {
+            super (Id_proprietario, descricao, marca, preco, transportadora.getNome(), dimensao, material, ano_Lancamento);
+            this.setPrecoFinal(this.calculaPreco(0));
     }
 
     public Mala_Premium (Mala_Premium mala_premium) {

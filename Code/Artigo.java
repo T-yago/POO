@@ -20,6 +20,7 @@ public abstract class Artigo implements Serializable {
     }
 
     public Artigo(int Id_proprietario, String descricao, String marca, double preco, String transportadora) {
+        
         this.descricao = descricao;
         this.marca = marca;
         this.codigo = String.format("%06d", Id_proprietario) + String.format("%06d", codigo_counter++);
