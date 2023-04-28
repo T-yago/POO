@@ -3,14 +3,8 @@ package Code;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Scanner;
-
-import javax.swing.text.DateFormatter;
-
-import Code.Transportadora_Premium;
 
 public class Main {
     private static LocalDate currentDate = LocalDate.now();
