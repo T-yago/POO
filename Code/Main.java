@@ -292,7 +292,7 @@ public class Main {
             }
             else if (operacao==13) {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                System.out.println("Insira a encomenda no formato: \"Id do Comprador, Codigo, Estado da Encomenda, Data (dd/MM/yyyy), Id do Artigo 1, Id do Artigo 2, ...\"\nQualquer outro formato não será aceite");
+                System.out.println("Insira a encomenda no formato: \"Id do Comprador, Estado da Encomenda, Data (dd/MM/yyyy), Id do Artigo 1, Id do Artigo 2, ...\"\nQualquer outro formato não será aceite");
 
                 String line = sc.nextLine().trim();
                 String[] tokens = line.split("\\s*,\\s*");
@@ -306,7 +306,8 @@ public class Main {
                         }
                     }
 
-                    Encomenda encomenda = new Encomenda(conjunto_Artigos, tokens[1], Integer.parseInt(tokens[2]), LocalDate.parse(tokens[3], formatter), transportadoras);
+                    String defaultVAlue = "DefaultValue";
+                    Encomenda encomenda = new Encomenda(conjunto_Artigos, defaultVAlue, Integer.parseInt(tokens[1]), LocalDate.parse(tokens[2], formatter), transportadoras);
                     encomendas.addEncomenda(encomenda, Integer.parseInt(tokens[0]), transportadoras, utilizadores);
                 }
                 else {

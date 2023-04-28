@@ -1,9 +1,10 @@
 package Code;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Artigos {
+public class Artigos implements Serializable {
     private Map<Integer, Map<String,Artigo>> artigos;
 
     public Artigos() {

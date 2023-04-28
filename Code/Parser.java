@@ -141,7 +141,9 @@ public class Parser {
                     for (int i = 4;i<tokens.length;i++) {
                         artigos_Encomenda.add(artigos.getArtigo(tokens[i]));
                     }
-                    Encomenda encomenda = new Encomenda(artigos_Encomenda, tokens[0], Integer.parseInt(tokens[1]), LocalDate.parse(tokens[3], formatter), transportadoras);
+
+                    String defaultVAlue = "DefaultValue";
+                    Encomenda encomenda = new Encomenda(artigos_Encomenda, defaultVAlue, Integer.parseInt(tokens[0]), LocalDate.parse(tokens[2], formatter), transportadoras);
                     encomendas.addEncomenda(encomenda, Integer.parseInt(tokens[2]), transportadoras, utilizadores);
                 }
             }
