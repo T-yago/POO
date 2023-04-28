@@ -1,7 +1,5 @@
 package Code;
 
-import java.time.LocalDate;
-
 public class Sapatilha_Premium extends Sapatilha {
     
     public Sapatilha_Premium () {

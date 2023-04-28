@@ -55,20 +55,6 @@ public class Sapatilha_Usada extends Sapatilha implements Usados {
         this.numero_Donos = numero_Donos;
     }
 
-    /*
-     
-    public double calculaPreco(double preco_Base, int numero_Donos, int desconto) {
-        double preco_Final = preco_Base;
-        if (estado==4) preco_Final = preco_Final/numero_Donos * 0.85;
-        else if (estado==3) preco_Final = preco_Final/numero_Donos * 0.60;
-        else if (estado==2) preco_Final = preco_Final/numero_Donos * 0.45;
-        else if (estado==1) preco_Final = preco_Final/numero_Donos * 0.25;
-        return preco_Final;
-    }
-     
-    
-    */
-
     public double calculaPreco(double desconto) {
         return this.getPrecoBase() / (double) this.get_numero_Donos() * desconto/100;
     }
