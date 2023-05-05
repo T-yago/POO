@@ -1,10 +1,11 @@
 package Code;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class Transportadoras {
+public class Transportadoras implements Serializable {
 
     private Map <String,Transportadora> transportadoras;
 

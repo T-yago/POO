@@ -1,7 +1,5 @@
 package Code;
 
-import java.io.Serializable;
-
 public abstract class Mala extends Artigo {
     private double dimensao;
     private String material;

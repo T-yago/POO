@@ -1,5 +1,6 @@
 package Code;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashMap;
@@ -7,10 +8,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import Code.Main;
-import Code.Transportadora;
-
-public class Encomendas {
+public class Encomendas implements Serializable {
     private int id_Counter = 1;
     private Map<LocalDate, Set<Encomenda>> encomendas_Entregues;
     private Map<String, Encomenda> encomendas;
