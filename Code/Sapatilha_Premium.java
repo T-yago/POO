@@ -23,6 +23,6 @@ public class Sapatilha_Premium extends Sapatilha {
 
     public double calculaPreco(double desconto) {
         double preco_base = this.getPrecoBase();
-        return  preco_base + (preco_base + (this.getAnoLancamento()-Main.getCurrentDate().getYear())*0.1);
+        return  preco_base + (preco_base + (this.getAnoLancamento()-Menu.getCurrentDate().getYear()*0.1));
     }
 }

@@ -17,7 +17,14 @@ import java.util.Set;
 
 public class Parser {
 
-    public static void parseText(String file_Utilizadores, String file_Artigos, String file_Transportadoras, String file_Encomendas, Utilizadores utilizadores, Artigos artigos, Transportadoras transportadoras, Encomendas encomendas) {
+    public static void parseText(String file_Utilizadores, String file_Artigos, String file_Transportadoras, String file_Encomendas,Vintage vintage) {
+        
+        Utilizadores utilizadores = vintage.getUtilizadores();
+        Artigos artigos = vintage.getArtigos();
+        Transportadoras transportadoras = vintage.getTransportadoras();
+        Encomendas encomendas = vintage.getEncomendas();
+        
+        System.out.println();
         File file_U = new File(file_Utilizadores);
         File file_A = new File(file_Artigos);
         File file_T = new File (file_Transportadoras);
@@ -155,12 +162,22 @@ public class Parser {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
+        vintage.setArtigos(artigos);
+        vintage.setEncomendas(encomendas);
+        vintage.setTransportadoras(transportadoras);
+        vintage.setUtilizadores(utilizadores);
     }
 
-    public static void parseBinary(String file_Utilizadores, Utilizadores utilizadores, Artigos artigos, Encomendas encomendas, Transportadoras transportadoras) {
+    public static void parseBinary(String file_Utilizadores, Vintage vintage) {
         FileInputStream fileIn = null;
         BufferedInputStream bufferedIn = null;
         ObjectInputStream in = null;
+
+        Utilizadores utilizadores = vintage.getUtilizadores();
+        Artigos artigos = vintage.getArtigos();
+        Transportadoras transportadoras = vintage.getTransportadoras();
+        Encomendas encomendas = vintage.getEncomendas();
 
         try {
             fileIn = new FileInputStream(file_Utilizadores);
@@ -252,11 +269,20 @@ public class Parser {
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+        vintage.setArtigos(artigos);
+        vintage.setEncomendas(encomendas);
+        vintage.setTransportadoras(transportadoras);
+        vintage.setUtilizadores(utilizadores);
     }
 
-    public static void storeBinary(Utilizadores utilizadores, Artigos artigos, Transportadoras transportadoras, Encomendas encomendas) {
+    public static void storeBinary(Vintage vintage) {
         File file = null;
         ObjectOutputStream out = null;
+
+        Utilizadores utilizadores = vintage.getUtilizadores();
+        Artigos artigos = vintage.getArtigos();
+        Transportadoras transportadoras = vintage.getTransportadoras();
+        Encomendas encomendas = vintage.getEncomendas();
 
         try {
             file = new File("Code/Dados/Older_Save/input.obj");
@@ -347,5 +373,9 @@ public class Parser {
                 e.printStackTrace();
             }
         }
+        vintage.setArtigos(artigos);
+        vintage.setEncomendas(encomendas);
+        vintage.setTransportadoras(transportadoras);
+        vintage.setUtilizadores(utilizadores);
     }
 }

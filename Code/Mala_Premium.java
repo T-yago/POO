@@ -22,7 +22,7 @@ public class Mala_Premium extends Mala {
     }
 
     public double calculaPreco(double desconto) {
-        return this.getPrecoBase() + (1/this.getDimensao()) * (this.getPrecoBase() / (double) (Main.getCurrentDate().getYear() - this.getAnoLancamento()));
+        return this.getPrecoBase() + (1/this.getDimensao()) * (this.getPrecoBase() / (double) (Menu.getCurrentDate().getYear() - this.getAnoLancamento()));
     }
 
 }
