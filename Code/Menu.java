@@ -378,7 +378,10 @@ char stopOperations = 'c';
                     System.out.println("Insira a data para a qual quer saltar (dia/mes/ano):");
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                     LocalDate data = LocalDate.parse(sc.nextLine(), formatter);
+                    if (data.isBefore (Menu.currentDate)){ System.out.println("Não é possível regressar no tempo!");}
+                    else {
                     Menu.currentDate = data;
+                    }
                 }
                 encomendas.updateEncomendas(currentDate,transportadoras);
             }
