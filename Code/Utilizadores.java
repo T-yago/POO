@@ -56,6 +56,18 @@ public class Utilizadores implements Serializable {
         return false;
     }
 
+    public Fatura getFatura (int id_fatura) {
+        for (Utilizador utilizador : utilizadores.values()) {
+            for (Fatura fatura : utilizador.faturas) {
+                if (fatura.getCodigo() == id_fatura) {
+                    return fatura;
+                }
+            }
+        }
+        System.out.println("\nFatura não existe.");
+        return null;
+    }
+
     public String toString() {
         String s = "";
 

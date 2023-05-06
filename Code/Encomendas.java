@@ -303,7 +303,7 @@ public class Encomendas implements Serializable {
         String encomendas = "";
 
         for (Encomenda e: this.encomendas.values()) {
-            encomendas += e.toString() + "\n\n";
+            encomendas += e.toString() + "\n\n\n";
         }
 
         return encomendas;

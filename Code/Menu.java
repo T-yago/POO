@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Scanner;
+import java.util.List;
 
 public class Menu {
 
@@ -22,6 +23,9 @@ public class Menu {
     Artigos artigos = vintage.getArtigos();
     Transportadoras transportadoras = vintage.getTransportadoras();
     Encomendas encomendas = vintage.getEncomendas();
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
 
 char stopOperations = 'c';
 
@@ -45,8 +49,10 @@ char stopOperations = 'c';
                 "\nFinalizar uma encomenda (17)" +
                 "\nImprimir uma encomenda (18)" +
                 "\nImprimir todas as encomendas (19)" +
-                "\nSaltar no tempo(20)" +
-                "\nData Atual: " + Menu.currentDate);
+                "\nImprimir todas as faturas de um utilizador(20)" +
+                "\nImprimir uma fatura (21)" +
+                "\nSaltar no tempo(22)" +
+                "\nData Atual: " + Menu.currentDate.format(formatter));
 
             int operacao = sc.nextInt();
             sc.nextLine();
@@ -278,7 +284,6 @@ char stopOperations = 'c';
                 System.out.println(transportadoras.toString());
             }
             else if (operacao==13) {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                 System.out.println("Insira a encomenda no formato: \"Id do Comprador, Estado da Encomenda, Data (dd/MM/yyyy), Id do Artigo 1, Id do Artigo 2, ...\"\nQualquer outro formato não será aceite");
 
                 String line = sc.nextLine().trim();
@@ -342,7 +347,6 @@ char stopOperations = 'c';
                 String id_Encomenda = sc.nextLine().trim();
                 System.out.println("Insira a data na qual finalizou a compra no formato \"dd/MM/yyyy\":");
                 String data = sc.nextLine().trim();
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                 encomendas.finalizarEncomenda(id_Encomenda, LocalDate.parse(data, formatter), transportadoras, utilizadores);
             }
             else if (operacao==18) {
@@ -363,8 +367,24 @@ char stopOperations = 'c';
                 System.out.println("\n" + encomendas.toString());
             }
 
+            else if (operacao == 20) {
+                System.out.println("Insira o Id do user para o qual mostrar as faturas:");
+                int id_user = Integer.parseInt(sc.nextLine());
+                Utilizador user = utilizadores.getUtilizador(id_user);
+                List<Fatura> faturas = user.getFaturas();
+                for (Fatura fatura : faturas) {
+                    System.out.println(fatura.toString());
+                }
+            }
 
-            else if (operacao==20) {
+            else if (operacao == 21) {
+                System.out.println("Insira o Id da fatura a procurar:");
+                int id_fatura = Integer.parseInt(sc.nextLine());
+                System.out.println(utilizadores.getFatura(id_fatura));
+            }
+
+
+            else if (operacao==22) {
                 System.out.println("Saltar x número de dias(1), Saltar para uma data específica(2).");
                 int opcao = sc.nextInt();
                 sc.nextLine();
@@ -376,7 +396,6 @@ char stopOperations = 'c';
                 }
                 else if (opcao == 2) {
                     System.out.println("Insira a data para a qual quer saltar (dia/mes/ano):");
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                     LocalDate data = LocalDate.parse(sc.nextLine(), formatter);
                     if (data.isBefore (Menu.currentDate)){ System.out.println("Não é possível regressar no tempo!");}
                     else {

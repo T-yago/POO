@@ -160,7 +160,7 @@ public class Encomenda implements Serializable {
                             "\nPreço: " + this.preco +
                             "\nEstado Encomenda: " + this.estado_Encomenda +
                             "\nData: " + this.data +
-                            "\nArtigos: \n";
+                            "\nArtigos: \n\n";
 
         for (Artigo a: this.artigos) {
             encomenda += a.toString();
