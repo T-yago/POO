@@ -343,7 +343,7 @@ char stopOperations = 'c';
                 System.out.println("Insira a data na qual finalizou a compra no formato \"dd/MM/yyyy\":");
                 String data = sc.nextLine().trim();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                encomendas.finalizarEncomenda(id_Encomenda, LocalDate.parse(data, formatter), transportadoras);
+                encomendas.finalizarEncomenda(id_Encomenda, LocalDate.parse(data, formatter), transportadoras, utilizadores);
             }
             else if (operacao==18) {
                 System.out.println("Insira o id da encomenda:");

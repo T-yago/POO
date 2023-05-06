@@ -201,12 +201,12 @@ public class Encomendas implements Serializable {
                     for (int id_vendedor : vendasPorVendedor.keySet()) {
                         Utilizador vendedor = utilizadores.getUtilizador(id_vendedor);
                         List<Artigo> artigos = vendasPorVendedor.get(id_vendedor);
-                        Fatura fatura = new Fatura(comprador, vendedor, artigos);
-                        vendedor.addFatura(fatura);
+                        Fatura_Vendedor fatura_Vendedor = new Fatura_Vendedor(comprador, vendedor, artigos);
+                        vendedor.addFatura(fatura_Vendedor);
                     }
 
-                    Fatura faturaComprador = new Fatura(comprador, null,new ArrayList<>(e.getArtigos()));
-                    comprador.addFatura(faturaComprador);
+                    Fatura_Comprador fatura_Comprador = new Fatura_Comprador(comprador,vendasPorVendedor);
+                    comprador.addFatura(fatura_Comprador);
                 }
             }
         }
