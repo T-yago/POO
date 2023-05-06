@@ -6,20 +6,18 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Encomendas implements Serializable {
     private int id_Counter = 1;
-    private Map<LocalDate, Set<Encomenda>> encomendas_Entregues;
     private Map<String, Encomenda> encomendas;
 
     public Encomendas() {
-        this.encomendas_Entregues = new HashMap<>();
         this.encomendas = new HashMap<>();
     }
 
     public Encomendas(Map<Integer, Encomenda> encomendas, Transportadoras transportadoras, Utilizadores utilizadores) {
-        this.encomendas_Entregues = new HashMap<>();
         this.encomendas = new HashMap<>();
 
         for (Map.Entry<Integer, Encomenda> e: encomendas.entrySet()) {
@@ -28,17 +26,6 @@ public class Encomendas implements Serializable {
     }
 
     public Encomendas(Encomendas encomendas) {
-        this.encomendas_Entregues = new HashMap<>();
-
-        for (Map.Entry<LocalDate, Set<Encomenda>> e: encomendas.encomendas_Entregues.entrySet()) {
-            Set<Encomenda> conjunto_Encomendas = new HashSet<>();
-
-            for (Encomenda encomenda: e.getValue()) {
-                conjunto_Encomendas.add(encomenda.clone());
-            }
-            this.encomendas_Entregues.put(e.getKey(), conjunto_Encomendas);
-        }
-
         this.encomendas = new HashMap<>();
 
         for (Map.Entry<String, Encomenda> e: encomendas.encomendas.entrySet()) {
@@ -189,19 +176,43 @@ public class Encomendas implements Serializable {
         }
     }
 
-    public void finalizarEncomenda(String id_Encomenda, LocalDate data_Finalizacao, Transportadoras transportadoras) {
+    public void finalizarEncomenda(String id_Encomenda, LocalDate data_Finalizacao, Transportadoras transportadoras, Utilizadores utilizadores) {
         if (existeEncomenda(id_Encomenda, transportadoras) && encomendaPendente(id_Encomenda, transportadoras)) {
-
+    
             Collection<Encomenda> encomendas;
             if ((encomendas = this.getEncomenda(id_Encomenda, transportadoras))!=null) {
+                Map<Integer, List<Artigo>> vendasPorVendedor = new HashMap<>();
+                int id_comprador = -1;
                 for (Encomenda e: encomendas) {
                     e.setEstadoEncomenda(1);
                     e.setData(data_Finalizacao);
-                    System.out.println("Encomenda finalizada" );
+                    id_comprador = e.getIdComprador();
+
+                    // dividir artigos vendidos em diferentes vendas por vendedor 
+                    for (Artigo artigo : e.getArtigos()) {
+                        int id_vendedor = artigo.getIdVendedor();
+                        vendasPorVendedor.putIfAbsent(id_vendedor, new ArrayList<>());
+                        vendasPorVendedor.get(id_vendedor).add(artigo);
+                    }
+                    if (id_comprador != -1) {
+
+                    Utilizador comprador = utilizadores.getUtilizador(id_comprador);
+                    List<Fatura> faturas = new ArrayList<>();
+                    for (int id_vendedor : vendasPorVendedor.keySet()) {
+                        Utilizador vendedor = utilizadores.getUtilizador(id_vendedor);
+                        List<Artigo> artigos = vendasPorVendedor.get(id_vendedor);
+                        Fatura fatura = new Fatura(comprador, vendedor, artigos);
+                        vendedor.addFatura(fatura);
+                    }
+
+                    Fatura faturaComprador = new Fatura(comprador, null,new ArrayList<>(e.getArtigos()));
+                    comprador.addFatura(faturaComprador);
                 }
             }
         }
     }
+}
+    
 
     public void expedirEncomenda(String id_Encomenda, LocalDate data_Finalizacao, Transportadoras transportadoras) {
         if (existeEncomenda(id_Encomenda, transportadoras) && encomendaFinalizada(id_Encomenda, transportadoras)) {
@@ -277,11 +288,11 @@ public class Encomendas implements Serializable {
             String codigo = encomendas.getKey();
             String nome_transportadora = codigo.substring(0, codigo.length()-12);
             Transportadora transportadora = transportadoras.getTransportadora(nome_transportadora);
-            if (encomenda.getEstadoEncomenda() == 1 &&  Main.getCurrentDate().minusDays(transportadora.getDiasPreparacaoEncomenda()).isAfter(encomenda.getData())) {
+            if (encomenda.getEstadoEncomenda() == 1 &&  Menu.getCurrentDate().minusDays(transportadora.getDiasPreparacaoEncomenda()).isAfter(encomenda.getData())) {
                 encomenda.setEstadoEncomenda(2);
                 encomenda.setData(encomenda.getData().plusDays(transportadora.getDiasPreparacaoEncomenda()));
             }
-            if (encomenda.getEstadoEncomenda() ==2 && Main.getCurrentDate().minusDays(transportadoras.getTransportadora(nome_transportadora).getDiasEnvio()).isAfter(encomenda.getData())) {
+            if (encomenda.getEstadoEncomenda() ==2 && Menu.getCurrentDate().minusDays(transportadoras.getTransportadora(nome_transportadora).getDiasEnvio()).isAfter(encomenda.getData())) {
                 encomenda.setEstadoEncomenda(3);
                 encomenda.setData(encomenda.getData().plusDays(transportadora.getDiasEnvio()));
             }

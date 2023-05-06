@@ -60,6 +60,10 @@ public abstract class Artigo implements Serializable {
         return this.transportadora;
     }
 
+    public int getIdVendedor() {
+        return Integer.parseInt(this.codigo.substring(this.codigo.length()-12, this.codigo.length()-6));
+    }
+
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
