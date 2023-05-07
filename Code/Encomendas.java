@@ -8,6 +8,9 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
+import java.time.temporal.ChronoUnit;
+
+
 
 public class Encomendas implements Serializable {
     private int id_Counter = 1;
@@ -185,7 +188,8 @@ public class Encomendas implements Serializable {
                 int id_comprador = -1;
                 for (Encomenda e: encomendas) {
                     e.setEstadoEncomenda(1);
-                    e.setData(data_Finalizacao);
+                    e.setData(data_Finalizacao); //não faria sentido ter data_criacao e data_finalizacao?
+                    id_Encomenda = e.getIdEncomenda();
                     id_comprador = e.getIdComprador();
 
                     // dividir artigos vendidos em diferentes vendas por vendedor 
@@ -201,17 +205,34 @@ public class Encomendas implements Serializable {
                     for (int id_vendedor : vendasPorVendedor.keySet()) {
                         Utilizador vendedor = utilizadores.getUtilizador(id_vendedor);
                         List<Artigo> artigos = vendasPorVendedor.get(id_vendedor);
-                        Fatura_Vendedor fatura_Vendedor = new Fatura_Vendedor(comprador, vendedor, artigos);
+                        Fatura_Vendedor fatura_Vendedor = new Fatura_Vendedor(comprador, vendedor, artigos,id_Encomenda);
                         vendedor.addFatura(fatura_Vendedor);
                     }
 
-                    Fatura_Comprador fatura_Comprador = new Fatura_Comprador(comprador,vendasPorVendedor);
+                    Fatura_Comprador fatura_Comprador = new Fatura_Comprador(comprador,vendasPorVendedor,id_Encomenda);
                     comprador.addFatura(fatura_Comprador);
+                    }
                 }
             }
         }
     }
-}
+
+    public void devolveEncomenda (String id_Encomenda, Transportadoras transportadoras, Utilizadores utilizadores) {
+        if (existeEncomenda(id_Encomenda, transportadoras)) {
+
+            Collection<Encomenda> encomendas;
+            if ((encomendas = this.getEncomenda(id_Encomenda, transportadoras))!=null) {
+
+                for (Encomenda encomenda : encomendas) {
+                    if (ChronoUnit.DAYS.between(encomenda.getData(), Menu.getCurrentDate()) <= 2) {
+                        utilizadores.removeFaturas(id_Encomenda);  
+                        this.encomendas.remove(encomenda.getCodigo(),encomenda);                      
+                    }
+                }
+            }
+        }
+    }
+    
     
 
     public void expedirEncomenda(String id_Encomenda, LocalDate data_Finalizacao, Transportadoras transportadoras) {
@@ -227,9 +248,6 @@ public class Encomendas implements Serializable {
         }
     }
 
-    public void devolerEncomenda(String id_Transportadora, LocalDate tempo) {
-
-    }
 
     public boolean item_Disponivel(Artigo artigo) {
         for (Encomenda e: this.encomendas.values()) {

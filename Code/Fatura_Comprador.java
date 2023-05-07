@@ -19,8 +19,8 @@ public class Fatura_Comprador extends Fatura {
         this.vendasPorVendedor = new HashMap<>();
     }
 
-    public Fatura_Comprador(Utilizador comprador, Map<Integer, List<Artigo>> vendasPorVendedor) {
-        super(comprador.clone());
+    public Fatura_Comprador(Utilizador comprador, Map<Integer, List<Artigo>> vendasPorVendedor, String id_Encomenda) {
+        super(comprador.clone(),id_Encomenda);
         this.vendasPorVendedor = new HashMap<>();
         for (Integer id_vendedor : vendasPorVendedor.keySet()) {
             List<Artigo> artigos = vendasPorVendedor.get(id_vendedor);

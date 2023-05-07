@@ -68,6 +68,20 @@ public class Utilizadores implements Serializable {
         return null;
     }
 
+    public void removeFaturas (String id_Encomenda) {
+
+        for (Utilizador utilizador : utilizadores.values()) {
+            for (Fatura fatura : utilizador.getFaturas()) {
+                System.out.println(fatura.getIdEncomenda());
+                if (fatura.getIdEncomenda().equals(id_Encomenda) ) {
+                    utilizador.faturas.remove(fatura);
+                    System.out.println("removeu3");
+
+                }
+            }
+        }
+    }
+
     public String toString() {
         String s = "";
 

@@ -83,6 +83,10 @@ public class Encomenda implements Serializable {
         return this.tamanho;
     }
 
+    public String getCodigo() {
+        return this.codigo;
+    }
+
     public double getPreco() {
         return this.preco;
     }
@@ -97,6 +101,10 @@ public class Encomenda implements Serializable {
 
     public int getIdComprador() {
         return Integer.parseInt(this.codigo.substring(this.codigo.length()-12, this.codigo.length()-6));
+    }
+
+    public String getIdEncomenda() {
+        return this.codigo.substring(this.codigo.length()-12, this.codigo.length());
     }
 
     public void setEstadoEncomenda(int estado_Encomenda) {

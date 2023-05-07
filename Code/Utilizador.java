@@ -80,6 +80,10 @@ public class Utilizador implements Serializable {
         this.faturas.add (fatura);
     }
 
+    public void removeFatura (Fatura fatura) {
+        this.faturas.remove(fatura);
+    }
+
     public void setEmail(String email) {
         this.email = email;
     }
