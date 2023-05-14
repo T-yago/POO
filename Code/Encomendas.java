@@ -24,7 +24,7 @@ public class Encomendas implements Serializable {
         this.encomendas = new HashMap<>();
 
         for (Map.Entry<Integer, Encomenda> e: encomendas.entrySet()) {
-            addEncomenda(e.getValue(), e.getKey(), transportadoras, utilizadores);
+            addEncomenda(e.getValue(), e.getKey(), transportadoras, utilizadores, e.getValue().getEstadoEncomenda());
         }
     }
 
@@ -66,7 +66,7 @@ public class Encomendas implements Serializable {
         this.id_Counter = numero_Encomendas;
     }
 
-    public void addEncomenda(Encomenda encomenda, int id_Comprador, Transportadoras transportadoras, Utilizadores utilizadores) {
+    public void addEncomenda(Encomenda encomenda, int id_Comprador, Transportadoras transportadoras, Utilizadores utilizadores, int estado) {
         if (utilizadores.existeUtilizador(id_Comprador)) {
             Collection<Artigo> artigos = encomenda.getArtigos();
 
@@ -93,7 +93,7 @@ public class Encomendas implements Serializable {
 
             map_Transportadoras.forEach((String key, Collection<Artigo> a) -> {
                                                                                 String id = key + String.format("%06d", id_Comprador) + String.format("%06d", id_Counter);
-                                                                                this.encomendas.put(id, new Encomenda(a, id, encomenda.getEstadoEncomenda(), encomenda.getData(), transportadoras));
+                                                                                this.encomendas.put(id, new Encomenda(a, id, estado, encomenda.getData(), transportadoras));
                                                                             });
             id_Counter++;
         }
@@ -180,38 +180,38 @@ public class Encomendas implements Serializable {
         }
     }
 
-    public void finalizarEncomenda(String id_Encomenda, LocalDate data_Finalizacao, Transportadoras transportadoras, Utilizadores utilizadores) {
-        if (existeEncomenda(id_Encomenda, transportadoras) && encomendaPendente(id_Encomenda, transportadoras)) {
-    
-            Collection<Encomenda> encomendas;
-            if ((encomendas = this.getEncomenda(id_Encomenda, transportadoras))!=null) {
-                Map<Integer, List<Artigo>> vendasPorVendedor = new HashMap<>();
-                int id_comprador = -1;
-                for (Encomenda e: encomendas) {
-                    e.setEstadoEncomenda(1);
-                    e.setData(data_Finalizacao); //não faria sentido ter data_criacao e data_finalizacao?
-                    id_Encomenda = e.getIdEncomenda();
-                    id_comprador = e.getIdComprador();
+    public void finalizarEncomenda(String id_Encomenda, LocalDate data_Finalizacao, Transportadoras transportadoras, Utilizadores utilizadores, Artigos artigos) {
 
-                    // dividir artigos vendidos em diferentes vendas por vendedor
-                    for (Artigo artigo : e.getArtigos()) {
-                        int id_vendedor = artigo.getIdVendedor();
-                        vendasPorVendedor.putIfAbsent(id_vendedor, new ArrayList<>());
-                        vendasPorVendedor.get(id_vendedor).add(artigo);
-                    }
+        Collection<Encomenda> encomendas;
+        if ((encomendas = this.getEncomenda(id_Encomenda, transportadoras))!=null && encomendaPendente(id_Encomenda, transportadoras)) {
 
-                    Utilizador comprador = utilizadores.getUtilizador(id_comprador);
-                    for (int id_vendedor : vendasPorVendedor.keySet()) {
-                        Utilizador vendedor = utilizadores.getUtilizador(id_vendedor);
-                        List<Artigo> artigos = vendasPorVendedor.get(id_vendedor);
-                        Fatura_Vendedor fatura_Vendedor = new Fatura_Vendedor(comprador, vendedor, artigos,id_Encomenda);
-                        vendedor.addFatura(fatura_Vendedor);
-                    }
+            Map<Integer, List<Artigo>> vendasPorVendedor = new HashMap<>();
+            int id_comprador = -1;
+            for (Encomenda e: encomendas) {
+                e.setEstadoEncomenda(1);
+                e.setData(data_Finalizacao);
+                id_comprador = e.getIdComprador();
 
-                    Fatura_Comprador fatura_Comprador = new Fatura_Comprador(comprador,vendasPorVendedor,id_Encomenda);
-                    comprador.addFatura(fatura_Comprador);
+                // Dividir artigos vendidos em diferentes vendas por vendedor e remover os artigos da lista de artigos
+                
+                for (Artigo artigo : e.getArtigos()) {
+                    int id_vendedor = artigo.getIdVendedor();
+                    vendasPorVendedor.putIfAbsent(id_vendedor, new ArrayList<>());
+                    vendasPorVendedor.get(id_vendedor).add(artigo);
 
+                    artigos.removeArtigo(artigo.getCodigo());
                 }
+
+                Utilizador comprador = utilizadores.getUtilizador(id_comprador);
+                for (int id_vendedor : vendasPorVendedor.keySet()) {
+                    Utilizador vendedor = utilizadores.getUtilizador(id_vendedor);
+                    List<Artigo> lista_artigos = vendasPorVendedor.get(id_vendedor);
+                    Fatura_Vendedor fatura_Vendedor = new Fatura_Vendedor(comprador, vendedor, lista_artigos,id_Encomenda);
+                    vendedor.addFatura(fatura_Vendedor);
+                }
+
+                Fatura_Comprador fatura_Comprador = new Fatura_Comprador(comprador,vendasPorVendedor,id_Encomenda);
+                comprador.addFatura(fatura_Comprador);
             }
         }
     }
@@ -311,8 +311,48 @@ public class Encomendas implements Serializable {
                 encomenda.setData(encomenda.getData().plusDays(transportadora.getDiasPreparacaoEncomenda()));
             }
             if (encomenda.getEstadoEncomenda() ==2 && Menu.getCurrentDate().minusDays(transportadoras.getTransportadora(nome_transportadora).getDiasEnvio()).isAfter(encomenda.getData())) {
-                encomenda.setEstadoEncomenda(3);
-                encomenda.setData(encomenda.getData().plusDays(transportadora.getDiasEnvio()));
+                this.removeEncomenda(encomenda.getCodigo(), transportadoras);
+            }
+        }
+    }
+
+    void updateEncomendasFinalizadas (Artigos artigos) {
+        for (Encomenda e: this.encomendas.values()) {
+
+            if (e.getEstadoEncomenda()!=0) {
+                for (Artigo a: e.getArtigos()) {
+                    artigos.removeArtigo(a.getCodigo());
+                }
+            }
+        }
+    }
+
+    void updateFaturas (Utilizadores utilizadores) {
+        for (Encomenda e: this.encomendas.values()) {
+
+            if (e.getEstadoEncomenda()!=0) {
+                for (Artigo a: e.getArtigos()) {
+
+                    // Dividir artigos vendidos em diferentes vendas por vendedor
+
+                    Map<Integer, List<Artigo>> vendasPorVendedor = new HashMap<>();
+                    for (Artigo artigo : e.getArtigos()) {
+                        int id_vendedor = artigo.getIdVendedor();
+                        vendasPorVendedor.putIfAbsent(id_vendedor, new ArrayList<>());
+                        vendasPorVendedor.get(id_vendedor).add(artigo);
+                    }
+    
+                    Utilizador comprador = utilizadores.getUtilizador(e.getIdComprador());
+                    for (int id_vendedor : vendasPorVendedor.keySet()) {
+                        Utilizador vendedor = utilizadores.getUtilizador(id_vendedor);
+                        List<Artigo> lista_artigos = vendasPorVendedor.get(id_vendedor);
+                        Fatura_Vendedor fatura_Vendedor = new Fatura_Vendedor(comprador, vendedor, lista_artigos,e.getIdEncomenda());
+                        vendedor.addFatura(fatura_Vendedor);
+                    }
+    
+                    Fatura_Comprador fatura_Comprador = new Fatura_Comprador(comprador,vendasPorVendedor,e.getIdEncomenda());
+                    comprador.addFatura(fatura_Comprador);
+                }
             }
         }
     }

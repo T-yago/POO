@@ -185,7 +185,7 @@ public class Encomenda implements Serializable {
                             "\nArtigos: \n\n";
 
         for (Artigo a: this.artigos) {
-            encomenda += a.toString();
+            encomenda += a.toString() + "\n\n";
         }
 
         return encomenda;

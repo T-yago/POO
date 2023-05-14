@@ -24,10 +24,10 @@ public class Menu {
         Transportadoras transportadoras = vintage.getTransportadoras();
         Encomendas encomendas = vintage.getEncomendas();
 
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 
-    char stopOperations = 'c';
+        char stopOperations = 'c';
 
       
 
@@ -310,7 +310,7 @@ public class Menu {
 
                     String defaultVAlue = "DefaultValue";
                     Encomenda encomenda = new Encomenda(conjunto_Artigos, defaultVAlue, Integer.parseInt(tokens[1]), LocalDate.parse(tokens[2], formatter), transportadoras);
-                    encomendas.addEncomenda(encomenda, Integer.parseInt(tokens[0]), transportadoras, utilizadores);
+                    encomendas.addEncomenda(encomenda, Integer.parseInt(tokens[0]), transportadoras, utilizadores, encomenda.getEstadoEncomenda());
                 }
                 else {
                     System.out.println("Os argumentos inseridos são inferiores aos necessários para criar uma encomenda.");
@@ -357,7 +357,7 @@ public class Menu {
                 String id_Encomenda = (sc.nextLine().trim());
                 System.out.println("Insira a data na qual finalizou a compra no formato \"dd/MM/yyyy\":");
                 String data = sc.nextLine().trim();
-                encomendas.finalizarEncomenda(id_Encomenda, LocalDate.parse(data, formatter), transportadoras, utilizadores);
+                encomendas.finalizarEncomenda(id_Encomenda, LocalDate.parse(data, formatter), transportadoras, utilizadores, artigos);
             }
 
             else if (operacao == 18) {
