@@ -51,6 +51,7 @@ public class Encomendas implements Serializable {
         return null;
     }
 
+
     public Map<String, Encomenda> getEncomendas() {
         Map<String, Encomenda> encomendas = new HashMap<>();
 
@@ -198,10 +199,8 @@ public class Encomendas implements Serializable {
                         vendasPorVendedor.putIfAbsent(id_vendedor, new ArrayList<>());
                         vendasPorVendedor.get(id_vendedor).add(artigo);
                     }
-                    if (id_comprador != -1) {
 
                     Utilizador comprador = utilizadores.getUtilizador(id_comprador);
-                    List<Fatura> faturas = new ArrayList<>();
                     for (int id_vendedor : vendasPorVendedor.keySet()) {
                         Utilizador vendedor = utilizadores.getUtilizador(id_vendedor);
                         List<Artigo> artigos = vendasPorVendedor.get(id_vendedor);
@@ -211,7 +210,6 @@ public class Encomendas implements Serializable {
 
                     Fatura_Comprador fatura_Comprador = new Fatura_Comprador(comprador,vendasPorVendedor,id_Encomenda);
                     comprador.addFatura(fatura_Comprador);
-                    }
                 }
             }
         }
@@ -299,6 +297,7 @@ public class Encomendas implements Serializable {
         }
         return false;
     }
+
 
     void updateEncomendas (LocalDate data, Transportadoras transportadoras) {
         for (Map.Entry<String,Encomenda> encomendas: this.encomendas.entrySet()) {

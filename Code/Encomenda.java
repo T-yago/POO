@@ -41,7 +41,7 @@ public class Encomenda implements Serializable {
         else if (artigos.size()>5) this.tamanho = GRANDE;
         else this.tamanho = MEDIA;
 
-        this.preco = preco(artigos, transportadoras);
+        this.preco = preco(transportadoras);
         this.estado_Encomenda = estado_Encomenda;
         this.data = date;
     }
@@ -60,11 +60,10 @@ public class Encomenda implements Serializable {
         this.data = encomenda.data;
     }
 
-    private double preco(Collection<Artigo> artigos, Transportadoras transportadoras) {
+    public double getTaxaSatisfacao () {
         double preco = 0;
-
+        Collection<Artigo> artigos = this.artigos;
         for (Artigo a: artigos) {
-            preco += a.getPrecoFinal();
 
             if (a instanceof Novos) {
                 preco += 0.5;
@@ -72,11 +71,26 @@ public class Encomenda implements Serializable {
             else if (a instanceof Usados) {
                 preco += 0.25;
             }
+        }
+        return preco;
+    }
+
+    public double preco(Transportadoras transportadoras) {
+        double preco = 0;
+        Collection<Artigo> artigos = this.artigos;
+        for (Artigo a: artigos) {
+            preco += a.getPrecoFinal();
 
             preco += transportadoras.getTransportadora(a.getTransportadora()).calculaPreco(artigos.size());
         }
 
+        preco += getTaxaSatisfacao();
+
         return preco;
+    }
+
+    public String getNomeTransportadora () {
+        return this.codigo.substring(0, codigo.length()-12);
     }
 
     public int getTamanho() {
@@ -118,7 +132,7 @@ public class Encomenda implements Serializable {
     public void addArtigo(Artigo artigo, Transportadoras transportadoras) {
         this.artigos.add(artigo.clone());
 
-        this.preco = preco(this.artigos, transportadoras);
+        this.preco = preco(transportadoras);
     }
 
     public void addArtigos(Collection<Artigo> artigos, Transportadoras transportadoras) {
@@ -126,7 +140,7 @@ public class Encomenda implements Serializable {
             this.artigos.add(a.clone());
         }
 
-        this.preco = preco(this.artigos, transportadoras);
+        this.preco = preco(transportadoras);
     }
 
     public void removeArtigo(String id_Artigo, Transportadoras transportadoras) {
@@ -134,7 +148,7 @@ public class Encomenda implements Serializable {
             if (a.getCodigo().equals(id_Artigo)) {
                 this.artigos.remove(a);
 
-                this.preco = preco(this.artigos, transportadoras);
+                this.preco = preco(transportadoras);
             }
         }
     }
