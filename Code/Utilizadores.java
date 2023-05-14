@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Utilizadores implements Serializable {
-    Map<Integer, Utilizador> utilizadores;
+    private Map<Integer, Utilizador> utilizadores;
     
     public Utilizadores() {
         this.utilizadores = new HashMap<>();
@@ -197,7 +197,7 @@ public class Utilizadores implements Serializable {
     }
     
 
-    public List<Encomenda> encomendasEmitidasVendedor (Encomendas encomendas, Transportadoras transportadoras) {
+    public List<Encomenda> encomendasEmitidasVendedores (Encomendas encomendas, Transportadoras transportadoras) {
         return this.utilizadores.values().stream() 
             .flatMap(user -> user.faturas.stream()) 
             .filter(fatura -> fatura instanceof Fatura_Vendedor)
@@ -206,6 +206,16 @@ public class Utilizadores implements Serializable {
             .collect(Collectors.toList()); 
     }
 
+
+    public List<Encomenda> encomendasEmitidasVendedor(int idUtilizador, Encomendas encomendas, Transportadoras transportadoras) {
+        return this.utilizadores.values().stream()
+            .filter(user -> user.getId() == (idUtilizador))
+            .flatMap(user -> user.faturas.stream())
+            .filter(fatura -> fatura instanceof Fatura_Vendedor)
+            .map(Fatura::getIdEncomenda)
+            .flatMap(id -> encomendas.getEncomenda(id, transportadoras).stream())
+            .collect(Collectors.toList());
+    }
 
     public String toString() {
         String s = "";

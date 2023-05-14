@@ -80,7 +80,7 @@ public class Vintage implements Serializable {
     public double total_ganho (Encomendas encomendas, Utilizadores utilizadores){
         double preco = 0;
         for (Encomenda encomenda : encomendas.getEncomendas().values()) {
-            preco += encomenda.getTaxaSatisfacao();
+            preco += encomenda.getprecoTaxaSatisfacao();
         }
         for (Utilizador user : utilizadores.getUtilizadores().values()) {
             for (Fatura fatura : user.faturas) {
