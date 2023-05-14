@@ -216,6 +216,16 @@ public class Encomendas implements Serializable {
         }
     }
 
+    public String entregarEncomenda (Encomenda encomenda) {
+        String encomenda_Remover = null;
+        for (Map.Entry<String, Encomenda> e: this.encomendas.entrySet()) {
+            if (e.getValue().equals(encomenda)) {
+                encomenda_Remover = e.getKey();
+            }
+        }
+        return encomenda_Remover;
+    }
+
     public void devolveEncomenda (String id_Encomenda, Transportadoras transportadoras, Utilizadores utilizadores) {
         if (existeEncomenda(id_Encomenda, transportadoras)) {
 
@@ -225,13 +235,13 @@ public class Encomendas implements Serializable {
                 for (Encomenda encomenda : encomendas) {
                     if (ChronoUnit.DAYS.between(encomenda.getData(), Menu.getCurrentDate()) <= 2) {
                         utilizadores.removeFaturas(id_Encomenda);  
-                        this.encomendas.remove(encomenda.getCodigo(),encomenda);                      
+                        this.encomendas.remove(encomenda.getCodigo(),encomenda);
                     }
                 }
             }
         }
     }
-    
+
     
 
     public void expedirEncomenda(String id_Encomenda, LocalDate data_Finalizacao, Transportadoras transportadoras) {
@@ -301,6 +311,8 @@ public class Encomendas implements Serializable {
 
 
     void updateEncomendas (LocalDate data, Transportadoras transportadoras) {
+
+        List<String> keysToRemove = new ArrayList<>();
         for (Map.Entry<String,Encomenda> encomendas: this.encomendas.entrySet()) {
             Encomenda encomenda = encomendas.getValue();
             String codigo = encomendas.getKey();
@@ -311,8 +323,14 @@ public class Encomendas implements Serializable {
                 encomenda.setData(encomenda.getData().plusDays(transportadora.getDiasPreparacaoEncomenda()));
             }
             if (encomenda.getEstadoEncomenda() ==2 && Menu.getCurrentDate().minusDays(transportadoras.getTransportadora(nome_transportadora).getDiasEnvio()).isAfter(encomenda.getData())) {
-                this.removeEncomenda(encomenda.getCodigo(), transportadoras);
+                String remove_Encomenda = this.entregarEncomenda(encomenda);
+                if (remove_Encomenda!=null) {
+                    keysToRemove.add(remove_Encomenda);
+                }
             }
+        }
+        for (String key : keysToRemove) {
+            this.encomendas.remove(key);
         }
     }
 
@@ -331,28 +349,26 @@ public class Encomendas implements Serializable {
         for (Encomenda e: this.encomendas.values()) {
 
             if (e.getEstadoEncomenda()!=0) {
-                for (Artigo a: e.getArtigos()) {
 
-                    // Dividir artigos vendidos em diferentes vendas por vendedor
+                // Dividir artigos vendidos em diferentes vendas por vendedor
 
-                    Map<Integer, List<Artigo>> vendasPorVendedor = new HashMap<>();
-                    for (Artigo artigo : e.getArtigos()) {
-                        int id_vendedor = artigo.getIdVendedor();
-                        vendasPorVendedor.putIfAbsent(id_vendedor, new ArrayList<>());
-                        vendasPorVendedor.get(id_vendedor).add(artigo);
-                    }
-    
-                    Utilizador comprador = utilizadores.getUtilizador(e.getIdComprador());
-                    for (int id_vendedor : vendasPorVendedor.keySet()) {
-                        Utilizador vendedor = utilizadores.getUtilizador(id_vendedor);
-                        List<Artigo> lista_artigos = vendasPorVendedor.get(id_vendedor);
-                        Fatura_Vendedor fatura_Vendedor = new Fatura_Vendedor(comprador, vendedor, lista_artigos,e.getIdEncomenda());
-                        vendedor.addFatura(fatura_Vendedor);
-                    }
-    
-                    Fatura_Comprador fatura_Comprador = new Fatura_Comprador(comprador,vendasPorVendedor,e.getIdEncomenda());
-                    comprador.addFatura(fatura_Comprador);
+                Map<Integer, List<Artigo>> vendasPorVendedor = new HashMap<>();
+                for (Artigo artigo : e.getArtigos()) {
+                    int id_vendedor = artigo.getIdVendedor();
+                    vendasPorVendedor.putIfAbsent(id_vendedor, new ArrayList<>());
+                    vendasPorVendedor.get(id_vendedor).add(artigo);
                 }
+
+                Utilizador comprador = utilizadores.getUtilizador(e.getIdComprador());
+                for (int id_vendedor : vendasPorVendedor.keySet()) {
+                    Utilizador vendedor = utilizadores.getUtilizador(id_vendedor);
+                    List<Artigo> lista_artigos = vendasPorVendedor.get(id_vendedor);
+                    Fatura_Vendedor fatura_Vendedor = new Fatura_Vendedor(comprador, vendedor, lista_artigos,e.getIdEncomenda());
+                    vendedor.addFatura(fatura_Vendedor);
+                }
+
+                Fatura_Comprador fatura_Comprador = new Fatura_Comprador(comprador,vendasPorVendedor,e.getIdEncomenda());
+                comprador.addFatura(fatura_Comprador);
             }
         }
     }

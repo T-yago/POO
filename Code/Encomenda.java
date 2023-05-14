@@ -172,6 +172,31 @@ public class Encomenda implements Serializable {
         return artigos;
     }
 
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if ((o == null) || (o.getClass() != this.getClass())) {
+            return false;
+        }
+
+        boolean equal = true;
+        Encomenda encomenda = (Encomenda) o;
+        for (Artigo a1: this.artigos) {
+            equal = false;
+            for (Artigo a2: encomenda.artigos) {
+                if (a1.equals(a2)) {
+                    equal = true;
+                }
+            }
+            if (!equal) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public Encomenda clone() {
         return new Encomenda(this);
     }
