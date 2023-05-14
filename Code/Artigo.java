@@ -33,6 +33,7 @@ public abstract class Artigo implements Serializable {
         this.marca = artigo.marca;
         this.codigo = artigo.codigo;
         this.preco_Base = artigo.preco_Base;
+        this.preco_Final = artigo.preco_Final;
         this.transportadora = artigo.transportadora;
     }
 
