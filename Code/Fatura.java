@@ -1,9 +1,10 @@
 package Code;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 
-public abstract class Fatura {
+public abstract class Fatura implements Serializable {
     private int codigo;
     String id_Encomenda; // para devolucoes
     private static int counter = 1;
