@@ -402,7 +402,8 @@ public class Menu {
             }
             
             else if (operacao == 23) {
-                System.out.println(utilizadores.maisFaturou().toString());
+                Utilizador user = utilizadores.maisFaturou();
+                if (user != null) System.out.println(user.toString());
             }
 
             else if (operacao == 24) {
@@ -412,24 +413,59 @@ public class Menu {
                 System.out.println("Insira a data de fim:");
                 LocalDate data_fim = LocalDate.parse(sc.nextLine(), formatter);
 
-                System.out.println(utilizadores.maisFaturou(data_inicio, data_fim).toString());
+                Utilizador user = utilizadores.maisFaturou(data_inicio, data_fim);
+                if (user != null) System.out.println(user);
             }
 
             else if (operacao == 25) {
-                System.out.println(transportadoras.maiorVolumeFaturação(encomendas).toString());
+                Transportadora transportadora = transportadoras.maiorVolumeFaturação(encomendas);
+                if (transportadora != null) System.out.println(transportadora.toString());
             }
 
             else if (operacao == 26) {
-                
+                System.out.println("Insira o vendedor:");
+                int id_vendedor = sc.nextInt();
+                sc.nextLine();
+                List <Encomenda> encomendas_vendedor = utilizadores.encomendasEmitidasVendedor(id_vendedor, encomendas, transportadoras);
+                for (Encomenda encomenda : encomendas_vendedor) {
+                    System.out.println(encomenda.toString() + "\n");
+                }
             }
 
             else if (operacao == 27) {
+                System.out.println("Insira a data de início:");
+                LocalDate data_inicio = LocalDate.parse(sc.nextLine(), formatter);
+
+                System.out.println("Insira a data de fim:");
+                LocalDate data_fim = LocalDate.parse(sc.nextLine(), formatter);
+
+                List <Utilizador> topVendedores = utilizadores.topVendedores(data_inicio, data_fim);
+
+                int i =0;
+                for (Utilizador utilizador : topVendedores) {
+                    i++;
+                    System.out.println("Utilizador" + i + ": " +utilizador.toString()+ "\n");
+                }
             }
 
             else if (operacao == 28) {
+                System.out.println("Insira a data de início:");
+                LocalDate data_inicio = LocalDate.parse(sc.nextLine(), formatter);
+
+                System.out.println("Insira a data de fim:");
+                LocalDate data_fim = LocalDate.parse(sc.nextLine(), formatter);
+
+                List <Utilizador> topCompradores = utilizadores.topCompradores(data_inicio, data_fim);
+
+                int i =0;
+                for (Utilizador utilizador : topCompradores) {
+                    i++;
+                    System.out.println("Utilizador" + i + ": " +utilizador.toString()+ "\n");
+                }
             }
 
             else if (operacao == 29) {
+                System.out.println(vintage.total_ganho(encomendas, utilizadores));
             }
 
             else if (operacao==30) {

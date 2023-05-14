@@ -60,7 +60,7 @@ public class Encomenda implements Serializable {
         this.data = encomenda.data;
     }
 
-    public double getTaxaSatisfacao () {
+    public double getprecoTaxaSatisfacao () {
         double preco = 0;
         Collection<Artigo> artigos = this.artigos;
         for (Artigo a: artigos) {
@@ -84,7 +84,7 @@ public class Encomenda implements Serializable {
             preco += transportadoras.getTransportadora(a.getTransportadora()).calculaPreco(artigos.size());
         }
 
-        preco += getTaxaSatisfacao();
+        preco += getprecoTaxaSatisfacao();
 
         return preco;
     }
