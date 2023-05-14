@@ -54,7 +54,14 @@ public class Menu {
                 "\nImprimir todas as encomendas (20)" +
                 "\nImprimir todas as faturas de um utilizador(21)" +
                 "\nImprimir uma fatura (22)" +
-                "\nSaltar no tempo(23)" +
+                "\nImprime o vendedor que mais faturou desde sempre (23)" +
+                "\nImprime o vendedor que mais faturou num período de tempo (24)" +
+                "\nImprime o transportador com maior volume de faturação (25)" +
+                "\nImprime as encomendas emitidas por um vendedor (26)" + 
+                "\nFornece uma lista ordenada dos maiores vendedores (27)" + 
+                "\nFornece uma lista ordenada dos maiores compradores (28)" +
+                "\nDetermina quanto dinheiro ganhou a Vintage no seu funcionamento (29)" +
+                "\nSaltar no tempo (30)" +
                 "\nData Atual: " + Menu.currentDate.format(formatter));
 
             int operacao = sc.nextInt();
@@ -393,9 +400,39 @@ public class Menu {
                 int id_fatura = Integer.parseInt(sc.nextLine());
                 System.out.println(utilizadores.getFatura(id_fatura));
             }
+            
+            else if (operacao == 23) {
+                System.out.println(utilizadores.maisFaturou().toString());
+            }
 
+            else if (operacao == 24) {
+                System.out.println("Insira a data de início:");
+                LocalDate data_inicio = LocalDate.parse(sc.nextLine(), formatter);
 
-            else if (operacao==23) {
+                System.out.println("Insira a data de fim:");
+                LocalDate data_fim = LocalDate.parse(sc.nextLine(), formatter);
+
+                System.out.println(utilizadores.maisFaturou(data_inicio, data_fim).toString());
+            }
+
+            else if (operacao == 25) {
+                System.out.println(transportadoras.maiorVolumeFaturação(encomendas).toString());
+            }
+
+            else if (operacao == 26) {
+                
+            }
+
+            else if (operacao == 27) {
+            }
+
+            else if (operacao == 28) {
+            }
+
+            else if (operacao == 29) {
+            }
+
+            else if (operacao==30) {
                 System.out.println("Saltar x número de dias(1), Saltar para uma data específica(2).");
                 int opcao = sc.nextInt();
                 sc.nextLine();
