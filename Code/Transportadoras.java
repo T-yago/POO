@@ -1,7 +1,9 @@
 package Code;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -44,6 +46,32 @@ public class Transportadoras implements Serializable {
             if (this.transportadoras.remove(nome) == null) System.out.println("Não encontrado");
             else System.out.println(nome + " removido");
     } 
+
+    public Transportadora maiorVolumeFaturação (Encomendas encomendas) {
+        List<Transportadora> transportadoras = new ArrayList<>();
+        for (Transportadora transportadora : this.transportadoras.values()) {
+            transportadoras.add(transportadora);
+        }
+        Map <String, Double> faturacaoPorTransportadora = new HashMap<>();
+        double total_faturado = 0;
+        for (Encomenda encomenda : encomendas.getEncomendas().values()) {
+            String nome_transportadora = encomenda.getNomeTransportadora();
+            if (faturacaoPorTransportadora.containsKey(nome_transportadora)) {
+                total_faturado = faturacaoPorTransportadora.get(nome_transportadora);
+                total_faturado += encomenda.preco(this);
+                faturacaoPorTransportadora.put(nome_transportadora, total_faturado);
+            }
+            else {
+                total_faturado = encomenda.preco(this);
+                faturacaoPorTransportadora.put(nome_transportadora, total_faturado);
+            }
+        }
+        return faturacaoPorTransportadora.entrySet().stream()
+            .max(Map.Entry.<String, Double>comparingByValue().reversed())
+            .map(Map.Entry::getKey)
+            .map(key -> this.transportadoras.get(key))
+            .orElse(null);
+    }
 
     public Transportadoras clone() {
         return new Transportadoras(this);

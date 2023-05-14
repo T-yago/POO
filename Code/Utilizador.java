@@ -80,6 +80,10 @@ public class Utilizador implements Serializable {
         this.faturas.add (fatura);
     }
 
+    public void removeFatura (Fatura fatura) {
+        this.faturas.remove(fatura);
+    }
+
     public void setEmail(String email) {
         this.email = email;
     }
@@ -101,8 +105,9 @@ public class Utilizador implements Serializable {
     }
 
     public String toString() {
-        return "Id: " + this.id + "\nNome: " + this.nome + "\nMorada: " + this.morada + "\nNumero Fiscal: " + this.numero_Fiscal + "\nEmail: " + this.email + "\nFaturas: " + this.faturas.toString();
+        return "Id: " + this.id + "\nNome: " + this.nome + "\nMorada: " + this.morada + "\nNumero Fiscal: " + this.numero_Fiscal + "\nEmail: " + this.email;
     }
+
 
     public Utilizador clone() {
         return new Utilizador(this);

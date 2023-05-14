@@ -18,8 +18,8 @@ public class Fatura_Vendedor extends Fatura {
         this.artigos = new ArrayList<>();
     }
 
-    public Fatura_Vendedor(Utilizador comprador, Utilizador vendedor, List<Artigo> artigos) {
-        super (comprador);
+    public Fatura_Vendedor(Utilizador comprador, Utilizador vendedor, List<Artigo> artigos, String id_Encomenda) {
+        super (comprador, id_Encomenda);
         this.vendedor = vendedor.clone();
         this.artigos = new ArrayList<>();
         for (Artigo artigo : artigos) {
