@@ -6,7 +6,7 @@ public class T_Shirt_Usada extends T_Shirt implements Usados {
     private static int BOM = 3;                     // Bom
     private static int SATISFATORIO = 2;            // Satisfatório
     private static int MAU = 1;                     // Mau
-    private byte estado; // 1 a 10
+    private byte estado;
     private byte numero_Donos;
 
 
@@ -44,10 +44,14 @@ public class T_Shirt_Usada extends T_Shirt implements Usados {
     }
 
     public double calculaPreco(double desconto) {
-        if (this.getPadrao() != 0) {
+        if (this.getPadrao() != 0 && this.get_estado()!=1) {
             return this.getPrecoBase() * 0.50;
         }
         return this.getPrecoBase();
+    }
+
+    public void recalculaPreco () {
+        this.setPrecoFinal(this.calculaPreco(0));
     }
 
     public T_Shirt_Usada clone() {

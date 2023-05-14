@@ -8,7 +8,7 @@ public abstract class Artigo implements Serializable {
     private static int codigo_counter = 1;
     private String codigo;
     private double preco_Base;
-    private double preco_Final = -1;
+    private double preco_Final;
     private String transportadora;
 
     public Artigo() {

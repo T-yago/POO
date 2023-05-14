@@ -17,17 +17,19 @@ public class Menu {
 
     static public void run (Vintage vintage) {
 
-    Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
-    Utilizadores utilizadores = vintage.getUtilizadores();
-    Artigos artigos = vintage.getArtigos();
-    Transportadoras transportadoras = vintage.getTransportadoras();
-    Encomendas encomendas = vintage.getEncomendas();
+        Utilizadores utilizadores = vintage.getUtilizadores();
+        Artigos artigos = vintage.getArtigos();
+        Transportadoras transportadoras = vintage.getTransportadoras();
+        Encomendas encomendas = vintage.getEncomendas();
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 
-char stopOperations = 'c';
+    char stopOperations = 'c';
+
+      
 
         while (stopOperations!='q') {
             System.out.println("\nQue operação pretende executar:\n\nInserir um utilizador (1)" +
@@ -412,6 +414,7 @@ char stopOperations = 'c';
                     }
                 }
                 encomendas.updateEncomendas(currentDate,transportadoras);
+                artigos.updateArtigos(currentDate);
             }
 
             System.out.println("\nPretende realizar mais alguma operação:\nNão (Pressione 'q')\nSim (Pressione qualquer outra tecla)");

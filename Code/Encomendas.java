@@ -193,7 +193,7 @@ public class Encomendas implements Serializable {
                     id_Encomenda = e.getIdEncomenda();
                     id_comprador = e.getIdComprador();
 
-                    // dividir artigos vendidos em diferentes vendas por vendedor 
+                    // dividir artigos vendidos em diferentes vendas por vendedor
                     for (Artigo artigo : e.getArtigos()) {
                         int id_vendedor = artigo.getIdVendedor();
                         vendasPorVendedor.putIfAbsent(id_vendedor, new ArrayList<>());
@@ -210,6 +210,7 @@ public class Encomendas implements Serializable {
 
                     Fatura_Comprador fatura_Comprador = new Fatura_Comprador(comprador,vendasPorVendedor,id_Encomenda);
                     comprador.addFatura(fatura_Comprador);
+
                 }
             }
         }

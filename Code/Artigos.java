@@ -1,6 +1,7 @@
 package Code;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -96,6 +97,45 @@ public class Artigos implements Serializable {
         Map<String,Artigo> s;
         if ((s = this.artigos.get(id_Vendedor))!=null) {
             s.remove(id_Artigo);
+        }
+    }
+
+    public void updateArtigos(LocalDate data) {
+        for (Map<String,Artigo> artigos: this.artigos.values()) {
+            for (Artigo a: artigos.values()) {
+                if (a instanceof Mala_Nova) {
+                    Mala_Nova e = (Mala_Nova) a;
+                    e.recalculaPreco();
+                }
+                else if (a instanceof Mala_Premium) {
+                    Mala_Premium e = (Mala_Premium) a;
+                    e.recalculaPreco();
+                }
+                else if (a instanceof Mala_Usada) {
+                    Mala_Usada e = (Mala_Usada) a;
+                    e.recalculaPreco();
+                }
+                else if (a instanceof T_Shirt_Nova) {
+                    T_Shirt_Nova e = (T_Shirt_Nova) a;
+                    e.recalculaPreco();
+                }
+                else if (a instanceof T_Shirt_Usada) {
+                    T_Shirt_Usada e = (T_Shirt_Usada) a;
+                    e.recalculaPreco();
+                }
+                else if (a instanceof Sapatilha_Nova) {
+                    Sapatilha_Nova e = (Sapatilha_Nova) a;
+                    e.recalculaPreco();
+                }
+                else if (a instanceof Sapatilha_Premium) {
+                    Sapatilha_Premium e = (Sapatilha_Premium) a;
+                    e.recalculaPreco();
+                }
+                else if (a instanceof Sapatilha_Usada) {
+                    Sapatilha_Usada e = (Sapatilha_Usada) a;
+                    e.recalculaPreco();
+                }
+            }
         }
     }
 

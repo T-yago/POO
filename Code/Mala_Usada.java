@@ -1,5 +1,4 @@
 package Code;
-import java.time.*;
 
 public class Mala_Usada extends Mala implements Usados {
     private static int EXCELENTE = 5;               // Excelente
@@ -7,7 +6,7 @@ public class Mala_Usada extends Mala implements Usados {
     private static int BOM = 3;                     // Bom
     private static int SATISFATORIO = 2;            // Satisfatório
     private static int MAU = 1;                     // Mau
-    private byte estado; // 1 a 10
+    private byte estado;
     private byte numero_Donos;
 
     public Mala_Usada () {
@@ -34,10 +33,9 @@ public class Mala_Usada extends Mala implements Usados {
         this.setPrecoFinal(mala_usada.getPrecoFinal());
     }
 
-
-    //falta ter em conta o material???? 
     public double calculaPreco(double desconto) { 
-        return this.getPrecoBase() - (1/this.getDimensao()) * (this.getPrecoBase() / (LocalDate.now().getYear() - (double)this.getAnoLancamento()));
+        double preco_Final = this.getPrecoBase() - this.getDimensao() - (Menu.getCurrentDate().getYear() - this.getAnoLancamento()) * 10;
+        return Math.round(preco_Final * 100.0) / 100.0;
     }
 
     public Mala_Usada clone () {
@@ -47,6 +45,10 @@ public class Mala_Usada extends Mala implements Usados {
     public String toString () {
         return super.toString() + "\nEstado: " + this.estado
                                 + "\nNúmero de donos: " + this.numero_Donos;
+    }
+
+    public void recalculaPreco () {
+        this.setPrecoFinal(this.calculaPreco(0));
     }
 
 }

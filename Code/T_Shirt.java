@@ -50,9 +50,7 @@ public abstract class T_Shirt extends Artigo{
 public String toString() {
     return super.toString() 
             + "\nTamanho: " + tamanhoToString(tamanho)
-            + "\nPadrão: " + padraoToString(padrao)
-            + "\nPreço base: " + getPrecoBase()
-            + "\nPreço final: " + getPrecoFinal();
+            + "\nPadrão: " + padraoToString(padrao);
 }
 
 private String tamanhoToString(int tamanho) {

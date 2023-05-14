@@ -2,7 +2,7 @@ Sapatilha Nova, 1, Sapatilha da Nike, Nike, 22.99, CTT, 42, 1, Pretas, 2020, 10
 Sapatilha Usada, 2, Sapatilha New Balance 550, CTT, 150.00, Fedex, 38, 1, Brancas, 2022, Bom, 2, 0
 Sapatilha Premium, 1, Sapatilha Luis Vitton, Luis Vitton, 250.0, PremiumDeliveries, 43, 0, Azuis, 2023, 20
 T-Shirt Nova, 4, T-Shirt Carhartt, Carhartt, 48.00, Fedex, 3, 1
-T-Shirt Usada, 5, T-Shirt Zara, Zara, 22.00, DHL, 2, 0, 4, Satisfatorio
+T-Shirt Usada, 5, T-Shirt Zara, Zara, 22.00, DHL, 2, 1, 4, Satisfatorio
 Mala Nova, 2, Mala Lacoste, Lacoste, 220, DHL, 30.5, Couro, 2020
 Mala Usada, 1, Mala Cavalinho, Cavalinho, 100, Fedex, 20.5, Linho, 2021, Bom, 5
 Mala Premium, 6, Mala Off White, Off White, 350, PremiumDeliveries, 10.35, Crocodilo, 1990
