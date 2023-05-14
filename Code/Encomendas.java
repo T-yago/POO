@@ -188,7 +188,7 @@ public class Encomendas implements Serializable {
                     e.setData(data_Finalizacao);
                     id_comprador = e.getIdComprador();
 
-                    // dividir artigos vendidos em diferentes vendas por vendedor 
+                    // dividir artigos vendidos em diferentes vendas por vendedor
                     for (Artigo artigo : e.getArtigos()) {
                         int id_vendedor = artigo.getIdVendedor();
                         vendasPorVendedor.putIfAbsent(id_vendedor, new ArrayList<>());
@@ -196,22 +196,21 @@ public class Encomendas implements Serializable {
                     }
                     if (id_comprador != -1) {
 
-                    Utilizador comprador = utilizadores.getUtilizador(id_comprador);
-                    List<Fatura> faturas = new ArrayList<>();
-                    for (int id_vendedor : vendasPorVendedor.keySet()) {
-                        Utilizador vendedor = utilizadores.getUtilizador(id_vendedor);
-                        List<Artigo> artigos = vendasPorVendedor.get(id_vendedor);
-                        Fatura_Vendedor fatura_Vendedor = new Fatura_Vendedor(comprador, vendedor, artigos);
-                        vendedor.addFatura(fatura_Vendedor);
-                    }
+                        Utilizador comprador = utilizadores.getUtilizador(id_comprador);
+                        for (int id_vendedor : vendasPorVendedor.keySet()) {
+                            Utilizador vendedor = utilizadores.getUtilizador(id_vendedor);
+                            List<Artigo> artigos = vendasPorVendedor.get(id_vendedor);
+                            Fatura_Vendedor fatura_Vendedor = new Fatura_Vendedor(comprador, vendedor, artigos);
+                            vendedor.addFatura(fatura_Vendedor);
+                        }
 
-                    Fatura_Comprador fatura_Comprador = new Fatura_Comprador(comprador,vendasPorVendedor);
-                    comprador.addFatura(fatura_Comprador);
+                        Fatura_Comprador fatura_Comprador = new Fatura_Comprador(comprador,vendasPorVendedor);
+                        comprador.addFatura(fatura_Comprador);
+                    }
                 }
             }
         }
     }
-}
     
 
     public void expedirEncomenda(String id_Encomenda, LocalDate data_Finalizacao, Transportadoras transportadoras) {
