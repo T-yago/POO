@@ -1,83 +1,59 @@
 package Code;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Scanner;
 
-public class Vintage implements Serializable {
-    private Utilizadores utilizadores;
-    private Artigos artigos;
-    private Encomendas encomendas;
-    private Transportadoras transportadoras;
+public class TiagoMenu {
 
-    public Vintage() {
-        this.utilizadores = new Utilizadores();
-        this.artigos = new Artigos();
-        this.encomendas = new Encomendas();
-        this.transportadoras = new Transportadoras();
+    private static LocalDate currentDate = LocalDate.now();
+
+    public static LocalDate getCurrentDate() {
+        return currentDate;
     }
 
-    public Vintage(Utilizadores utilizadores, Artigos artigos, Encomendas encomedas, Transportadoras transportadoras) {
-        this.utilizadores = utilizadores.clone();
-        this.artigos = artigos.clone();
-        this.encomendas = encomedas.clone();
-        this.transportadoras = transportadoras.clone();
-    }
-
-    public Vintage(Vintage vintage) {
-        this.utilizadores = vintage.utilizadores.clone();
-        this.artigos = vintage.artigos.clone();
-        this.encomendas = vintage.encomendas.clone();
-        this.transportadoras = vintage.transportadoras.clone();
-    }
-
-    public void setUtilizadores (Utilizadores utilizadores) {
-        this.utilizadores = utilizadores.clone();
-    }
-
-    public void setArtigos (Artigos artigos) {
-        this.artigos = artigos.clone();
-    }
-
-    public void setEncomendas (Encomendas encomendas) {
-        this.encomendas = encomendas.clone();
-    }
-
-    public void setTransportadoras (Transportadoras transportadoras) {
-        this.transportadoras = transportadoras.clone();
-    }
-
-    public Utilizadores getUtilizadores() {
-        return this.utilizadores.clone();
-    }
-    
-    public Artigos getArtigos() {
-        return this.artigos.clone();
-    }
-
-    public Encomendas getEncomendas() {
-        return this.encomendas.clone();
-    }
-
-    public Transportadoras getTransportadoras() {
-        return this.transportadoras.clone();
-    }
-
-    public String toString() {
-        return this.utilizadores.toString() + this.artigos.toString() + this.encomendas.toString() + this.transportadoras.toString();
-    }
-
-    public Vintage clone() {
-        return new Vintage(this);
-    }
+    static public void run (Vintage vintage) {
 
     Scanner sc = new Scanner(System.in);
 
-    public void registaUtilizador(){
-        System.out.println("\nInsira um utilizador no formato \"Email,Nome,Morada,Numero Fiscal\"\nQualquer outro formato não será aceite");
+    Utilizadores utilizadores = vintage.getUtilizadores();
+    Artigos artigos = vintage.getArtigos();
+    Transportadoras transportadoras = vintage.getTransportadoras();
+    Encomendas encomendas = vintage.getEncomendas();
+
+char stopOperations = 'c';
+
+        while (stopOperations!='q') {
+            System.out.println("\nQue operação pretende executar:\n"+
+                "\nInserir um utilizador (1)" +
+                "\nImprimir um utilizador (2)" +
+                "\nEliminar um utilizador (3)" +
+                "\nImprimir todos os utilizadores (4)" +
+                "\nAdicionar um artigo (5)" +
+                "\nRemover um artigo (6)" +
+                "\nImprimir um artigo (7)" +
+                "\nImprimir todos os artigos (8)" +
+                "\nInserir uma transportadora (9)" +
+                "\nRemover uma transportadora (10)" +
+                "\nImprimir uma transportadora (11)" +
+                "\nImprimir todas as transportadoras (12)" +
+                "\nAdicionar encomendas (13)" +
+                "\nAdicionar artigos a uma encomenda (14)" +
+                "\nRemover um artigo de uma encomenda (15)" +
+                "\nRemover uma encomenda (16)" +
+                "\nFinalizar uma encomenda (17)" +
+                "\nImprimir uma encomenda (18)" +
+                "\nImprimir todas as encomendas (19)" +
+                "\nSaltar no tempo(20)" +
+                "\nData Atual: " + TiagoMenu.currentDate);
+
+            int operacao = sc.nextInt();
+            sc.nextLine();
+
+            if (operacao==1) {
+                System.out.println("\nInsira um utilizador no formato \"Email,Nome,Morada,Numero Fiscal\"\nQualquer outro formato não será aceite");
 
                 String line = sc.nextLine().trim();
                 String[] tokens = line.split("\\s*,\\s*");
@@ -88,10 +64,9 @@ public class Vintage implements Serializable {
                 else {
                     System.out.println("Os argumentos inseridos são inferiores/superiores aos necessários para criar um Utilizador.");
                 }
-    }
-
-    public void imprimeUtilizador(){
-        System.out.println("\nInsira o id do utilizador:");
+            }
+            else if (operacao==2) {
+                System.out.println("\nInsira o id do utilizador:");
                 int id = sc.nextInt();
                 sc.nextLine();
 
@@ -102,21 +77,18 @@ public class Vintage implements Serializable {
                 else {
                     System.out.println("Não existe o utilizador " + id + ".");
                 }
-    }
-
-    public void eliminaUtilizador(){
-        System.out.println("\nInsira o nome do utilizador:");
+            }
+            else if (operacao==3) {
+                System.out.println("\nInsira o nome do utilizador:");
                 int id = sc.nextInt();
                 sc.nextLine();
                 utilizadores.removeUtilizador(id);
-    }
-
-    public void imprimeAllUtilizadores(){
-        System.out.printf(utilizadores.toString());
-    }
-
-    public void inserirArtigo(){
-        System.out.println("\nQue tipo de artigo pretende adicionar?\n1 - Sapatilha Nova\n2 - Sapatilha Usada\n3 - Sapatilha Premium\n4 - T-Shirt Nova\n5 - T-Shirt Usada\n6 - Mala Nova\n7 - Mala Usada\n8 - Mala Premium");
+            }
+            else if (operacao==4) {
+                System.out.printf(utilizadores.toString());
+            }
+            else if (operacao==5) {
+                System.out.println("\nQue tipo de artigo pretende adicionar?\nSapatilha Nova (1)\nSapatilha Usada (2)\nSapatilha Premium (3)\nT-Shirt Nova (4)\nT-Shirt Usada (5)\nMala Nova (6)\nMala Usada (7)\nMala Premium (8)");
 
                 int tipo_Artigo = sc.nextInt();
                 sc.nextLine();
@@ -237,26 +209,22 @@ public class Vintage implements Serializable {
                 else {
                     System.out.println("A opção que selecionou não é válida.");
                 }
-    }
-
-    public void removerArtigo(){
-        System.out.println("Insira o código do artigo que pretende remover.");
-            String codigo = sc.nextLine().trim();
-            artigos.removeArtigo(codigo);
-    }
-
-    public void imprimirArtigo(){
-        System.out.println("Insira o código do artigo:");
-            String codigo = sc.nextLine().trim();
-            System.out.println(artigos.getArtigo(codigo).toString());
-    }
-
-    public void imprimirAllArtigos(){
-        System.out.println(artigos.toString());
-    }
-
-    public void inserirTransportadora(){
-        System.out.println("Qual o tipo de transportadora? \n1 - Normal \n2 - Premium");
+            }
+            else if (operacao==6) {
+                System.out.println("Insira o código do artigo que pretende remover.");
+                String codigo = sc.nextLine().trim();
+                artigos.removeArtigo(codigo);
+            }
+            else if (operacao==7) {
+                System.out.println("Insira o código do artigo:");
+                String codigo = sc.nextLine().trim();
+                System.out.println(artigos.getArtigo(codigo).toString());
+            }
+            else if (operacao==8) {
+                System.out.println(artigos.toString());
+            }
+            else if (operacao==9){
+                System.out.println("Qual o tipo de transportadora? Normal (1), Premium(2).");
                 int tipo_transportadora = sc.nextInt();
                 sc.nextLine();
 
@@ -296,26 +264,22 @@ public class Vintage implements Serializable {
                         transportadoras.adicionaTransportadora(transportadora);
                     }
                 }
-    }
-
-    public void removerTransportadora(){
-        System.out.println("Insira o nome da transportadora a remover:");
-            String nome = sc.nextLine();
-            transportadoras.removeTransportadora(nome);
-    }
-
-    public void imprimirTransportadora(){
-        System.out.println("Insira o nome da transportadora a imprimir:");
-            String nome = sc.nextLine();
-            System.out.println(transportadoras.getTransportadora(nome));
-    }
-
-    public void imprimirAllTransportadoras(){
-        System.out.println(transportadoras.toString());
-    }
-
-    public void inserirEncomenda(){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            }
+            else if (operacao==10) {
+                System.out.println("Insira o nome da transportadora a remover:");
+                String nome = sc.nextLine();
+                transportadoras.removeTransportadora(nome);
+            }
+            else if (operacao==11) {
+                System.out.println("Insira o nome da transportadora a imprimir:");
+                String nome = sc.nextLine();
+                System.out.println(transportadoras.getTransportadora(nome));
+            }
+            else if (operacao==12) {
+                System.out.println(transportadoras.toString());
+            }
+            else if (operacao==13) {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                 System.out.println("Insira a encomenda no formato: \"Id do Comprador, Estado da Encomenda, Data (dd/MM/yyyy), Id do Artigo 1, Id do Artigo 2, ...\"\nQualquer outro formato não será aceite");
 
                 String line = sc.nextLine().trim();
@@ -337,10 +301,9 @@ public class Vintage implements Serializable {
                 else {
                     System.out.println("Os argumentos inseridos são inferiores aos necessários para criar uma encomenda.");
                 }
-    }
-
-    public void inserirArtigoEncomenda(){
-        Collection<Artigo> conjunto_Artigos = new HashSet<>();
+            }
+            else if (operacao==14) {
+                Collection<Artigo> conjunto_Artigos = new HashSet<>();
                 char inserir_Artigos = 's';
                 System.out.println("Insira o id da encomenda:");
                 String id_Encomenda = sc.nextLine().trim();
@@ -360,78 +323,83 @@ public class Vintage implements Serializable {
                 if (conjunto_Artigos!=null) {
                     encomendas.add_Artigos_To_Encomenda(id_Encomenda, conjunto_Artigos, transportadoras);
                 }
-    }
+            }
+            else if (operacao==15) {
+                System.out.println("Insira o id da encomenda:");
+                String id_Encomenda = sc.nextLine().trim();
+                System.out.println("Insira o id do artigo:");
+                String id_Artigo = sc.nextLine().trim();
 
-    public void removerArtigoEncomenda(){
-        System.out.println("Insira o id da encomenda:");
-        String id_Encomenda = sc.nextLine().trim();
-        System.out.println("Insira o id do artigo:");
-        String id_Artigo = sc.nextLine().trim();
-
-        encomendas.removeArtigo(id_Encomenda, id_Artigo, transportadoras);
-    }
-
-    public void removerEncomenda(){
-        System.out.println("Insira o id da encomenda:");
-            String id_Encomenda = sc.nextLine().trim();
+                encomendas.removeArtigo(id_Encomenda, id_Artigo, transportadoras);
+            }
+            else if (operacao==16) {
+                System.out.println("Insira o id da encomenda:");
+                String id_Encomenda = sc.nextLine().trim();
                 
-            encomendas.removeEncomenda(id_Encomenda, transportadoras);
-    }
-
-    public void finalizarEncomenda(){
-        System.out.println("Insira o id da encomenda:");
-        String id_Encomenda = sc.nextLine().trim();
-        System.out.println("Insira a data na qual finalizou a compra no formato \"dd/MM/yyyy\":");
-        String data = sc.nextLine().trim();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        encomendas.finalizarEncomenda(id_Encomenda, LocalDate.parse(data, formatter), transportadoras, utilizadores);
-    }
-
-    public void imprimirEncomenda(){
-        System.out.println("Insira o id da encomenda:");
-            String id_Encomenda = sc.nextLine().trim();
-            Collection<Encomenda> conjunto_Encomenda;
-            if ((conjunto_Encomenda = encomendas.getEncomenda(id_Encomenda, transportadoras))!=null) {
-                System.out.println();
-                for (Encomenda e: conjunto_Encomenda) {
+                encomendas.removeEncomenda(id_Encomenda, transportadoras);
+            }
+            else if (operacao==17) {
+                System.out.println("Insira o id da encomenda:");
+                String id_Encomenda = sc.nextLine().trim();
+                System.out.println("Insira a data na qual finalizou a compra no formato \"dd/MM/yyyy\":");
+                String data = sc.nextLine().trim();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                encomendas.finalizarEncomenda(id_Encomenda, LocalDate.parse(data, formatter), transportadoras, utilizadores);
+            }
+            else if (operacao==18) {
+                System.out.println("Insira o id da encomenda:");
+                String id_Encomenda = sc.nextLine().trim();
+                Collection<Encomenda> conjunto_Encomenda;
+                if ((conjunto_Encomenda = encomendas.getEncomenda(id_Encomenda, transportadoras))!=null) {
+                    System.out.println();
+                    for (Encomenda e: conjunto_Encomenda) {
                         System.out.println(e.toString());
+                    }
+                }
+                else {
+                    System.out.println("Essa encomenda não existe.");
                 }
             }
-            else {
-                    System.out.println("Essa encomenda não existe.");
+            else if (operacao==19) {
+                System.out.println("\n" + encomendas.toString());
             }
-    }
 
-    public void imprimirAllEncomendas(){
-        System.out.println("\n" + encomendas.toString());
-    }
 
-    private static LocalDate currentDate = LocalDate.now();
-
-    public static LocalDate getCurrentDate() {
-        return currentDate;
-    }
-
-    public void saltarTempo(){
-        System.out.println("1 - Saltar x número de dias \n2 - Saltar para uma data específica");
+            else if (operacao==20) {
+                System.out.println("Saltar x número de dias(1), Saltar para uma data específica(2).");
                 int opcao = sc.nextInt();
                 sc.nextLine();
                 if (opcao == 1) {
                     System.out.println("Insira o número de dias que quer saltar:");
                     int dias = sc.nextInt();
                     sc.nextLine();
-                    Vintage.currentDate = Vintage.currentDate.plusDays(dias);
+                    TiagoMenu.currentDate = TiagoMenu.currentDate.plusDays(dias);
                 }
                 else if (opcao == 2) {
                     System.out.println("Insira a data para a qual quer saltar (dia/mes/ano):");
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                     LocalDate data = LocalDate.parse(sc.nextLine(), formatter);
-                    if (data.isBefore (Vintage.currentDate)){ System.out.println("Não é possível regressar no tempo!");}
+                    if (data.isBefore (TiagoMenu.currentDate)){ System.out.println("Não é possível regressar no tempo!");}
                     else {
-                    Vintage.currentDate = data;
+                    TiagoMenu.currentDate = data;
                     }
                 }
                 encomendas.updateEncomendas(currentDate,transportadoras);
-    }   
-}
+            }
 
+            System.out.println("\nPretende realizar mais alguma operação:\nNão (Pressione 'q')\nSim (Pressione qualquer outra tecla)");
+            stopOperations = sc.nextLine().charAt(0);
+        }
+
+        System.out.println("Pretende guardar as novas alterações?\n(Sim->s)\n(Não->n)");
+        char guardar = sc.nextLine().charAt(0);
+
+        if (guardar=='s') {
+            Parser.storeBinary(vintage);
+        }
+
+        sc.close();
+    }
+
+
+}

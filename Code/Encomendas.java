@@ -288,11 +288,11 @@ public class Encomendas implements Serializable {
             String codigo = encomendas.getKey();
             String nome_transportadora = codigo.substring(0, codigo.length()-12);
             Transportadora transportadora = transportadoras.getTransportadora(nome_transportadora);
-            if (encomenda.getEstadoEncomenda() == 1 &&  Menu.getCurrentDate().minusDays(transportadora.getDiasPreparacaoEncomenda()).isAfter(encomenda.getData())) {
+            if (encomenda.getEstadoEncomenda() == 1 &&  TiagoMenu.getCurrentDate().minusDays(transportadora.getDiasPreparacaoEncomenda()).isAfter(encomenda.getData())) {
                 encomenda.setEstadoEncomenda(2);
                 encomenda.setData(encomenda.getData().plusDays(transportadora.getDiasPreparacaoEncomenda()));
             }
-            if (encomenda.getEstadoEncomenda() ==2 && Menu.getCurrentDate().minusDays(transportadoras.getTransportadora(nome_transportadora).getDiasEnvio()).isAfter(encomenda.getData())) {
+            if (encomenda.getEstadoEncomenda() ==2 && TiagoMenu.getCurrentDate().minusDays(transportadoras.getTransportadora(nome_transportadora).getDiasEnvio()).isAfter(encomenda.getData())) {
                 encomenda.setEstadoEncomenda(3);
                 encomenda.setData(encomenda.getData().plusDays(transportadora.getDiasEnvio()));
             }
