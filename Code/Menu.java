@@ -16,14 +16,14 @@ public class Menu {
 
     static public void run (Vintage vintage) {
 
-    Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
-    Utilizadores utilizadores = vintage.getUtilizadores();
-    Artigos artigos = vintage.getArtigos();
-    Transportadoras transportadoras = vintage.getTransportadoras();
-    Encomendas encomendas = vintage.getEncomendas();
+        Utilizadores utilizadores = vintage.getUtilizadores();
+        Artigos artigos = vintage.getArtigos();
+        Transportadoras transportadoras = vintage.getTransportadoras();
+        Encomendas encomendas = vintage.getEncomendas();
 
-char stopOperations = 'c';
+        char stopOperations = 'c';
 
         while (stopOperations!='q') {
             System.out.println("\nQue operação pretende executar:\n\nInserir um utilizador (1)" +
