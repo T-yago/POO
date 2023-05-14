@@ -26,4 +26,8 @@ public class Mala_Nova extends Mala implements Novos {
         return this.getPrecoBase();
     }
 
+    public void recalculaPreco () {
+        this.setPrecoFinal(this.calculaPreco(0));
+    }
+
 }

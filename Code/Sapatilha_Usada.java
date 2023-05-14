@@ -6,7 +6,7 @@ public class Sapatilha_Usada extends Sapatilha implements Usados {
     private static int BOM = 3;                     // Bom
     private static int SATISFATORIO = 2;            // Satisfatório
     private static int MAU = 1;                     // Mau
-    private byte estado; // 1 a 10
+    private byte estado;
     private byte numero_Donos;
 
     public Sapatilha_Usada() {
@@ -56,7 +56,11 @@ public class Sapatilha_Usada extends Sapatilha implements Usados {
     }
 
     public double calculaPreco(double desconto) {
-        return this.getPrecoBase() / (double) this.get_numero_Donos() * desconto/100;
+        return (this.getPrecoBase() - this.getPrecoBase() / (double) this.get_numero_Donos() * this.get_estado() / 10.0) * ((100 - desconto)*0.01);
+    }
+
+    public void recalculaPreco () {
+        this.setPrecoFinal(this.calculaPreco(0));
     }
 
     public String toString() {

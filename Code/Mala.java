@@ -51,7 +51,7 @@ public abstract class Mala extends Artigo {
     }
 
     public String toString() {
-        return super.toString() + "\nDimensão: " + dimensao + " cm" +
+        return super.toString() + "\nDimensão: " + dimensao + " cm2" +
             "\nMaterial: " + material +
             "\nAno de Lançamento: " + ano_Lancamento;
     }

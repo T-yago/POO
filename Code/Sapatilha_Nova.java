@@ -18,20 +18,13 @@ public class Sapatilha_Nova extends Sapatilha implements Novos {
     }
 
     public double calculaPreco(double desconto) {
-        if (this.getTamanho()>45) return this.getPrecoBase() * desconto/100;
+        if (this.getTamanho()>45) return this.getPrecoBase() * (1 - desconto)/100;
         return this.getPrecoBase();
     }
 
-    // public String toString() {
-    //     String result = "";
-    //     result = result + "Artigo: " + this.getClass().getName() 
-    //               + "Tamanho: " + this.getTamanho()
-    //               + "Atacores: " + (this.getAtacadores() == true ? "Sim" : "Não")
-    //               + "Cor: " + this.getCor()
-    //               + "Ano lançamento: " + this.getAnoLancamento()
-    //               + "Desconto: " + this.getDesconto();
-    //     return result;
-    // }
+    public void recalculaPreco () {
+        this.setPrecoFinal(this.calculaPreco(0));
+    }
 
     public Sapatilha_Nova clone() {
         return new Sapatilha_Nova(this);

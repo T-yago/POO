@@ -384,6 +384,7 @@ public class Menu {
                     }
                 }
                 encomendas.updateEncomendas(currentDate,transportadoras);
+                artigos.updateArtigos(currentDate);
             }
 
             System.out.println("\nPretende realizar mais alguma operação:\nNão (Pressione 'q')\nSim (Pressione qualquer outra tecla)");
