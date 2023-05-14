@@ -1,12 +1,8 @@
 package Code;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import Code.Artigo;
-import Code.Artigos;
-import Code.Utilizador;
 
 public class Fatura_Vendedor extends Fatura {
     private Utilizador vendedor;

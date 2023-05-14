@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Utilizadores implements Serializable {
-    Map<Integer, Utilizador> utilizadores;
+    private Map<Integer, Utilizador> utilizadores;
     
     public Utilizadores() {
         this.utilizadores = new HashMap<>();

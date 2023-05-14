@@ -145,16 +145,16 @@ public class Parser {
                 String line = sc.nextLine().trim();
 
                 String[] tokens = line.split("\\s*,\\s*");
-                if (tokens.length>=5) {
+                if (tokens.length>=4) {
 
                     Collection<Artigo> artigos_Encomenda = new HashSet<>();
-                    for (int i = 4;i<tokens.length;i++) {
+                    for (int i = 3;i<tokens.length;i++) {
                         artigos_Encomenda.add(artigos.getArtigo(tokens[i]));
                     }
 
                     String defaultVAlue = "DefaultValue";
                     Encomenda encomenda = new Encomenda(artigos_Encomenda, defaultVAlue, Integer.parseInt(tokens[0]), LocalDate.parse(tokens[2], formatter), transportadoras);
-                    encomendas.addEncomenda(encomenda, Integer.parseInt(tokens[1]), transportadoras, utilizadores);
+                    encomendas.addEncomenda(encomenda, Integer.parseInt(tokens[1]), transportadoras, utilizadores, Integer.parseInt(tokens[0]));
                 }
             }
 
@@ -163,6 +163,15 @@ public class Parser {
             e.printStackTrace();
         }
 
+        // Atualizar a lista de artigos e faturas
+
+        encomendas.updateEncomendasFinalizadas(artigos);
+        encomendas.updateFaturas(utilizadores);
+        encomendas.updateEncomendas(Menu.getCurrentDate(),transportadoras);
+        artigos.updateArtigos(Menu.getCurrentDate());
+
+        // Adicionar à Vintage
+
         vintage.setArtigos(artigos);
         vintage.setEncomendas(encomendas);
         vintage.setTransportadoras(transportadoras);
@@ -170,6 +179,7 @@ public class Parser {
     }
 
     public static void parseBinary(String file_Utilizadores, Vintage vintage) {
+
         FileInputStream fileIn = null;
         BufferedInputStream bufferedIn = null;
         ObjectInputStream in = null;
@@ -232,7 +242,7 @@ public class Parser {
                 }
                 else if (obj instanceof Encomenda) {
                     Encomenda encomenda = (Encomenda) obj;
-                    encomendas.addEncomenda(encomenda, encomenda.getIdComprador(), transportadoras, utilizadores);
+                    encomendas.addEncomenda(encomenda, encomenda.getIdComprador(), transportadoras, utilizadores, encomenda.getEstadoEncomenda());
                 }
                 else {
                     System.out.println("Objeto não conhecido: " + obj.getClass());
@@ -269,6 +279,16 @@ public class Parser {
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+
+        // Atualizar a lista de artigos e faturas
+
+        encomendas.updateEncomendasFinalizadas(artigos);
+        encomendas.updateFaturas(utilizadores);
+        encomendas.updateEncomendas(Menu.getCurrentDate(),transportadoras);
+        artigos.updateArtigos(Menu.getCurrentDate());
+
+        // Adicionar à Vintage
+
         vintage.setArtigos(artigos);
         vintage.setEncomendas(encomendas);
         vintage.setTransportadoras(transportadoras);
@@ -373,9 +393,5 @@ public class Parser {
                 e.printStackTrace();
             }
         }
-        vintage.setArtigos(artigos);
-        vintage.setEncomendas(encomendas);
-        vintage.setTransportadoras(transportadoras);
-        vintage.setUtilizadores(utilizadores);
     }
 }

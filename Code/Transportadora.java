@@ -8,11 +8,10 @@ public class Transportadora implements Serializable {
     private double preco_base_media;
     private double preco_base_grande;
     private double margemlucro;
+    private double imposto;
     private int dias_envio;
     private int dias_devolucao;
     private int dias_preparacao_encomenda;
-
-    private double imposto;
 
     public Transportadora () {
         this.nome = null;
@@ -134,7 +133,7 @@ public class Transportadora implements Serializable {
             valor_base = preco_base_grande;
         }
 
-        double preco_expedicao = valor_base * (1+margemlucro) * (1 + this.imposto) * 0.9;
+        double preco_expedicao = valor_base * (1+this.margemlucro) * (1 + this.imposto) * 0.9;
         return preco_expedicao;
     }
  
@@ -156,6 +155,5 @@ public class Transportadora implements Serializable {
                 "\n  imposto=" + imposto +
                 "\n}";
     }
-    
-    
+
 }
