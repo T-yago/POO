@@ -196,21 +196,7 @@ public class Utilizadores implements Serializable {
         return result;
     }
     
-/*
-    public List<Encomenda> encomendasEmitidasVendedor (Encomendas encomendas, Transportadoras transportadoras) {
-        List<Encomendas> encomedasEmitidas = new ArrayList<>();
-        for (Utilizador user : this.utilizadores.values()) {
-            for (Fatura fatura : user.faturas) {
-                if (fatura instanceof Fatura_Vendedor) {
-                    String idEncomenda = fatura.getIdEncomenda();
-                    Encomendas encomendas = encomendas.getEncomenda (idEncomenda,transportadoras);
-                    encomedasEmitidas.add(encomenda);
-                }
-            }
-        }
-        return encomedasEmitidas;
-    }
-     */
+
     public List<Encomenda> encomendasEmitidasVendedor (Encomendas encomendas, Transportadoras transportadoras) {
         return this.utilizadores.values().stream() 
             .flatMap(user -> user.faturas.stream()) 
