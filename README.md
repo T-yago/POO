@@ -1,14 +1,17 @@
 # How to use
 
 Firstly, compile the main file, which will also compile the entire package:
+
 ```java Code/Main.java```
 
 ## Executing the app without any starting products/delivery companies/users
+
 ```java Code.Main```
 
 ## Executing the app with certain data - use txt or binary files
 
 In this case, we will use certain data in .txt format available in the "Dados" folder.
+
 ```java Code.Main -txt Code/Dados```
 
 After selecting an option, we can see data is already being accounted for in the app:
