@@ -1,27 +1,28 @@
-![image](https://github.com/T-yago/POO/assets/101202571/daa34f19-6234-43de-9967-b41aef082571)# POO
-Object-Oriented Programming Project in java for college
-
 # How to use
 
 Firstly, compile the main file, which will also compile the entire package:
-![image](https://github.com/T-yago/POO/assets/101202571/5ed385d4-b0c8-479c-938a-66d872eef98c)
+```java Code/Main.java```
 
 ## Executing the app without any starting products/delivery companies/users
-![image](https://github.com/T-yago/POO/assets/101202571/0e12df7a-e71e-4d8a-8e65-b50125ef548f)
+```java Code.Main```
 
 ## Executing the app with certain data - use txt or binary files
 
 In this case, we will use certain data in .txt format available in the "Dados" folder.
-![image](https://github.com/T-yago/POO/assets/101202571/f83974c2-dc94-4955-a1d1-97c8b5f61580)
+```java Code.Main -txt Code/Dados```
 
 After selecting an option, we can see data is already being accounted for in the app:
-![image](https://github.com/T-yago/POO/assets/101202571/1563766b-b321-486e-85f3-c194659ff47e)
+![image](https://github.com/T-yago/POO/assets/101202571/1f7aeed9-4bae-473d-878f-e14773fc3fdd)
+
+## The menu
+![image](https://github.com/T-yago/POO/assets/101202571/6f0760fe-c54d-4d69-9d5b-acdc5f32b46f)
 
 ### Dates
 The app assumes the current day is the day it was firstly executed, however, you can skip a number of given days or even jump to a specific date using the last available option:
-![image](https://github.com/T-yago/POO/assets/101202571/ab7b42f9-3194-4c20-abb0-0969143f65b9)
+![image](https://github.com/T-yago/POO/assets/101202571/d3e55ba4-e187-4f5d-a2c8-10a0b4890511)
 
-### When a user jumps forward in time (jumping back isn't allowed) the app behaves like it would in a real-world scenario, which means if there are orders wich delivery is in process, the items may have already been received by the user if the time it takes for the company to deliver its packets is less than the time the user skipped forward.
+### Note: 
+When a user jumps forward in time (jumping back isn't allowed) the app behaves like it would in a real-world scenario, which means if there are orders wich delivery is in process, the items may have already been received by the user if the time it takes for the company to deliver its packets is less than the time the user skipped forward.
 
 ## Management of sold/returned items
 
@@ -46,7 +47,7 @@ The formats of product, user, shipping company, and order codes were designed to
 ### Saving data
 
 When the the user choses to leave the menu, he his prompted to save the new data altered by him while using the app. The most recent data will be stored in the "Last save" folder. If there is more than one save, the second most recent save will also be saved in the "Older Save" folder. All saves are written in binary files.
-![image](https://github.com/T-yago/POO/assets/101202571/ae3123dd-14f0-4786-a86d-508a7e6233c3)
+![image](https://github.com/T-yago/POO/assets/101202571/25b1a98e-50d9-4533-a57d-207b6d4a137e)
 
 
 ### Storing new app starting data 
